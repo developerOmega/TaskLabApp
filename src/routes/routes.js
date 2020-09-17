@@ -13,7 +13,7 @@ const routes = [
       },
       {
         path: 'settings',
-        // component: () => import('../pages/settings/Main.vue'),
+        component: () => import('../pages/settings/Main.vue'),
         children: [
           {
             path: 'password',
