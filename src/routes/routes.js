@@ -33,7 +33,13 @@ const routes = [
   },
   {
     path: '/projects/:id',
-    component: () => import('../pages/projects/Show.vue')
+    component: () => import('../layouts/ProjectLayout.vue'),
+    children: [
+      {
+        path: '',
+        component: () => import('../pages/projects/Show.vue')
+      }
+    ]
   }
 ]
 

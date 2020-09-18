@@ -5,7 +5,7 @@
       <img src="imagen" width="120px">
     </header>
 
-    <div class="box">
+    <form method="POST" class="box">
       <h2 class="title"> Login </h2>
       <div class="field">
         <div class="input">
@@ -22,7 +22,7 @@
       </div>
 
       <button type="submit" class="btn bc-primary"> Ingresar </button>
-    </div>
+    </form>
   </div>
 </template>
 
