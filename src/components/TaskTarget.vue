@@ -4,14 +4,16 @@
       <div class="head">
         <button><i class="fas fa-ellipsis-v"></i></button>
         <div class="cont">
-          <div class="img-avatar">
-            <img src="http://placeimg.com/640/480/people" width="120px">
-          </div>
+          <IconAvatar
+            v-for="user in users"
+            :key="user.id"
+            v-bind:img="user.img"
+          />
         </div>
       </div>
 
       <div class="main">
-        Lorem ipsum dolor sit amet consectetur adipisicing elit. Optio odit expedita inventore cumque sapiente doloremque asperiores animi beatae! Aliquid velit incidunt perferendis porro laborum voluptatem unde aspernatur consequuntur explicabo dignissimos.
+        {{ task.content }}
       </div>
 
     </div>
@@ -26,7 +28,31 @@
 </template>
 
 <script>
+
+import IconAvatar from './IconAvatar';
+
 export default {
-  name: 'TaskTarget'
+  name: 'TaskTarget',
+  components: {
+    IconAvatar
+  },
+  props: {
+    task:{
+      type: Object
+    }
+  },
+  data() {
+    return {
+      users: [
+         {
+          id: 1,
+          name: 'Sofia Velazquez',
+          email: 'sofia@mail.com',
+          img: 'http://placeimg.com/640/480/people',
+          type: 'fine'
+        }
+      ]
+    }
+  },
 }
 </script>

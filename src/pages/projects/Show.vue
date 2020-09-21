@@ -32,15 +32,18 @@
 
               <div class="users">
                 <button><i class="fas fa-user"></i></button>
-                <div class="cont">
-                  <div class="img-avatar">
-                    <img src="http://placeimg.com/640/480/people" width="120px">
-                  </div>
-                </div>
+                <IconAvatar
+                  v-for="user in usersSelect"
+                  :key="user.id"
+                  v-bind:img="user.img"
+                />
+                
                 <div class="options">
-                  <div class="img-avatar">
-                    <img src="http://placeimg.com/640/480/people" width="120px">
-                  </div>
+                  <IconAvatar
+                    v-for="user in users"
+                    :key="user.id"
+                    v-bind:img="user.img"
+                  />
                 </div>
               </div>
 
@@ -54,7 +57,11 @@
         </form>
 
         <div class="main">
-          <TaskTarget/>
+          <TaskTarget
+            v-for="task in tasks"
+            :key="task.id"
+            v-bind:task="task"
+          />
         </div>
       </div>
     </div>
@@ -65,16 +72,63 @@
 import TaskTarget from '../../components/TaskTarget';
 import ChatRoom from '../../components/views/ChatRoom';
 import Events from '../../components/views/Events';
+import IconAvatar from '../../components/IconAvatar';
+
 export default {
   name: 'PageShowProject',
   components: {
     TaskTarget,
     ChatRoom,
-    Events
+    Events,
+    IconAvatar
   },
   data() {
     return {
-      eventActive: false
+      eventActive: false,
+      tasks: [
+        {
+          id: 1,
+          content: "Crear vistas y acciones de crud de tabla careers para guard Admin: Index, show, create, store, edit, update, destroy. CampusBay"
+        },
+
+        {
+          id: 2,
+          content: "Agregar nuevos parámetros de Career a tabla formulario de Students y Teachers. CampusBay"
+        }
+      ],
+
+      users: [
+        {
+          id: 1,
+          name: 'Nayeli Lopez',
+          email: 'naye@mgail.com',
+          img: 'http://placeimg.com/640/480/people',
+          type: 'fine'
+        },
+        {
+          id: 1,
+          name: 'Tyler Durden',
+          email: 'tyler@gmail.com',
+          img: 'http://placeimg.com/640/480/people',
+          type: 'danger'
+        },
+        {
+          id: 1,
+          name: 'Sofia Velazquez',
+          email: 'sofia@mail.com',
+          img: 'http://placeimg.com/640/480/people',
+          type: 'fine'
+        }
+      ],
+      usersSelect: [
+        {
+          id: 1,
+          name: 'Sofia Velazquez',
+          email: 'sofia@mail.com',
+          img: 'http://placeimg.com/640/480/people',
+          type: 'fine'
+        }
+      ]
     }
   },
 }

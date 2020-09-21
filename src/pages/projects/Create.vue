@@ -25,40 +25,28 @@
         </div>
 
         <div class="field">
+          
           <div class="input">
+
             <input type="search" name="users" id="user" placeholder="Buscar usuario">
             <label for="user"> Usuario </label>
 
             <div class="search">
-              <div class="icon-avatar-with-info">
-                <div class="img-avatar">
-                  <img src="http://placeimg.com/640/480/people" width="120px">
-                </div>
-
-                <div class="info">
-                  <div> Nayeli Lopez </div>
-                  <div class="text-min color-fine"> nayeli@main.com </div>
-                </div>  
-              </div>
+              <AvatarWithInfo
+                v-for="user in users"
+                :key="user.id"
+                v-bind:user="user"
+              />
             </div>
+
           </div>
 
           <div class="input-container">
-            <div class="tag-option">
-              
-              <div class="img-avatar">
-                <img src="http://placeimg.com/640/480/people" width="120px">
-              </div>
-
-              <div class="info">
-                <div> Yo </div>
-                <div class="input-checkbox">
-                  <input type="checkbox" id="admin" name="admin" value="12" >
-                  <label for="admin"> Admin </label>
-                </div>
-              </div>
-
-            </div>
+            <AvatarTarget
+              v-for="user in usersSelects"
+              :key="user.id"
+              v-bind:user="user"
+            />
           </div>
         </div>
         
@@ -71,7 +59,50 @@
 </template>
 
 <script>
+
+import AvatarWithInfo from '../../components/AvatarWithInfo';
+import AvatarTarget from '../../components/AvatarTarget';
+
 export default {
-  name: 'PageCreateProject'
+  name: 'PageCreateProject',
+  components: {
+    AvatarWithInfo, AvatarTarget
+  },
+  data() {
+    return {
+      users: [
+        {
+          id: 1,
+          name: 'Nayeli Lopez',
+          email: 'naye@mgail.com',
+          img: 'http://placeimg.com/640/480/people',
+          type: 'fine'
+        },
+        {
+          id: 1,
+          name: 'Tyler Durden',
+          email: 'tyler@gmail.com',
+          img: 'http://placeimg.com/640/480/people',
+          type: 'danger'
+        },
+        {
+          id: 1,
+          name: 'Sofia Velazquez',
+          email: 'sofia@mail.com',
+          img: 'http://placeimg.com/640/480/people',
+          type: 'fine'
+        }
+      ],
+      usersSelects: [
+        {
+          id: 1,
+          name: 'Nayeli Lopez',
+          email: 'naye@mgail.com',
+          img: 'http://placeimg.com/640/480/people',
+          type: 'fine'
+        }
+      ]
+    }
+  },
 }
 </script>
