@@ -1,0 +1,26 @@
+.form {
+  .field{
+    padding: 15px 0;
+    .input {
+      input {
+        width: 100%;
+        border:none;
+        border-bottom: 3px solid $primary;
+        padding: 5px;
+        &::placeholder {
+          color: $text-second;
+        }
+        &:focus {
+          outline: 0;
+          background: $background-form;
+          border-top-left-radius: 4px;
+          border-top-right-radius: 4px;
+          border-bottom: 3px solid $fine-second;
+        }
+      }
+      label {
+        color: $text-primary;
+      }
+    }
+  }
+}

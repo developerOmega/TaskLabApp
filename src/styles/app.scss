@@ -1,11 +1,54 @@
-// #app {
-//   font-family: Avenir, Helvetica, Arial, sans-serif;
-//   -webkit-font-smoothing: antialiased;
-//   -moz-osx-font-smoothing: grayscale;
-//   text-align: center;
-//   color: #2c3e50;
-//   margin-top: 60px;
-// } 
-// .hello {
-//   background: #ccc;
-// }
+@import './variables.scss';
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Hind', sans-serif;
+}
+
+header {
+  display: flex;
+  justify-content: space-between;
+  .logo-text {
+    color: $primary;
+    text-decoration: none;
+    padding: 0 20px;
+    font-size: 45px;
+    font-weight: 700; 
+  }
+}
+
+.container-login {
+  width: 100%;
+  max-width: 1200px;
+  margin: auto;
+  header {
+    width: 100%;
+    margin: auto;
+    padding: 20px 0 40px 0;
+    img.logo {
+      display: block;
+      margin: auto;
+    }
+  }
+
+  @media screen and ( max-width: 700px ) {
+    .card {
+      box-shadow: 0 0 0 0;
+    }
+  }
+}
+
+.container {
+
+}
+
+
+
+
+@import './components/div.scss';
+@import './components/text.scss';
+@import './components/form.scss';
+@import './components/buttons.scss';
+@import './components/spacing.scss';

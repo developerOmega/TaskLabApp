@@ -1,0 +1,15 @@
+.btn {
+  width: 100%;
+  padding: 8px;
+  border: none;
+  border-radius: 5px;
+  font-size: 16px;
+  &.btn-primary {
+    color: white;
+    background: $primary;
+    cursor: pointer;
+    &:hover {
+      background: $fine-second;
+    }
+  }
+}
