@@ -42,6 +42,8 @@
           padding:0px 12px;
           border-radius: 4px;
           &:before {
+            transition: ease .3s all;
+
             display: none;
           }
         }

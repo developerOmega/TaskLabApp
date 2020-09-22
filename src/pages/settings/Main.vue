@@ -1,13 +1,17 @@
 <template>
-  <div>
+  <div class="grid col-2 justify-between">
     <nav> 
 
-      <h2 class="title"> Configuracion </h2>
+      <div class="menu">
+        <div class="options">
+          <h2 class="title"> Configuracion </h2>
 
-      <router-link to="/settings/user" class="btn"> Datos de usuario </router-link>
-      <router-link to="/settings/password" class="btn"> Datos de contraseña </router-link>
+          <router-link to="/settings/user" class="link link-primary fs-20"> Datos de usuario </router-link>
+          <router-link to="/settings/password" class="link link-primary fs-20"> Datos de contraseña </router-link>
+        </div>
 
-      <router-link to="/" class="link position-end"> Ir a inicio </router-link>
+        <router-link to="/" class="link position-end"> Ir a inicio </router-link>
+      </div>
 
     </nav>
 

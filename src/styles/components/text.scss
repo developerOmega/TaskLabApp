@@ -12,6 +12,10 @@
   font-size: 15px
 }
 
+.fs-20 {
+  font-size: 20px
+}
+
 .fs-25 {
   font-size: 25px
 }
@@ -49,4 +53,22 @@
   width: 5px;
   margin: auto;
   cursor: pointer;
+}
+
+.link {
+  text-decoration: none;
+  color: $primary;
+  &.link-primary {
+    color: $fine-second ;
+    text-align: center;
+    padding: 5px;
+    &:hover {
+      background: $fine-second;
+      color: white;
+      border-radius: 10px;
+    }
+  }
+  &:hover {
+    color: $fine-second;
+  }
 }

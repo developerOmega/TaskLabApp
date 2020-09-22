@@ -34,6 +34,27 @@ header.header {
   }
 }
 
+nav {
+  position: relative;
+  .menu {
+    padding: 20px 0px;
+    padding-right: 34px;
+    position: fixed;
+    height: 89vh;
+    display: grid;
+    align-content: space-between;
+    .options {
+      display: grid;
+      row-gap: 25px;
+    }
+
+  }
+}
+
+nav, .menu {
+  border-right: 1px solid $primary;
+}
+
 .container-login {
   width: 100%;
   max-width: 1200px;
