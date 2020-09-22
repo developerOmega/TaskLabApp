@@ -4,10 +4,8 @@
   border: none;
   border-radius: 5px;
   font-size: 16px;
-  &.btn-unstyled {
-    border: none;
-  }
-  
+  font-weight: 500;
+
   &.btn-radio {
     display: flex;
     align-items: center;
@@ -41,14 +39,15 @@
     }
 
     &.min {
-      width: 25px;
-      height: 25px;
+      padding: 0;
+      width: 18px;
+      height: 18px;
       & i {
         font-size: 10px;
       }
     }
   }
-  &.btn-primary {
+  &.btn-primary, &.btn-fine{
     color: white;
     background: $primary;
     cursor: pointer;
@@ -60,6 +59,20 @@
       box-shadow: -1px 3px 10px -2px rgba(90,230,202,1);
     }
   }
+
+  &.btn-warning{
+    color: white;
+    background: $warning;
+    cursor: pointer;
+    &:hover {
+      background: $warning-second;
+
+      -webkit-box-shadow: -1px 3px 10px -2px $warning-second;
+      -moz-box-shadow: -1px 3px 10px -2px $warning-second;
+      box-shadow: -1px 3px 10px -2px $warning-second;
+    }
+  }
+
   &.btn-danger {
     color: white;
     background: $danger;

@@ -2,7 +2,7 @@
   <div class="card not-padding width-resp-100 template">
     <div class="content pd-20">
       <div class="section-center">
-        <router-link to="/" class="title-project fine"> {{ project.name }} </router-link>
+        <router-link to="/" :class="'title-project ' + statusStyle"> {{ project.name }} </router-link>
       </div>
       <div class="section">
         <div class="color-text"> Descripcion: </div>
@@ -12,12 +12,12 @@
         <div class="section">
           <div class="head-section flex justify-between align-items-center">
             <div class="color-text"> Usuarios </div>
-            <button class="btn btn-radio btn-primary">
+            <button :class="'btn btn-radio btn-' + statusStyle">
               <i class="fas fa-plus"></i>
             </button>
           </div>
 
-          <div class="main-section grid col-3 background-gray">
+          <div class="main-section grid col-3 background-gray justify-between">
             <div
               v-for="user in users"
               :key="user.id" 
@@ -27,7 +27,7 @@
                 :img="user.img"
                 :type="user.type"
               />
-              <button class="btn btn-radio btn-danger min"> 
+              <button class="btn btn-radio min btn-danger"> 
                 <i class="fas fa-minus"></i>
               </button>
             </div>
@@ -36,7 +36,7 @@
         </div>
       </div>
     </div>
-    <div class="pd-5 info fine">
+    <div :class="'pd-5 info ' + statusStyle">
       <button class="link-btn fs-15"> 
          <i class="fas fa-ellipsis-v"></i>
       </button>
@@ -79,6 +79,20 @@ export default {
       type: Object
     }
   },
+  computed: {
+    statusStyle: function () {
+      switch(this.project.status) {
+        case 'fine':
+          return 'fine';
+        case 'warning':
+          return 'warning';
+        case 'danger':
+          return 'danger';
+        default:
+          return ''
+      }
+    }
+  },
   updated() {
     console.log(this.users);
   }, 
@@ -89,8 +103,7 @@ export default {
   @import '../styles/variables.scss';
 
   .template {
-  width: 100%;
-
+    width: 100%;
     display: grid;
     grid-template-columns: auto 70px;
   }
@@ -110,13 +123,27 @@ export default {
     border-top-right-radius: 10px;
     border-bottom-right-radius: 10px;
     
-    // width: 10vh;
-    
     display: grid;
     align-content: space-between;
 
     &.fine {
       background: $primary;
+      color: white;
+      button {
+        color: white;
+      }
+    }
+
+    &.warning {
+      background: $warning;
+      color: white;
+      button {
+        color: white;
+      }
+    }
+
+    &.danger {
+      background: $danger;
       color: white;
       button {
         color: white;

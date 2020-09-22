@@ -1,8 +1,9 @@
 .form {
   .field{
     padding: 15px 0;
+    position: relative;
     .input {
-      input {
+      input, textarea {
         width: 100%;
         border:none;
         border-bottom: 3px solid $primary;
@@ -18,8 +19,74 @@
           border-bottom: 3px solid $fine-second;
         }
       }
+      textarea {
+       height: 80px;
+       max-height: 100px; 
+       min-height: 50px;
+       resize: vertical;
+       display: block;
+      }
       label {
         color: $text-primary;
+      }
+    }
+
+    .input-checkbox {
+      position: relative;
+      input {
+        display: none;
+        &:checked + label {
+          transition: ease .3s all;
+          background: $primary;
+          color: white;
+          padding:0px 12px;
+          border-radius: 4px;
+          &:before {
+            display: none;
+          }
+        }
+      }
+      label {
+        transition: ease .3s all;
+        color: $primary;
+        cursor: pointer;
+        &:before {
+          content: '';
+          padding: 6px;
+          border: 2px solid $primary;
+          border-radius: 4px;
+          position: absolute;
+          left: 50px;
+          top: 4px;
+        }
+        
+      }
+    }
+
+    .search-container, .input-container {
+      background: $background-form;
+      border-radius: 5px;
+      padding: 15px; 
+
+      display: grid;
+      grid-template-columns: auto auto auto;
+      justify-content: space-between;
+      gap: 30px;
+    }
+
+    .search-container {
+      border-radius: none;
+      border-bottom-left-radius: 10px; 
+      border-bottom-right-radius: 10px;
+
+      width: 100%;
+      position:absolute;
+      top: 53px;
+    }
+
+    @media screen and ( max-width: 700px ) {
+      .search-container, .input-container {
+        grid-template-columns: auto;
       }
     }
   }
