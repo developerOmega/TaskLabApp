@@ -1,5 +1,5 @@
 <template>
-  <div class="box">
+  <div class="card">
     <div class="content">
       <div class="head">
         <button><i class="fas fa-ellipsis-v"></i></button>

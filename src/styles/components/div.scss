@@ -4,11 +4,40 @@
   padding: 20px;
   margin: auto;
   
+  &.not-padding {
+    padding: 0;
+  }
+
   -webkit-box-shadow: -1px 3px 16px -1px rgba(79,79,79,1);
   -moz-box-shadow: -1px 3px 16px -1px rgba(79,79,79,1);
   box-shadow: -1px 3px 16px -1px rgba(79,79,79,1);
 }
 
+.content {
+  width: 100%;
+  .head {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    
+    padding: 15px 0;
+    border-bottom: 3px solid $primary;
+    width: 100%;
+  }
+
+  
+}
+
+
 .max-width-600 {
   max-width: 600px; 
 }
+
+.width-resp-100 {
+  width: 100%;
+}
+
+.background-gray {
+  background: $background-form;
+}
+

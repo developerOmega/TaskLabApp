@@ -7,15 +7,30 @@
   font-family: 'Hind', sans-serif;
 }
 
-header {
+header.header {
   display: flex;
   justify-content: space-between;
+  align-items: center;
+  padding: 0px 20px;
+  
+  -webkit-box-shadow: 2px -2px 15px -1px rgba(79,79,79,1);
+  -moz-box-shadow: 2px -2px 15px -1px rgba(79,79,79,1);
+  box-shadow: 2px -2px 15px -1px rgba(79,79,79,1);
+
   .logo-text {
     color: $primary;
     text-decoration: none;
-    padding: 0 20px;
     font-size: 45px;
     font-weight: 700; 
+  }
+
+  @media screen and ( max-width: 700px ) {
+    .logo-text {
+      font-size: 30px;
+    }
+    .name-user.fs-25.pd-left-15{
+      display: none;
+    }
   }
 }
 
@@ -41,14 +56,35 @@ header {
 }
 
 .container {
-
+  width: 100%;
+  max-width: 1500px;
+  padding: 0 30px;
+  margin: auto;
 }
 
+@media screen and ( max-width: 1360px ) {
+  .grid.col-3.gap-15.pd-tb-25 {
+    
+    grid-template-columns: auto auto ;
+  }
+}
 
+@media screen and ( max-width: 890px ) {
+  .grid.col-3.gap-15.pd-tb-25 {
+    
+    grid-template-columns: auto ;
+  }
+}
 
+@media screen and ( max-width: 700px ) {
+  .container {
+    padding: 0;
+  }
+}
 
 @import './components/div.scss';
 @import './components/text.scss';
 @import './components/form.scss';
 @import './components/buttons.scss';
 @import './components/spacing.scss';
+@import './components/display.scss';

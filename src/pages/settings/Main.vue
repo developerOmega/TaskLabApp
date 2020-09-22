@@ -1,5 +1,5 @@
 <template>
-  <div class="container">
+  <div>
     <nav> 
 
       <h2 class="title"> Configuracion </h2>

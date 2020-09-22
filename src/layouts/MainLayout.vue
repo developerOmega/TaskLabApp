@@ -1,9 +1,9 @@
 <template>
   <div>
-    <header>
+    <header class="header">
       <router-link to="/" class="logo-text"> TaskLab </router-link>
-      <div class="menu">
-        <div class="name-user"> {{ user.name }} </div>
+      <div class="flex align-items-center">
+        <div :class="typeStyle"> {{ user.name }} </div>
         <IconAvatar
           :img="user.img"
           :type="user.type"
@@ -19,7 +19,10 @@
       </div>
     </header>
 
-    <router-view />
+    <div class="container">
+      <router-view />
+    </div>
+
 
   </div>
 </template>
@@ -44,5 +47,23 @@ export default {
       menuOpen: false
     }
   },
+  computed: {
+    typeStyle: function() {
+
+      console.log();
+      
+      switch(this.user.type) {
+        case 'fine':
+          return 'name-user fs-25 pd-left-15 color-primary';
+        case 'warning':
+          return 'name-user fs-25 pd-left-15 color-warning';
+        case 'danger': 
+          return 'name-user fs-25 pd-left-15 color-danger' 
+        default: 
+          return 'name-user fs-25 pd-left-15 color-text';
+      }
+
+    }
+  }
 }
 </script>
