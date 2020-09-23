@@ -36,11 +36,12 @@ header.header {
 
 nav {
   position: relative;
+  border-right: 1px solid $primary;
+  padding: 0 15px ;
   .menu {
-    padding: 20px 0px;
-    padding-right: 34px;
-    position: fixed;
+    padding-top: 25px;
     height: 89vh;
+ 
     display: grid;
     align-content: space-between;
     .options {
@@ -49,10 +50,27 @@ nav {
     }
 
   }
+
+  
 }
 
-nav, .menu {
-  border-right: 1px solid $primary;
+@media screen and ( max-width: 1125px ) {
+  nav {
+    display: none;
+  }
+  .grid.col-2-of-20-80.justify-between {
+    grid-template-columns: 100%;
+    .content-scroll {
+      overflow-y: hidden;
+      max-height: none;
+    }
+  }
+}
+
+@media screen and ( max-width: 700px ) {
+  .main.pd-top-20.grid.col-2-of-35-auto.gap-15 {
+    grid-template-columns: 100%;
+  }
 }
 
 .container-login {
@@ -78,8 +96,7 @@ nav, .menu {
 
 .container {
   width: 100%;
-  max-width: 1500px;
-  padding: 0 30px;
+  max-width: 2000px;
   margin: auto;
 }
 

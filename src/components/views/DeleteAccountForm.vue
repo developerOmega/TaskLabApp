@@ -1,8 +1,8 @@
 <template>
-  <div class="box">
-    <div class="title-danger fs-20"> ¿Deseas eliminar tu cuenta? </div>
-    <button class="btn-danger"> Eliminar cuenta </button>
-  </div>
+  <form class="form card width-resp-100">
+    <div class="color-danger text-center fs-20"> ¿Deseas eliminar tu cuenta? </div>
+    <button class="btn btn-danger"> Eliminar cuenta </button>
+  </form>
 </template>
 
 <script>

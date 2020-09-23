@@ -1,12 +1,13 @@
 <template>
-  <div class="content">
+  <div class="content content-scroll">
     <div class="head">
       <h2 class="title"> Datos de usuario </h2>
     </div>
 
-    <div class="main">
+    <div class="main pd-top-20 grid col-2-of-35-auto gap-15">
       <ImgForm/>
       <InfoForm/>
+      <div></div>
       <DeleteAccountForm/>
     </div>
   </div>

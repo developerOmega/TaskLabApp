@@ -2,12 +2,30 @@
   .field{
     padding: 15px 0;
     position: relative;
-    .input {
-      input, textarea {
+    &.field-double {
+      display: flex;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      .input {
+        flex: 1;
+        &:nth-child(1) {
+          margin-right: 20px;
+        }
+      }
+    }
+
+    .input-file, .input {
+      input, textarea, label.file {
         width: 100%;
         border:none;
         border-bottom: 3px solid $primary;
         padding: 5px;
+      }
+    }
+
+    .input {
+      input, textarea {
+        
         &::placeholder {
           color: $text-second;
         }
@@ -28,6 +46,39 @@
       }
       label {
         color: $text-primary;
+      }
+    }
+
+    .input-file {
+      input {
+        display: none;
+      }
+
+      label.file {
+        display: flex;
+        align-items: center;
+        color: $text-second;
+        cursor: pointer;
+
+        background: $background-form;
+        border-top-left-radius: 4px;
+        border-top-right-radius: 4px;
+        border-bottom: 3px solid $fine-second;
+
+        .placeholder {
+          padding: 0 20px;
+        }
+
+        i {
+          font-size: 20px;
+        }
+
+        &:hover {
+          border-bottom: 3px solid $primary;
+          i {
+            color: $primary;
+          }
+        }
       }
     }
 

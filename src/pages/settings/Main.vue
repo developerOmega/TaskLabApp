@@ -1,10 +1,10 @@
 <template>
-  <div class="grid col-2 justify-between">
+  <div class="grid col-2-of-20-80 justify-between">
     <nav> 
 
       <div class="menu">
         <div class="options">
-          <h2 class="title"> Configuracion </h2>
+          <h2 class="title text-center"> Configuracion </h2>
 
           <router-link to="/settings/user" class="link link-primary fs-20"> Datos de usuario </router-link>
           <router-link to="/settings/password" class="link link-primary fs-20"> Datos de contraseña </router-link>

@@ -1,6 +1,6 @@
 <template>
   <div class="img-avatar">
-    <img :class="typeStyle" :src="img" width="120px">
+    <img :class="typeStyle + ' ' + widthStyle" :src="img" width="120px">
   </div>
 </template>
 
@@ -15,6 +15,10 @@ export default {
     type: {
       type: String,
       default: 'default'
+    },
+    size: {
+      type: String,
+      default: ''
     }
   },
   computed: {
@@ -30,7 +34,18 @@ export default {
         default:
           return 'not-type';
       }
-    }
+    },
+
+    widthStyle: function () {
+      switch(this.size) {
+        case 'max':
+          return 'max';
+        case 'min':
+          return 'min';
+        default:
+          return '';
+      }
+    } 
   }
 }
 </script>
@@ -47,6 +62,11 @@ export default {
       width: 60px;
       height: 60px;
       object-fit:cover;
+
+      &.max {
+        width: 120px;
+        height: 120px;
+      }
     }
 
     .not-type {
