@@ -16,12 +16,14 @@
             </div>
           
             <div class="flex">
-              <button class="link-btn link-primary fs-25"> <i class="fas fa-calendar-alt"></i> </button>
-              <!-- <button class="link-btn link-primary fs-25"> <i class="fas fa-comment-alt"></i> </button> -->
+              <button class="link-btn link-primary fs-25" v-on:click="executeEventActive()"> 
+                <i v-if="!eventActive" class="fas fa-calendar-alt"></i> 
+                <i v-else class="fas fa-comment-alt"></i>
+              </button>
             </div>
           </div>
           <div class="">
-            <ChatRoom/>
+            <ChatRoom v-if="eventActive == false"/>
             <Events v-if="eventActive"/>
           </div>
         </nav>
@@ -120,14 +122,14 @@ export default {
           type: 'fine'
         },
         {
-          id: 1,
+          id: 2,
           name: 'Tyler Durden',
           email: 'tyler@gmail.com',
           img: 'http://placeimg.com/640/480/people',
           type: 'danger'
         },
         {
-          id: 1,
+          id: 3,
           name: 'Sofia Velazquez',
           email: 'sofia@mail.com',
           img: 'http://placeimg.com/640/480/people',
@@ -145,5 +147,11 @@ export default {
       ]
     }
   },
+  methods: {
+    executeEventActive: function () {
+      this.eventActive = this.eventActive == false ? true : false;
+      return this.eventActive;
+    }
+  }
 }
 </script>

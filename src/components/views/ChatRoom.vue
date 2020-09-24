@@ -2,10 +2,11 @@
   <div>
     
     <div class="main menu scroll scroll-max-51">
-      <MessageTargetMy
-
+      <MessageTarget
+        v-for="message in messages"
+        :key="message.id"
+        v-bind:message="message"
       />
-      <MessageTargetOther/>
     </div>
 
     <div class="pd-lr-5">
@@ -21,12 +22,12 @@
 </template>
 
 <script>
-import MessageTargetMy from '../MessageTargetMy';
-import MessageTargetOther from '../MessageTargetOther';
+import MessageTarget from '../MessageTarget';
+
 export default {
   name: 'ChatRoom',
   components: {
-    MessageTargetOther, MessageTargetMy
+    MessageTarget
   },
   data() {
     return {

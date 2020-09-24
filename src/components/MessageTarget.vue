@@ -25,7 +25,7 @@
 <script>
 import IconAvatar from './IconAvatar';
 export default {
-  name: 'MessageTargetMy',
+  name: 'MessageTarget',
   components: {
     IconAvatar
   },
@@ -39,7 +39,7 @@ export default {
       session: {
         id: 1,
         name: 'Nayeli Lopez',
-        email: 'naye@gmail.com'
+        email: 'nayeli@gmail.com'
       }
     }
   },
@@ -53,6 +53,7 @@ export default {
     display: flex;
     margin-bottom: 20px;
     .message {
+      width: 100%;
       padding: 10px;
       font-size: 15px;
       color: $text-primary;
@@ -61,6 +62,11 @@ export default {
       -webkit-box-shadow: -1px 3px 16px -1px rgba(79,79,79,1);
       -moz-box-shadow: -1px 3px 16px -1px rgba(79,79,79,1);
       box-shadow: -1px 3px 16px -1px rgba(79,79,79,1);
+      &::before {
+        content: '';
+        position: absolute;
+        top: 0;
+      }
     }
   } 
   
@@ -71,15 +77,29 @@ export default {
     .message {
       background: $primary;
       border-top-left-radius: 0;
-      
-
       &::before {
-        content: '';
-        position: absolute;
-        top: 0;
-        left: -15px;
+        left: -15px;        
         border-left: 15px solid transparent;
         border-top: 25px solid $primary;
+      }
+    }
+  }
+
+  .card-message-other {
+    display: flex;
+    justify-content: flex-end;
+    .img-avatar {
+      padding-left: 25px;
+    }
+    .message {
+      background: white;
+      border-top-right-radius: 0;
+      &::before {
+        right: -15px;
+        border-left: 15px solid white;
+        border-bottom: 25px solid transparent;
+        -webkit-filter: drop-shadow(1px 1px 1px rgba(79,79,79,1));
+        filter: drop-shadow(.5px 1px .5px rgba(79,79,79,1));
       }
     }
   }
