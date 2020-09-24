@@ -42,6 +42,8 @@ export default {
           return 'max';
         case 'min':
           return 'min';
+        case 'super-min':
+          return 'super-min';
         default:
           return '';
       }
@@ -71,6 +73,11 @@ export default {
       &.min {
         width: 40px;
         height: 40px;
+      }
+
+      &.super-min {
+        width: 30px;
+        height: 30px;
       }
     }
 

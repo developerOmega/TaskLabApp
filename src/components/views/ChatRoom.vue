@@ -2,7 +2,7 @@
   <div>
     
     <div class="main menu scroll scroll-max-51">
-      <MessageTarget
+      <MessageCard
         v-for="message in messages"
         :key="message.id"
         v-bind:message="message"
@@ -22,12 +22,12 @@
 </template>
 
 <script>
-import MessageTarget from '../MessageTarget';
+import MessageCard from '../MessageCard';
 
 export default {
   name: 'ChatRoom',
   components: {
-    MessageTarget
+    MessageCard
   },
   data() {
     return {

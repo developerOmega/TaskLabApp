@@ -8,21 +8,21 @@
     </div>
 
     <div class="main">
-      <EventTarget/>
-      <EventTarget/>
-      <EventTarget/>
-      <EventTarget/>
+      <EventCard/>
+      <EventCard/>
+      <EventCard/>
+      <EventCard/>
     </div>
 
   </div>
 </template>
 
 <script>
-import EventTarget from '../EventTarget';
+import EventCard from '../EventCard';
 export default {
   name: 'Event',
   components: {
-    EventTarget
+    EventCard
   }
 }
 </script>

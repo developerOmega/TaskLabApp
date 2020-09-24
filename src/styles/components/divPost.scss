@@ -4,18 +4,71 @@ form.post {
   border-bottom-left-radius: 5px; 
   border-bottom-right-radius: 5px;
   margin: 10px 0;
+  .field-date {
+    // padding: 5px ;
+    .input {
+      display: flex;
+      align-items: center;
+      
+      input {
+        padding:0 10px;
+        font-size: 20px;
+        border: none;
+        background: transparent;
+        color: white;
+
+        &::-webkit-inner-spin-button { 
+          display: none; 
+        }
+        &::-webkit-calendar-picker-indicator { 
+          color: white;
+          &:hover {
+            background: none;
+            color: $background-form;
+          } 
+        }
+      }
+      label {
+        i {
+          color: white;
+          font-size: 30px;
+        }
+      }
+    }
+  }
+
+  .field-users {
+    background: $fine-second;
+    padding: 5px;
+    display: flex;
+    border-top-right-radius: 50px;
+    border-bottom-right-radius: 50px;
+    .options-select {
+      padding-left: 20px;
+      .img-avatar {
+        padding: 0 3px;
+      }
+    }
+  }
+
   .post-content {
     width: 100%;
     border: none;
     padding: 5px;
     font-size: 15px;
     background: $background-form;
-
+    
     height: 80px;
     max-height: 80px; 
     min-height: 80px;
     resize: vertical;
     display: block;
+    
+    &.post-height-max {
+      height: 120px !important;
+      max-height: 120px !important; 
+      min-height: 120px !important;
+    }
 
     &::placeholder {
       color: $text-second;
@@ -28,7 +81,7 @@ form.post {
     }
   } 
   .post-options {
-    button {
+    button.btn-post {
       display: block;
       padding: 0 5px;
       border: none;
@@ -39,6 +92,11 @@ form.post {
       &:hover {
         color: $text-second;
       }
+    }
+    &.inline-options {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
     }
     &.position-end {
       display: flex;

@@ -25,7 +25,7 @@
 <script>
 import IconAvatar from './IconAvatar';
 export default {
-  name: 'MessageTarget',
+  name: 'MessageCard',
   components: {
     IconAvatar
   },

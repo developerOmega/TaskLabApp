@@ -56,11 +56,12 @@
   padding: 0;
   border: 0;
   border: none;
+  color: $text-primary;
   background: transparent;
-  margin: auto;
+  // margin: auto;
   cursor: pointer;
   &:hover {
-    color: white;
+    color: $text-second;
   }
   &.link-primary {
     color: $primary;

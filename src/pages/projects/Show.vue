@@ -28,43 +28,43 @@
           </div>
         </nav>
         <div class="content scroll scroll-max-80">
-          <form method="POST">
-            <textarea name="content" id="content" placeholder="Escribir tarea" cols="30" rows="10"></textarea>
-            <div class="options">
-              <div>
-
+          <form class="post" method="POST">
+            <textarea class="post-content post-height-max" name="content" id="content" placeholder="Escribir tarea"></textarea>
+            <div class="post-options inline-options">
+              
+              <div class="flex align-items-center pd-left-15">
                 <div class="field-date">
                   <div class="input">
                     <label for="time_end">
                       <i class="fas fa-calendar-alt"></i>
                     </label>
                     <input type="date" name="time_end" id="time_end">
-                    <div class="text">
-                      15/07/2020
-                    </div>
                   </div>
                 </div>
 
-                <div class="users">
-                  <button><i class="fas fa-user"></i></button>
-                  <IconAvatar
-                    v-for="user in usersSelect"
-                    :key="user.id"
-                    v-bind:img="user.img"
-                  />
+                <div class="field-users">
+                  <button type="button" class="btn-post"><i class="fas fa-user"></i></button>
+                  <div class="options-select flex">
+                    <IconAvatar
+                      v-for="user in usersSelect"
+                      :key="user.id"
+                      v-bind:img="user.img"
+                      size="min"
+                    />
+                  </div>
                   
-                  <div class="options">
+                  <!-- <div class="options">
                     <IconAvatar
                       v-for="user in users"
                       :key="user.id"
                       v-bind:img="user.img"
                     />
-                  </div>
+                  </div> -->
                 </div>
 
               </div>
               
-              <button class="btn" > <i class="fas fa-share"></i> </button>
+              <button class="btn-post" > <i class="fas fa-share"></i> </button>
 
             </div>
 
@@ -72,7 +72,7 @@
           </form>
 
           <div class="main">
-            <TaskTarget
+            <TaskCard
               v-for="task in tasks"
               :key="task.id"
               v-bind:task="task"
@@ -85,7 +85,7 @@
 </template>
 
 <script>
-import TaskTarget from '../../components/TaskTarget';
+import TaskCard from '../../components/TaskCard';
 import ChatRoom from '../../components/views/ChatRoom';
 import Events from '../../components/views/Events';
 import IconAvatar from '../../components/IconAvatar';
@@ -93,7 +93,7 @@ import IconAvatar from '../../components/IconAvatar';
 export default {
   name: 'PageShowProject',
   components: {
-    TaskTarget,
+    TaskCard,
     ChatRoom,
     Events,
     IconAvatar
@@ -104,12 +104,23 @@ export default {
       tasks: [
         {
           id: 1,
-          content: "Crear vistas y acciones de crud de tabla careers para guard Admin: Index, show, create, store, edit, update, destroy. CampusBay"
+          content: "Crear vistas y acciones de crud de tabla careers para guard Admin: Index, show, create, store, edit, update, destroy. CampusBay",
+          status: 'none'
         },
-
         {
           id: 2,
-          content: "Agregar nuevos parámetros de Career a tabla formulario de Students y Teachers. CampusBay"
+          content: "Agregar nuevos parámetros de Career a tabla formulario de Students y Teachers. CampusBay",
+          status: 'finish'
+        },
+        {
+          id: 3,
+          content: "Crear componentes de targets (Formularios de configuracion, chip de imagene, Targets de usuarios, )",
+          status: 'stop'
+        },
+        {
+          id: 4,
+          content: "Crear comandos en consola para migrar tablas e información en base de datos con yargs",
+          status: 'active'
         }
       ],
 
