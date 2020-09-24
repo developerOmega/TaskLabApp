@@ -20,6 +20,10 @@
   font-size: 25px
 }
 
+.fs-30 {
+  font-size: 30px
+}
+
 .fw-600 {
   font-weight: 600;
 }
@@ -49,11 +53,21 @@
 }
 
 .link-btn {
+  padding: 0;
+  border: 0;
   border: none;
   background: transparent;
-  width: 5px;
   margin: auto;
   cursor: pointer;
+  &:hover {
+    color: white;
+  }
+  &.link-primary {
+    color: $primary;
+    &:hover {
+      color: $fine-second;
+    }
+  }
 }
 
 .link {

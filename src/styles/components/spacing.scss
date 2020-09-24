@@ -2,6 +2,14 @@
   padding: 20px;
 }
 
+.pd-15 {
+  padding: 15px;
+}
+
+.pd-10 {
+  padding: 10px;
+}
+
 .pd-5 {
   padding: 5px;
 }
@@ -10,8 +18,16 @@
   padding-top: 20px !important;
 }
 
-.pd-left-15 {
+.pd-right-15 {
   padding-right: 15px !important;
+}
+
+.pd-left-15 {
+  padding-left: 15px !important;
+}
+
+.pd-right-5 {
+  padding-right: 5px !important;
 }
 
 .mg-top-15 {
@@ -28,5 +44,9 @@
 
 .pd-tb-5 {
   padding: 5px;
+}
+
+.pd-lr-5 {
+  padding: 0 10px;
 }
 

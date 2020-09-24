@@ -1,5 +1,5 @@
 <template>
-  <div class="content">
+  <div class="content content-scroll">
     <div class="head">
       <h2 class="title"> Actualizar contraseña </h2>
     </div>

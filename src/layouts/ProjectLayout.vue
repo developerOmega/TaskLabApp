@@ -1,20 +1,21 @@
 <template>
   <div>
-    <header>
-      <div class="logo-text"> TaskLab </div>
-      <div class="menu">
+    <header class="header">
+      <router-link to="/" class="logo-text"> TaskLab </router-link>
+      <div class="menu flex align-items-end">
 
-        <div class="Title"> CampusBay </div>
-        <div class="description">
-          <p>by</p>
+        <div class="title fs-35 name-project"> CampusBay </div>
+        <div class="flex align-items-center justify-between color-primary pd-left-15">
+          <b class="pd-right-5">by</b>
 
-          <div class="name-user"> {{ user.name }} </div>
           <IconAvatar
             :img="user.img"
-            :type="user.fine"
+            :type="user.type"
+            size="min"
           />
 
-          <p> {{ user.name }} </p>
+          <div class="name-user"> {{ user.name }} </div>
+
         </div>
 
       </div>

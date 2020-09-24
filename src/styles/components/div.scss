@@ -27,12 +27,30 @@
   }
 
   &.content-scroll {
-    // background: orange;
-    max-height: 89vh;
+    max-height: 90vh;
     overflow-y: scroll;
   }
 
   
+}
+
+.scroll {
+  overflow-y: scroll;
+  &.scroll-max-90 {
+    max-height: 89vh;
+  }
+
+  &.scroll-max-80 {
+    max-height: 80vh;
+  }
+
+  &.scroll-max-71 {
+    max-height: 71vh;
+  }
+
+  &.scroll-max-51 {
+    max-height: 50vh;
+  }
 }
 
 
@@ -50,5 +68,9 @@
 
 .background-gray {
   background: $background-form;
+}
+
+.z-index-1 {
+  z-index: -1;
 }
 

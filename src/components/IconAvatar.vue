@@ -67,6 +67,11 @@ export default {
         width: 120px;
         height: 120px;
       }
+
+      &.min {
+        width: 40px;
+        height: 40px;
+      }
     }
 
     .not-type {

@@ -8,10 +8,12 @@
 }
 
 header.header {
+  z-index: 2;
   display: flex;
   justify-content: space-between;
   align-items: center;
   padding: 0px 20px;
+  background: white;
   
   -webkit-box-shadow: 2px -2px 15px -1px rgba(79,79,79,1);
   -moz-box-shadow: 2px -2px 15px -1px rgba(79,79,79,1);
@@ -28,17 +30,37 @@ header.header {
     .logo-text {
       font-size: 30px;
     }
-    .name-user.fs-25.pd-left-15{
+    .name-user.fs-25.pd-right-15{
       display: none;
     }
+  }
+}
+
+.sub-header {
+  z-index: -1;
+  background: $primary;
+  color: white;
+  padding: 15px;
+  width: 100%;
+
+  display: flex;
+  justify-content: space-between;
+
+  position: relative;
+  button {
+    color: white;
+    border: none;
+    background: transparent;
+    font-size: 20px;
+    cursor: pointer;
   }
 }
 
 nav {
   position: relative;
   border-right: 1px solid $primary;
-  padding: 0 15px ;
   .menu {
+    padding: 0 15px ;
     padding-top: 25px;
     height: 89vh;
  
@@ -70,6 +92,20 @@ nav {
 @media screen and ( max-width: 700px ) {
   .main.pd-top-20.grid.col-2-of-35-auto.gap-15 {
     grid-template-columns: 100%;
+  }
+
+  .name-user {
+    display: none;
+  }
+
+  .name-project {
+    font-size: 25px !important;
+  }
+}
+
+@media screen and ( max-width: 360px ) {
+  .name-project {
+    font-size: 15px !important;
   }
 }
 
@@ -126,3 +162,4 @@ nav {
 @import './components/buttons.scss';
 @import './components/spacing.scss';
 @import './components/display.scss';
+@import './components/divPost.scss';

@@ -54,13 +54,13 @@ export default {
       
       switch(this.user.type) {
         case 'fine':
-          return 'name-user fs-25 pd-left-15 color-primary';
+          return 'name-user fs-25 pd-right-15 color-primary';
         case 'warning':
-          return 'name-user fs-25 pd-left-15 color-warning';
+          return 'name-user fs-25 pd-right-15 color-warning';
         case 'danger': 
-          return 'name-user fs-25 pd-left-15 color-danger' 
+          return 'name-user fs-25 pd-right-15 color-danger' 
         default: 
-          return 'name-user fs-25 pd-left-15 color-text';
+          return 'name-user fs-25 pd-right-15 color-text';
       }
 
     }
