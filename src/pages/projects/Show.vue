@@ -100,7 +100,7 @@ export default {
   },
   data() {
     return {
-      eventActive: false,
+      eventActive: true,
       tasks: [
         {
           id: 1,
