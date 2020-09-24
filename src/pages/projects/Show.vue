@@ -1,5 +1,5 @@
 <template>
-  <div class="z-index-1">
+  <div class="peoject-show">
     
     <div class="sub-header">
       <button><i class="fas fa-arrow-left"></i></button>
@@ -16,15 +16,22 @@
             </div>
           
             <div class="flex">
-              <button class="link-btn link-primary fs-25" v-on:click="executeEventActive()"> 
-                <i v-if="!eventActive" class="fas fa-calendar-alt"></i> 
-                <i v-else class="fas fa-comment-alt"></i>
+              <button v-if="!eventActive" class="link-btn link-primary fs-25 mg-left-15" v-on:click="executeEventActive()"> 
+                <i class="fas fa-calendar-alt"></i> 
+              </button>
+              
+              <button v-else-if="eventActive" class="link-btn link-primary fs-25 mg-left-15" v-on:click="executeEventActive()">  
+                <i  class="fas fa-comment-alt"></i>
+              </button>
+
+              <button class="btn-task link-btn link-primary fs-25 mg-left-15" v-on:click="executeEventUnactive()"> 
+                <i class="fas fa-tasks"></i> 
               </button>
             </div>
           </div>
-          <div class="">
-            <ChatRoom v-if="eventActive == false"/>
-            <Events v-if="eventActive"/>
+          <div class="background-white">
+            <ChatRoom v-if="eventActive === false"/>
+            <Events v-if="eventActive === true"/>
           </div>
         </nav>
         <div class="content scroll scroll-max-80">
@@ -161,6 +168,10 @@ export default {
   methods: {
     executeEventActive: function () {
       this.eventActive = this.eventActive == false ? true : false;
+      return this.eventActive;
+    },
+    executeEventUnactive: function () {
+      this.eventActive = "Task"
       return this.eventActive;
     }
   }
