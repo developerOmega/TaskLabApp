@@ -24,7 +24,7 @@
                 <i  class="fas fa-comment-alt"></i>
               </button>
 
-              <button class="btn-task link-btn link-primary fs-25 mg-left-15" v-on:click="executeEventUnactive()"> 
+              <button id="task_icon" class="btn-task link-btn link-primary fs-25 mg-left-15" v-on:click="executeEventUnactive()"> 
                 <i class="fas fa-tasks"></i> 
               </button>
             </div>

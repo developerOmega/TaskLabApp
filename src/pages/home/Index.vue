@@ -7,7 +7,7 @@
       </router-link>
     </div>
 
-    <div class="grid col-3 gap-15 pd-tb-25">
+    <div id="projects-in-home" class="grid col-3 gap-15 pd-tb-25">
       <ProjectCard
         v-for="project in projects"
         :key="project.id"

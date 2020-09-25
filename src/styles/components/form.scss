@@ -137,10 +137,5 @@
       top: 53px;
     }
 
-    @media screen and ( max-width: 700px ) {
-      .search-container, .input-container {
-        grid-template-columns: auto;
-      }
-    }
   }
 }

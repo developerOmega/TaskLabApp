@@ -1,5 +1,5 @@
 <template>
-  <div class="grid col-2-of-20-80 justify-between">
+  <div id="container-config" class="grid col-2-of-20-80 justify-between">
     <nav class="in-config"> 
 
       <div class="menu">

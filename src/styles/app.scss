@@ -26,14 +26,6 @@ header.header {
     font-weight: 700; 
   }
 
-  @media screen and ( max-width: 700px ) {
-    .logo-text {
-      font-size: 30px;
-    }
-    .name-user.fs-25.pd-right-15{
-      display: none;
-    }
-  }
 }
 
 .sub-header {
@@ -72,41 +64,7 @@ nav {
     }
 
   }
-
   
-}
-
-@media screen and ( max-width: 1125px ) {
-  nav.in-config {
-    display: none;
-  }
-  .grid.col-2-of-20-80.justify-between {
-    grid-template-columns: 100%;
-    .content-scroll {
-      overflow-y: hidden;
-      max-height: none;
-    }
-  }
-}
-
-@media screen and ( max-width: 700px ) {
-  .main.pd-top-20.grid.col-2-of-35-auto.gap-15 {
-    grid-template-columns: 100%;
-  }
-
-  .name-user {
-    display: none;
-  }
-
-  .name-project {
-    font-size: 25px !important;
-  }
-}
-
-@media screen and ( max-width: 360px ) {
-  .name-project {
-    font-size: 15px !important;
-  }
 }
 
 .container-login {
@@ -122,12 +80,6 @@ nav {
       margin: auto;
     }
   }
-
-  @media screen and ( max-width: 700px ) {
-    .card {
-      box-shadow: 0 0 0 0;
-    }
-  }
 }
 
 .container {
@@ -136,55 +88,10 @@ nav {
   margin: auto;
 }
 
-@media screen and ( max-width: 1360px ) {
-  .grid.col-3.gap-15.pd-tb-25 {
-    
-    grid-template-columns: auto auto ;
-  }
+
+#task_icon{
+  display: none ;
 }
-
-@media screen and ( max-width: 890px ) {
-  .grid.col-3.gap-15.pd-tb-25 {
-    
-    grid-template-columns: auto ;
-  }
-}
-
-@media screen and ( max-width: 700px ) {
-  .container {
-    padding: 0;
-  }
-}
-
-.peoject-show .container .grid nav .flex.justify-between .flex button.btn-task {
-    display: none ;
-  }
-
-@media screen and ( max-width: 900px ) {
-
-  .peoject-show {
-    .grid {
-      display: block;
-    }
-
-  }
-
-  .peoject-show .container .grid nav .flex.justify-between .flex button.btn-task {
-    display: block;
-  }
-
-  .peoject-show .container {
-    position: relative;
-    .content {
-      z-index: -1;
-      position: absolute;
-      top: 80px;
-    }
-  }
-
-
-}
-
 
 @import './components/div.scss';
 @import './components/text.scss';
@@ -193,3 +100,4 @@ nav {
 @import './components/spacing.scss';
 @import './components/display.scss';
 @import './components/divPost.scss';
+@import './components/response.scss';

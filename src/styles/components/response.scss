@@ -1,0 +1,149 @@
+@media screen and ( max-width: 700px ) {
+
+  // ============================================
+  // HEADER
+  // ============================================
+  header.header {
+
+    .logo-text {
+      font-size: 30px;
+    }
+    .name-user{
+      display: none;
+    }
+
+  }
+
+  // ============================================
+  // LOGIN
+  // ============================================
+  .container-login {
+    .card {
+      box-shadow: 0 0 0 0;
+    }
+  }
+
+  // ============================================
+  // CONTENT
+  // ============================================
+  .content {
+    padding: 0;
+  }
+
+  // ============================================
+  // FORMS BY SETTINGS USER
+  // ============================================
+  #user-settings {
+    grid-template-columns: 100%;
+  }
+  
+  // ============================================
+  // NAME PROJECT IN HEADER-PROJECT-SHOW
+  // ============================================
+  .name-project {
+    font-size: 25px !important;
+  }
+
+  // ============================================
+  // RADIO BUTTON
+  // ============================================
+  .btn.btn-radio.max {
+    width: 50px;
+    height: 50px;
+    & i {
+      font-size: 24px;
+    }
+  }
+
+  // ============================================
+  // FORMS
+  // ============================================
+  .form .field {
+    .search-container, .input-container {
+      grid-template-columns: auto;
+    }
+  }
+}
+
+@media screen and ( max-width: 1360px ) {
+  // ============================================
+  // GRID BY PROJECTS IN HOME
+  // ============================================
+  #projects-in-home {
+    grid-template-columns: auto auto ;
+  }
+}
+
+@media screen and ( max-width: 1125px ) {
+  
+  // ============================================
+  // NAV DISPLAY NONE
+  // ============================================
+  nav.in-config {
+    display: none;
+  }
+
+  // ============================================
+  // GRID BY CONTAINER CONFIG
+  // ============================================
+  #container-config {
+    grid-template-columns: 100%;
+    .content-scroll {
+      overflow-y: hidden;
+      max-height: none;
+    }
+  }
+}
+
+@media screen and ( max-width: 900px ) {
+
+  // ============================================
+  // GRID BY PROJECT SHOW
+  // ============================================
+  .peoject-show {
+    .grid {
+      display: block;
+    }
+
+  }
+
+  // ============================================
+  // BUTTON TASK IN NAV PROJECT
+  // ============================================
+  #task_icon {
+    display: block;
+  }
+
+  // ============================================
+  // POSITION ABSOLUTE IN PROJECT SHOW
+  // ============================================
+  .peoject-show .container {
+    position: relative;
+    .content {
+      z-index: -1;
+      position: absolute;
+      top: 80px;
+    }
+  }
+
+}
+
+@media screen and ( max-width: 890px ) {
+  // ============================================
+  // GRID BY PROJECTS IN HOME
+  // ============================================
+  #projects-in-home {
+    grid-template-columns: auto ;
+  }
+}
+
+@media screen and ( max-width: 360px ) {
+  // ============================================
+  // NAME PROJECT IN HEADER-PROJECT-SHOW
+  // ============================================
+  .name-project {
+    font-size: 15px !important;
+  }
+}
+
+
