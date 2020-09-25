@@ -26,35 +26,5 @@ export default {
 </script>
 
 <style lang="scss">
-  @import '../styles/variables.scss';
-  .event {
-    display: flex;
-    flex-direction: column;
-    margin-bottom: 20px;
-    border-bottom: 3px solid $primary;
-    &:nth-child(1) {
-      margin-top: 20px;
-    }
-    .section {
-      width: 100%;
-      display: flex;
-      justify-content: flex-end;
-    }
-    .head {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      .title {
-        font-size: 25px;
-        font-weight: 500;
-      }
-      .second {
-        color: $text-second;
-        font-size: 20px;
-      }
-    }
-    .btn-dange {
-      text-align: end;
-    }
-  }
+  @import '../styles/vueComponents/EventCard.scss';
 </style>

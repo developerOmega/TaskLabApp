@@ -35,21 +35,5 @@ export default {
 </script>
 
 <style lang="scss">
-  @import '../styles/variables.scss';
-
-  .avatar-card {
-    background: white;
-    border-top-left-radius: 50px;
-    border-bottom-left-radius: 50px;
-    
-    display: flex;
-    align-items: center;
-    .info {
-      padding: 0 10px;
-      display: flex;
-      .section {
-        padding-right: 15px; 
-      }
-    }
-  }
+  @import '../styles/vueComponents/AvatarCard.scss';
 </style>

@@ -42,49 +42,5 @@ export default {
 </script>
 
 <style lang="scss">
-
-  @import '../styles/variables.scss';
-
-  .icon-avatar-with-info {
-    border: none;
-    display: flex;
-    align-items: center;
-    background: transparent;
-    cursor: pointer;
-    .info {
-      padding-left: 10px;
-      text-align: left;
-    }
-    
-    &:hover {
-      .color-fine {
-        color: $fine-second;
-      }
-      .color-warning {
-        color: $warning-second;
-      }
-      .color-danger {
-        color: $danger-second;
-      }
-      
-      img.fine {
-        border: 3px solid $fine-second;
-        -webkit-box-shadow: 0px 0px 12px -2px $fine-second;
-        -moz-box-shadow: 0px 0px 12px -2px $fine-second;
-        box-shadow: 0px 0px 12px -2px $fine-second;
-      }
-      img.warning {
-        border: 3px solid $warning-second;
-        -webkit-box-shadow: 0px 0px 12px -2px $warning-second;
-        -moz-box-shadow: 0px 0px 12px -2px $warning-second;
-        box-shadow: 0px 0px 12px -2px $warning-second;
-      }
-      img.danger {
-        border: 3px solid $danger-second;
-        -webkit-box-shadow: 0px 0px 12px -2px $danger-second;
-        -moz-box-shadow: 0px 0px 12px -2px $danger-second;
-        box-shadow: 0px 0px 12px -2px $danger-second;
-      }
-    }
-  }
+  @import '../styles/vueComponents/AvatarWithInfo.scss';
 </style>
