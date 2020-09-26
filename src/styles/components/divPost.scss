@@ -4,6 +4,7 @@ form.post {
   border-bottom-left-radius: 5px; 
   border-bottom-right-radius: 5px;
   margin: 10px 0;
+
   .field-date {
     // padding: 5px ;
     .input {
@@ -49,6 +50,14 @@ form.post {
         padding: 0 3px;
       }
     }
+  }
+
+  .post-head {
+    display: flex;
+    justify-content: space-between;
+    padding: 0 10px;
+    color: white;
+    font-weight: 500;
   }
 
   .post-content {

@@ -36,6 +36,12 @@
           border-top-right-radius: 4px;
           border-bottom: 3px solid $fine-second;
         }
+        &.border-danger {
+          border-bottom: 3px solid $danger;
+          &:focus {
+            border-bottom: 3px solid $danger-second;
+          }
+        }
       }
       textarea {
        height: 80px;
@@ -46,6 +52,26 @@
       }
       label {
         color: $text-primary;
+      }
+      .box-input {
+        display: flex;
+        align-items: center;
+        
+        padding: 5px 0px 0px 10px;
+        background: $background-form;
+        border-bottom: 3px solid $primary;
+        border-top-left-radius: 5px;
+        border-top-right-radius: 5px;
+        input {
+          background: transparent;
+          border-bottom: none;
+          padding-left:10px;
+        }
+
+        i {
+          color: $primary;
+          font-size: 20px;
+        }
       }
     }
 

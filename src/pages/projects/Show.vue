@@ -1,6 +1,8 @@
 <template>
   <div class="peoject-show">
-    
+    <CreateEvent v-if="activeCreateEvent"/>
+    <EditTask v-if="activeEditTask" />
+
     <div class="sub-header">
       <button><i class="fas fa-arrow-left"></i></button>
       <h3> 12/07/2020 </h3>
@@ -95,6 +97,8 @@
 import TaskCard from '../../components/TaskCard';
 import ChatRoom from '../../components/views/ChatRoom';
 import Events from '../../components/views/Events';
+import CreateEvent from '../../components/views/CreateEvent';
+import EditTask from '../../components/views/EditTask';
 import IconAvatar from '../../components/IconAvatar';
 
 export default {
@@ -103,10 +107,14 @@ export default {
     TaskCard,
     ChatRoom,
     Events,
-    IconAvatar
+    IconAvatar,
+    CreateEvent,
+    EditTask
   },
   data() {
     return {
+      activeCreateEvent: false,
+      activeEditTask: false,
       eventActive: true,
       tasks: [
         {

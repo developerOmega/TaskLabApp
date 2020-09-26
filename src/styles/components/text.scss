@@ -69,6 +69,12 @@
       color: $fine-second;
     }
   }
+  &.link-white {
+    color: white;
+    &:hover {
+      color: $text-primary;
+    }
+  }
 }
 
 .link {

@@ -1,5 +1,6 @@
 <template>
   <div class="content content-scroll">
+    <DeleteAccountAlert v-if="activeDeleteAccount"/>
     <div class="head">
       <h2 class="title"> Datos de usuario </h2>
     </div>
@@ -18,11 +19,17 @@
 import ImgForm from '../../components/views/ImgForm';
 import InfoForm from '../../components/views/InfoForm';
 import DeleteAccountForm from '../../components/views/DeleteAccountForm';
+import DeleteAccountAlert from '../../components/views/DeleteAccountAlert';
 
 export default {
   name: 'PageUserSettings',
   components: {
-    ImgForm, InfoForm, DeleteAccountForm
-  }
+    ImgForm, InfoForm, DeleteAccountForm, DeleteAccountAlert
+  },
+  data() {
+    return {
+      activeDeleteAccount: false
+    }
+  },
 }
 </script>

@@ -1,5 +1,9 @@
 <template>
   <div class="content">
+    
+    <EditNameProject v-if="activeEditName" />
+    <EditDescriptionProject v-if="activeEditDescription" />
+
     <div class="head">
       <h2 class="title"> Proyectos. </h2>
       <router-link to="/projects/create" class="btn btn-primary btn-radio max">
@@ -19,11 +23,18 @@
 
 <script>
 import ProjectCard from '../../components/ProjectCard';
+import EditNameProject from '../../components/views/EditNameProject';
+import EditDescriptionProject from '../../components/views/EditDescriptionProject';
 
 export default {
   name: 'PageIndexHome',
+  components: {
+    ProjectCard, EditNameProject, EditDescriptionProject
+  },
   data() {
     return {
+      activeEditName: false,
+      activeEditDescription: false,
       projects: [
         {
           id: 1,
@@ -46,9 +57,6 @@ export default {
 
       ]
     }
-  },
-  components: {
-    ProjectCard
   }
 }
 </script>
