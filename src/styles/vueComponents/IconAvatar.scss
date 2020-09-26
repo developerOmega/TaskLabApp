@@ -59,6 +59,9 @@
   border: none;
   cursor: pointer;
   .img-avatar {
+    .not-type:hover {
+      box-shadow: 0px 1px 10px 0px $text-primary;
+    }
     .fine:hover {
       border: 3px solid $fine-second;
     }
@@ -67,6 +70,17 @@
     }
     .warning:hover {
       border: 3px solid $warning-second;
+    }
+  }
+  &.btn-delete {
+    .icon {
+      display: none;
+    }
+    &:hover {
+      .img-avatar img {
+        border: 3px solid $danger;
+        box-shadow: 0px 1px 10px 2px $danger-second;
+      } 
     }
   }
 }

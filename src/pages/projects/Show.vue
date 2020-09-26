@@ -63,23 +63,34 @@
                 </div>
 
                 <div class="field-users">
-                  <button type="button" class="btn-post"><i class="fas fa-user"></i></button>
-                  <div class="options-select flex">
+                  <button v-on:click="activeOptionsUserTask" type="button" :class="'btn-post ' + activeStyle"><i class="fas fa-user"></i></button>
+                  
+                  <button 
+                    type="button" 
+                    class="mg-left-15 flex btn-avatar btn-delete"
+                    v-for="user in usersSelect"
+                    :key="user.id"
+                  >
                     <IconAvatar
-                      v-for="user in usersSelect"
-                      :key="user.id"
                       v-bind:img="user.img"
                       size="min"
                     />
-                  </div>
+                    
+                  </button>
                   
-                  <!-- <div class="options">
-                    <IconAvatar
+                  <div v-if="optionsUserTask" class="options-users">
+                    <button
+                      class="option btn-avatar fine"
+                      type="button"
                       v-for="user in users"
                       :key="user.id"
-                      v-bind:img="user.img"
-                    />
-                  </div> -->
+                    >
+                      <IconAvatar
+                        v-bind:img="user.img"
+                        size="min"
+                      />
+                    </button>
+                  </div>
                 </div>
 
               </div>
@@ -131,6 +142,7 @@ export default {
       activeEditTask: false,
       eventActive: true,
       optionsProject: false,
+      optionsUserTask: false,
       tasks: [
         {
           id: 1,
@@ -176,6 +188,7 @@ export default {
           img: 'http://placeimg.com/640/480/people',
           type: 'fine'
         }
+        
       ],
       usersSelect: [
         {
@@ -207,8 +220,17 @@ export default {
       this.optionsProject = this.optionsProject == false ? true : false;
       return this.optionsProject;
     },
+    activeOptionsUserTask: function () {
+      this.optionsUserTask = this.optionsUserTask == false ? true : false;
+      return this.optionsUserTask;
+    },
     inactiveOptionProject: function (activeOptions){
       this.optionsProject = activeOptions;
+    }
+  },
+  computed :{
+    activeStyle () {
+      return this.optionsUserTask == false ? '' : 'active';
     }
   }
 }

@@ -39,15 +39,38 @@ form.post {
   }
 
   .field-users {
+    position: relative;
     background: $fine-second;
-    padding: 5px;
     display: flex;
     border-top-right-radius: 50px;
     border-bottom-right-radius: 50px;
-    .options-select {
-      padding-left: 20px;
-      .img-avatar {
-        padding: 0 3px;
+
+    .options-users {
+      z-index: 1;
+      position: absolute;
+      top: 40px;
+      left: 0;
+      max-width: 500px;
+      min-width: 200px;
+
+      -webkit-box-shadow: 2px -2px 15px -1px rgba(79,79,79,1);
+      -moz-box-shadow: 2px -2px 15px -1px rgba(79,79,79,1);
+      box-shadow: 2px -2px 15px -1px rgba(79,79,79,1);
+
+      background: white;
+
+      display: grid;
+      grid-template-columns: auto auto auto auto auto auto;
+
+      padding: 5px;
+      border-top-right-radius: 50px;
+      border-bottom-right-radius: 50px;
+
+      button.option{
+        margin: 3px 5px;
+        padding: 0;
+        border: 0;
+        cursor: pointer;
       }
     }
   }
@@ -91,8 +114,10 @@ form.post {
   } 
   .post-options {
     button.btn-post {
+      z-index: 2;
+
       display: block;
-      padding: 0 5px;
+      padding: 0 10px;
       border: none;
       background: transparent;
       color: white;
@@ -100,6 +125,10 @@ form.post {
       cursor: pointer;
       &:hover {
         color: $text-second;
+      }
+      &.active {
+        background: white;
+        color: $text-primary;
       }
     }
     &.inline-options {

@@ -12,7 +12,7 @@
         <div class="section">
           <div class="head-section flex justify-between align-items-center">
             <div class="color-text"> Usuarios </div>
-            <button :class="'btn btn-radio btn-' + statusStyle">
+            <button v-if="!userSelect" v-on:click="activeUserSelect" :class="'btn btn-radio btn-' + statusStyle">
               <i class="fas fa-plus"></i>
             </button>
           </div>
@@ -32,6 +32,34 @@
               </button>
             </div>
           </div>
+
+          <form v-if="userSelect" method="POST" class="form mg-top-15">
+            <div class="flex justify-end pd-tb-5">
+              <button v-on:click="activeUserSelect" type="button" class="btn btn-radio min btn-danger"> <i class="fas fa-times"></i> </button>
+            </div>
+
+            <div class="background-gray pd-lr-5 border-radius-5">
+              <div class="field">
+                <div class="input">
+                  <input type="text" id="name-users" class="background-gray" name="name" placeholder="Buscar usuario">
+                </div>
+              </div>
+
+              <div class="grid col-3 pd-bottom-5">
+                <button
+                  type="button"
+                  v-for="user in usersAll"
+                  :key="user.id" 
+                  class="btn-avatar"
+                >
+                  <IconAvatar
+                    :img="user.img"
+                    :type="user.type"
+                  />
+                </button>
+              </div>
+            </div>
+          </form>
 
         </div>
       </div>
@@ -69,6 +97,7 @@ export default {
   data() {
     return {
       activeMenu: false,
+      userSelect: false,
       users: [
         {
           id: 1,
@@ -84,6 +113,13 @@ export default {
           id: 3,
           img: "http://placeimg.com/640/480/people",
           type: 'danger'
+        }
+      ],
+      usersAll: [
+        {
+          id: 1,
+          img: "http://placeimg.com/640/480/people",
+          type: 'fine'
         }
       ]
     }
@@ -102,6 +138,11 @@ export default {
     methodActiveDescription: function () {
       this.activeMenu = false;
       this.$emit('active-description', true);
+    },
+
+    activeUserSelect: function () {
+      this.userSelect = this.userSelect == false ? true : false;
+      return this.userSelect;
     }
 
   },
