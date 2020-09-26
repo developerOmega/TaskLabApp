@@ -107,3 +107,26 @@
   }
 }
 
+.btn-nav {
+  display: none ;
+  z-index: 2;
+  position: fixed;
+  top: 120px;
+  border: 0;
+  padding: 5px 10px;
+  font-size: 20px;
+  border-top-right-radius: 50px;
+  border-bottom-right-radius: 50px;
+  background: $primary;
+  color: white;
+  cursor: pointer;
+
+  -webkit-box-shadow: 2px -2px 15px -1px rgba(79,79,79,1);
+  -moz-box-shadow: 2px -2px 15px -1px rgba(79,79,79,1);
+  box-shadow: 2px -2px 15px -1px rgba(79,79,79,1);
+
+  &:hover {
+    background: $fine-second;
+  }
+}
+

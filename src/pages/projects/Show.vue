@@ -78,7 +78,7 @@
                     
                   </button>
                   
-                  <div v-if="optionsUserTask" class="options-users">
+                  <div v-if="optionsUserTask" id="options-users" class="options-users">
                     <button
                       class="option btn-avatar fine"
                       type="button"

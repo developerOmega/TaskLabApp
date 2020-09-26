@@ -1,6 +1,15 @@
 <template>
   <div id="container-config" class="grid col-2-of-20-80 justify-between">
-    <nav class="in-config"> 
+    <NavResponsive 
+      v-if="navResponse"
+      @nav-response="inactiveNavResponse"
+    />
+
+    <button v-on:click="activeNavResponse" class="btn-nav">
+      <i class="fas fa-bars"></i>
+    </button>
+
+    <nav id="in-config-no-response" class="in-config"> 
 
       <div class="menu">
         <div class="options">
@@ -20,7 +29,25 @@
 </template>
 
 <script>
+import NavResponsive from '../../components/views/NavResponsive';
+
 export default {
-  name: 'PageMainSettings'
+  name: 'PageMainSettings',
+  components: {
+    NavResponsive
+  },
+  data() {
+    return {
+      navResponse: false
+    }
+  },
+  methods: {
+    activeNavResponse: function () {
+      this.navResponse = true;
+    },
+    inactiveNavResponse: function ( inactive ) {
+      this.navResponse = inactive;
+    }
+  }
 }
 </script>

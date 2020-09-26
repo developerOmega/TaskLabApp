@@ -96,6 +96,8 @@
 .link {
   text-decoration: none;
   color: $primary;
+  border: none;
+  background: transparent;
   &.link-primary {
     color: $fine-second ;
     text-align: center;

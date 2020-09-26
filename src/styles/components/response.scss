@@ -3,7 +3,7 @@
   // ============================================
   // HEADER
   // ============================================
-  header.header {
+  .header {
 
     .logo-text {
       font-size: 30px;
@@ -63,6 +63,17 @@
       grid-template-columns: auto;
     }
   }
+
+
+  // ============================================
+  // OPTIOS USER BY TASK
+  // ============================================
+  #options-users {
+    left: -112px;
+    grid-template-columns: auto auto;
+    min-width: 150px;
+    border-radius: 0;
+  }
 }
 
 @media screen and ( max-width: 1360px ) {
@@ -79,8 +90,12 @@
   // ============================================
   // NAV DISPLAY NONE
   // ============================================
-  nav.in-config {
+  nav#in-config-no-response {
     display: none;
+  }
+
+  .btn-nav {
+    display: block;
   }
 
   // ============================================
