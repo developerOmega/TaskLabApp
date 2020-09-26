@@ -55,6 +55,10 @@
       color: white;
     }
 
+    .btn-black {
+      color: $text-primary;
+    }
+
     .link-btn {
       &:hover {
         color: $text-second;

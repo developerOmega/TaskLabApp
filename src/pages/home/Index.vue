@@ -1,8 +1,14 @@
 <template>
   <div class="content">
     
-    <EditNameProject v-if="activeEditName" />
-    <EditDescriptionProject v-if="activeEditDescription" />
+    <EditNameProject 
+      @inactive-name="inActiveName"
+      v-if="activeEditName" 
+    />
+    <EditDescriptionProject
+      @inactive-description="inActiveDescription"    
+      v-if="activeEditDescription" 
+    />
 
     <div class="head">
       <h2 class="title"> Proyectos. </h2>
@@ -16,6 +22,8 @@
         v-for="project in projects"
         :key="project.id"
         v-bind:project="project"
+        @active-name="activeNameView"
+        @active-description="activeDescription"
       />
     </div>
   </div>
@@ -56,6 +64,20 @@ export default {
        },
 
       ]
+    }
+  },
+  methods: {
+    activeNameView: function (activeEditName) {
+      this.activeEditName = activeEditName
+    },
+    activeDescription: function (activeEditDescription) {
+      this.activeEditDescription = activeEditDescription;
+    },
+    inActiveName: function (activeEditName) {
+      this.activeEditName = activeEditName;
+    },
+    inActiveDescription: function (activeEditDescription) {
+      this.activeEditDescription = activeEditDescription;
     }
   }
 }

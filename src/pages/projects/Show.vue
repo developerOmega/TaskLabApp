@@ -1,7 +1,14 @@
 <template>
   <div class="peoject-show">
-    <CreateEvent v-if="activeCreateEvent"/>
-    <EditTask v-if="activeEditTask" />
+    <CreateEvent 
+      v-if="activeCreateEvent"
+      @create-event="formEvent"
+    />
+    <EditTask 
+      v-if="activeEditTask" 
+      @edit-task="viewEditTask"
+      
+    />
 
     <div class="sub-header">
       <button><i class="fas fa-arrow-left"></i></button>
@@ -11,10 +18,11 @@
 
     <div class="container">
       <div class="grid col-2-of-30-70 justify-between">
-        <nav >
+        <nav class="position-relative">
           <div class="flex justify-between align-items-center background-gray pd-10">
             <div>
-              <button class="link-btn fs-20"> <i class="fas fa-ellipsis-v"></i> </button>
+              <button v-on:click="activeOptionsProject" class="link-btn fs-20"> <i class="fas fa-ellipsis-v"></i> </button>
+              <OptionsProject v-if="optionsProject" @options-project="inactiveOptionProject" />
             </div>
           
             <div class="flex">
@@ -33,7 +41,10 @@
           </div>
           <div class="background-white">
             <ChatRoom v-if="eventActive === false"/>
-            <Events v-if="eventActive === true"/>
+            <Events 
+              v-if="eventActive === true"
+              @create-event="formEvent"
+            />
           </div>
         </nav>
         <div class="content scroll scroll-max-80">
@@ -85,6 +96,7 @@
               v-for="task in tasks"
               :key="task.id"
               v-bind:task="task"
+              @edit-task="viewEditTask"
             />
           </div>
         </div>
@@ -101,6 +113,7 @@ import CreateEvent from '../../components/views/CreateEvent';
 import EditTask from '../../components/views/EditTask';
 import IconAvatar from '../../components/IconAvatar';
 
+import OptionsProject from '../../components/OptionsProject';
 export default {
   name: 'PageShowProject',
   components: {
@@ -109,13 +122,15 @@ export default {
     Events,
     IconAvatar,
     CreateEvent,
-    EditTask
+    EditTask,
+    OptionsProject
   },
   data() {
     return {
       activeCreateEvent: false,
       activeEditTask: false,
       eventActive: true,
+      optionsProject: false,
       tasks: [
         {
           id: 1,
@@ -181,6 +196,19 @@ export default {
     executeEventUnactive: function () {
       this.eventActive = "Task"
       return this.eventActive;
+    },
+    formEvent: function (activeForm) {
+      this.activeCreateEvent = activeForm;
+    },
+    viewEditTask: function (activeEditTask) {
+      this.activeEditTask = activeEditTask;
+    },
+    activeOptionsProject: function () {
+      this.optionsProject = this.optionsProject == false ? true : false;
+      return this.optionsProject;
+    },
+    inactiveOptionProject: function (activeOptions){
+      this.optionsProject = activeOptions;
     }
   }
 }

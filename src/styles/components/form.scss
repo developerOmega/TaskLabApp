@@ -109,22 +109,7 @@
     }
 
     .input-checkbox {
-      position: relative;
-      input {
-        display: none;
-        &:checked + label {
-          transition: ease .3s all;
-          background: $primary;
-          color: white;
-          padding:0px 12px;
-          border-radius: 4px;
-          &:before {
-            transition: ease .3s all;
 
-            display: none;
-          }
-        }
-      }
       label {
         transition: ease .3s all;
         color: $primary;
@@ -139,6 +124,73 @@
           top: 4px;
         }
         
+      }
+    }
+
+    .input-radio {
+      label {
+        transition: ease .3s all;
+        color: $primary;
+        padding-left: 20px;
+        cursor: pointer;
+        &:after {
+          content: '';
+          padding: 6px;
+          border: 2px solid $primary;
+          border-radius: 50px;
+          position: absolute;
+          left: 0;
+          top: 4px;
+        }
+        
+      }
+      &.warning {
+        input:checked + label {
+          background: $warning !important;
+        }
+        label {
+          color: $warning;
+          &:after {
+            border: 2px solid $warning;
+          } 
+        }
+      }
+
+      &.danger {
+        input:checked + label {
+          background: $danger !important;
+        }
+        label {
+          color: $danger;
+          &:after {
+            border: 2px solid $danger;
+          } 
+        }
+      }
+    }
+
+    .input-radio, .input-checkbox {
+      position: relative;
+      input {
+        display: none;
+        &:checked + label {
+          transition: ease .3s all;
+          background: $primary;
+          color: white;
+          padding:0px 12px;
+          border-radius: 4px;
+          &:before {
+            transition: ease .3s all;
+
+            display: none;
+          }
+
+          &:after {
+            transition: ease .3s all;
+
+            display: none;
+          }
+        }
       }
     }
 

@@ -53,3 +53,20 @@
     box-shadow: 0px 0px 12px -2px rgba(203,74,74,1);
   }
 }
+
+.btn-avatar {
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  .img-avatar {
+    .fine:hover {
+      border: 3px solid $fine-second;
+    }
+    .danger:hover {
+      border: 3px solid $danger-second;
+    }
+    .warning:hover {
+      border: 3px solid $warning-second;
+    }
+  }
+}

@@ -3,7 +3,7 @@
     <form action="POST" class="form card background-white screen-content">
       
       <div class="flex justify-end">
-        <button type="button" class="link-btn fs-20"><i class="fas fa-times"></i></button>
+        <button v-on:click="inActive" type="button" class="link-btn fs-20"><i class="fas fa-times"></i></button>
       </div>
 
       <div class="pd-lr-50">
@@ -47,6 +47,11 @@
 
 <script>
 export default {
-  name: 'CreateEvent'
+  name: 'CreateEvent',
+  methods: {
+    inActive: function () {
+      this.$emit('create-event', false);
+    }
+  }
 }
 </script>

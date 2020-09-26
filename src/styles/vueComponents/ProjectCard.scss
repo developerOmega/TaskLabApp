@@ -1,6 +1,8 @@
 @import '../variables.scss';
 
 .template {
+  position: relative;
+
   width: 100%;
   display: grid;
   grid-template-columns: auto 70px;
@@ -26,27 +28,16 @@
 
   &.fine {
     background: $primary;
-    color: white;
-    button {
-      color: white;
-    }
   }
 
   &.warning {
     background: $warning;
-    color: white;
-    button {
-      color: white;
-    }
   }
 
   &.danger {
     background: $danger;
-    color: white;
-    button {
-      color: white;
-    }
   }
+  
 }
 
 .section-center {

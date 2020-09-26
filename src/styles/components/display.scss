@@ -11,6 +11,10 @@
     justify-content: flex-end;
   }
 
+  &.justify-center {
+    justify-content: center;
+  }
+
   &.flex-wrap {
     flex-wrap: wrap;
   }

@@ -1,6 +1,9 @@
 <template>
   <div class="content content-scroll">
-    <DeleteAccountAlert v-if="activeDeleteAccount"/>
+    <DeleteAccountAlert 
+      v-if="activeDeleteAccount"
+      @alert-delete-account="alertDeleteAccount"
+    />
     <div class="head">
       <h2 class="title"> Datos de usuario </h2>
     </div>
@@ -9,7 +12,9 @@
       <ImgForm/>
       <InfoForm/>
       <div></div>
-      <DeleteAccountForm/>
+      <DeleteAccountForm
+        @alert-delete-account="alertDeleteAccount"
+      />
     </div>
   </div>
 </template>
@@ -31,5 +36,10 @@ export default {
       activeDeleteAccount: false
     }
   },
+  methods: {
+    alertDeleteAccount: function (activeAlert) {
+      this.activeDeleteAccount = activeAlert;
+    }
+  }
 }
 </script>

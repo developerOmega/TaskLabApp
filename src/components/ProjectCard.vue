@@ -37,10 +37,17 @@
       </div>
     </div>
     <div :class="'pd-5 info ' + statusStyle">
-      <button class="link-btn fs-15"> 
+
+      <button v-on:click="methodActiveMenu()" class="link-btn fs-15 position-relative z-index-2"> 
          <i class="fas fa-ellipsis-v"></i>
       </button>
-      <div class="fw-600"> Vigencia </div>
+
+      <div v-if="activeMenu" class="hover-menu menu-end pd-top-30 z-index-1">
+        <button v-on:click="methodActiveName()" class="btn-link link-primary"> Nuevo nombre </button>
+        <button v-on:click="methodActiveDescription()" class="btn-link link-primary"> Nueva descripcion </button>  
+      </div>
+
+      <div class="fw-600 color-white"> Vigencia </div>
     </div>
   </div>
 </template>
@@ -53,8 +60,15 @@ export default {
   components: {
     IconAvatar
   },
+  props: {
+    project: {
+      type: Object
+    },
+
+  },
   data() {
     return {
+      activeMenu: false,
       users: [
         {
           id: 1,
@@ -74,10 +88,22 @@ export default {
       ]
     }
   },
-  props: {
-    project: {
-      type: Object
+  methods: {
+    methodActiveMenu: function () {
+      this.activeMenu = this.activeMenu == false ? true : false;
+      return this.activeMenu;
+    },
+
+    methodActiveName: function () {
+      this.activeMenu = false;
+      this.$emit('active-name', true);
+    },
+
+    methodActiveDescription: function () {
+      this.activeMenu = false;
+      this.$emit('active-description', true);
     }
+
   },
   computed: {
     statusStyle: function () {

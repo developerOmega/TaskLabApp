@@ -5,7 +5,7 @@
         <div class="fs-20">
           Editar tarea
         </div>
-        <button type="button" class="link-btn link-white fs-20"><i class="fas fa-times"></i></button>
+        <button v-on:click="inActive" type="button" class="link-btn link-white fs-20"><i class="fas fa-times"></i></button>
         
       </div>
       <textarea class="post-content post-height-max" name="content" id="content" placeholder="Escribir tarea"></textarea>
@@ -95,6 +95,11 @@ export default {
       ]
     }
   },
+  methods: {
+    inActive: function () {
+      this.$emit('edit-task', false);
+    }
+  }
 }
 </script>
 

@@ -78,4 +78,32 @@
       box-shadow: -1px 3px 10px -2px rgba(255,151,151,1);
     }
   }
+
 }
+
+.btn-link {
+  padding: 0;
+  background: none;
+  border: none;
+  font-size: 15px;
+  cursor: pointer;
+  &.link-primary {
+    color: $primary !important;
+    &:hover {
+      color: $fine-second !important;
+    }
+  }
+  &.link-warning {
+    color: $warning;
+    &:hover {
+      color: $warning-second;
+    }
+  }
+  &.link-danger {
+    color: $danger;
+    &:hover {
+      color: $danger-second;
+    }
+  }
+}
+

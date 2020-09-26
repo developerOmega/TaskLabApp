@@ -45,7 +45,11 @@
 }
 
 .color-text {
-  color: $text-primary;
+  color: $text-primary !important;
+}
+
+.color-white {
+  color: white !important;
 }
 
 .color-text-second {
@@ -67,6 +71,18 @@
     color: $primary;
     &:hover {
       color: $fine-second;
+    }
+  }
+  &.link-warning {
+    color: $warning;
+    &:hover {
+      color: $warning-second;
+    }
+  }
+  &.link-danger {
+    color: $danger;
+    &:hover {
+      color: $danger-second;
     }
   }
   &.link-white {

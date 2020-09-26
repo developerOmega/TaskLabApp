@@ -4,16 +4,19 @@
       <router-link to="/" class="logo-text"> TaskLab </router-link>
       <div class="flex align-items-center">
         <div :class="typeStyle"> {{ user.name }} </div>
-        <IconAvatar
-          :img="user.img"
-          :type="user.type"
-        />
+        <button v-on:click="activeMenu()" class="btn-avatar">          
+          <IconAvatar
+            :type="user.type"
+            :img="user.img"
+          />
+        </button>
 
         <OptionsHeader
           v-if="menuOpen"
           :img="user.img"
           :type="user.type"
           :name="user.name"
+          @inactive-menu-header="inactiveMenu"
         />
 
       </div>
@@ -47,10 +50,16 @@ export default {
       menuOpen: false
     }
   },
+  methods: {
+    activeMenu: function () {
+      this.menuOpen = true;
+    },
+    inactiveMenu: function (menuClose) {
+      this.menuOpen = menuClose;
+    }
+  },
   computed: {
     typeStyle: function() {
-
-      console.log();
       
       switch(this.user.type) {
         case 'fine':
@@ -62,7 +71,6 @@ export default {
         default: 
           return 'name-user fs-25 pd-right-15 color-text';
       }
-
     }
   }
 }
