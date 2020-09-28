@@ -2,7 +2,7 @@
   <div class="card not-padding width-resp-100 template">
     <div class="content pd-20">
       <div class="section-center">
-        <router-link to="/" :class="'title-project ' + statusStyle"> {{ project.name }} </router-link>
+        <router-link :to="'/projects/' + project.id" :class="'title-project ' + statusStyle"> {{ project.name }} </router-link>
       </div>
       <div class="section">
         <div class="color-text"> Descripcion: </div>
@@ -75,7 +75,7 @@
         <button v-on:click="methodActiveDescription()" class="btn-link link-primary"> Nueva descripcion </button>  
       </div>
 
-      <div class="fw-600 color-white"> Vigencia </div>
+      <div class="fw-600 color-white text-center"> {{ project.status }} </div>
     </div>
   </div>
 </template>
@@ -83,6 +83,7 @@
 <script>
 import IconAvatar from './IconAvatar';
 
+import User from '../js/User';
 export default {
   name: 'ProjectBox',
   components: {
@@ -92,36 +93,13 @@ export default {
     project: {
       type: Object
     },
-
   },
   data() {
     return {
       activeMenu: false,
       userSelect: false,
-      users: [
-        {
-          id: 1,
-          img: "http://placeimg.com/640/480/people",
-          type: 'fine'
-        },
-        {
-          id: 2,
-          img: "http://placeimg.com/640/480/people",
-          type: 'fine'
-        },
-        {
-          id: 3,
-          img: "http://placeimg.com/640/480/people",
-          type: 'danger'
-        }
-      ],
-      usersAll: [
-        {
-          id: 1,
-          img: "http://placeimg.com/640/480/people",
-          type: 'fine'
-        }
-      ]
+      userReq: new User,
+      users: []
     }
   },
   methods: {
@@ -133,35 +111,49 @@ export default {
     methodActiveName: function () {
       this.activeMenu = false;
       this.$emit('active-name', true);
+      this.$emit('get-project-edit', this.project);
     },
 
     methodActiveDescription: function () {
       this.activeMenu = false;
       this.$emit('active-description', true);
+      this.$emit('get-project-edit', this.project);
     },
 
     activeUserSelect: function () {
       this.userSelect = this.userSelect == false ? true : false;
       return this.userSelect;
-    }
+    },
 
+    getUsers: async function () {
+      const users = await this.userReq.indexByProject(this.project.id);
+      // this.users = users.data;
+      users.data.forEach( user => {
+        this.users.push({
+          id: user.id,
+          img: user.img,
+          type: 'fine'
+        })
+      });
+    }
   },
   computed: {
     statusStyle: function () {
       switch(this.project.status) {
-        case 'fine':
+        case 'active':
           return 'fine';
-        case 'warning':
+        case 'stop':
           return 'warning';
-        case 'danger':
+        case 'finish':
           return 'danger';
         default:
           return ''
       }
     }
   },
-  updated() {
+  async created() {
     console.log(this.users);
+    await this.getUsers();
   }, 
 }
 </script>

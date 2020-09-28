@@ -4,11 +4,11 @@
       <img class="logo" src="/images/logo.png">
     </header>
 
-    <form method="POST" class="card form max-width-600">
+    <form method="POST" v-on:submit.prevent="sessionInit" class="card form max-width-600">
       <h2 class="title text-center"> Login </h2>
       <div class="field">
         <div class="input">
-          <input type="email" class="fs-18" id="email" name="email" placeholder="Ingresa tu email">
+          <input type="email" class="fs-18" id="email" name="email" placeholder="Ingresa tu email" v-model="email">
           <label for="email" class="fs-18"> Email </label>
         </div>
       </div>
@@ -17,7 +17,7 @@
 
       <div class="field pd-top-20">
         <div class="input">
-          <input type="password" class="fs-18" id="password" name="password" placeholder="Ingresa tu contraseña">
+          <input type="password" class="fs-18" id="password" name="password" placeholder="Ingresa tu contraseña" v-model="password">
           <label for="password" class="fs-18"> Contraseña </label>
         </div>
       </div>
@@ -28,8 +28,25 @@
 </template>
 
 <script>
+import UserSession from '../../js/UserSession';
+
 export default {
-  name: 'PageIndexLogin'
+  name: 'PageIndexLogin',
+  data() {
+    return {
+      data: {},
+      email: '',
+      password: '',
+      userSession: new UserSession
+    }
+  },
+  methods: {
+    sessionInit: async function () {
+      this.data = await this.userSession.login(this.email, this.password);
+      console.log(this.data);
+      return this.data;
+    }
+  }
 }
 </script>
 

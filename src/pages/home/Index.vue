@@ -2,12 +2,14 @@
   <div class="content">
     
     <EditNameProject 
+      v-if="activeEditName"
+      v-bind:project="projectEdit"
       @inactive-name="inActiveName"
-      v-if="activeEditName" 
     />
     <EditDescriptionProject
+      v-if="activeEditDescription"
+      v-bind:project="projectEdit"
       @inactive-description="inActiveDescription"    
-      v-if="activeEditDescription" 
     />
 
     <div class="head">
@@ -24,6 +26,7 @@
         v-bind:project="project"
         @active-name="activeNameView"
         @active-description="activeDescription"
+        @get-project-edit="getProjectEdit"
       />
     </div>
   </div>
@@ -34,6 +37,7 @@ import ProjectCard from '../../components/ProjectCard';
 import EditNameProject from '../../components/views/EditNameProject';
 import EditDescriptionProject from '../../components/views/EditDescriptionProject';
 
+import Project from '../../js/Project.js';
 export default {
   name: 'PageIndexHome',
   components: {
@@ -43,27 +47,9 @@ export default {
     return {
       activeEditName: false,
       activeEditDescription: false,
-      projects: [
-        {
-          id: 1,
-          name: 'CampusBay',
-          description: "Algo :v",
-          status: 'fine'
-        },
-        {
-          id: 2,
-          name: 'ChatRoom',
-          description: "Algo :v",
-          status: 'warning'
-        },
-        {
-          id: 3,
-          name: 'SchoolPlatform',
-          description: "Algo :v",
-          status: 'danger'       
-       },
-
-      ]
+      projectReq: new Project,
+      projects: [],
+      projectEdit: {}
     }
   },
   methods: {
@@ -78,7 +64,23 @@ export default {
     },
     inActiveDescription: function (activeEditDescription) {
       this.activeEditDescription = activeEditDescription;
+    },
+    getProjects: async function () {
+      const projects = await this.projectReq.indexByUser();
+      this.projects = projects.data;
+    },
+
+    getProjectEdit: function ( project ) {
+      this.projectEdit = project;
     }
+  },
+  async created () {
+    await this.getProjects();
+    console.log(this.projects);
+  },
+
+  async updated() {
+    await this.getProjects();    
   }
 }
 </script>
