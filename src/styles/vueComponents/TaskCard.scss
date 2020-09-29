@@ -11,6 +11,11 @@
       align-items: center;
       .cont {
         padding-left: 30px;
+        display: flex;
+        flex-wrap: wrap;
+        .img-avatar {
+          padding-right: 8px;
+        }
       }
       .link-btn {
         font-size: 20px;

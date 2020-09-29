@@ -36,4 +36,21 @@ export default class User extends Model{
       return error;
     }
   }
-} 
+
+  async indexByTask ( taskId ) {
+    const url = `${this.url}/api/v1/tasks/${taskId}/users`;
+    const config = {
+      headers: {
+        Authorization: this.token
+      }
+    }
+
+    try {
+      const users = await this.axios.get(url, config);
+      return users.data;
+    } catch (error) {
+      console.error(error);
+      return error;
+    }
+  }
+}

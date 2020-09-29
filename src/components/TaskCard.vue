@@ -27,9 +27,9 @@
     </div>
 
     <div class="menu">
-      <button class="btn btn-fine"> <i class="fas fa-check"></i> </button>
-      <button class="btn btn-danger"> <i class="fas fa-times"></i> </button>
-      <button class="btn btn-warning"> <i class="fas fa-exclamation-triangle"></i> </button>
+      <button v-on:click="updateStatusTask('fine')" class="btn btn-fine"> <i class="fas fa-check"></i> </button>
+      <button v-on:click="updateStatusTask('error')" class="btn btn-danger"> <i class="fas fa-times"></i> </button>
+      <button v-on:click="updateStatusTask('warning')" class="btn btn-warning"> <i class="fas fa-exclamation-triangle"></i> </button>
     </div>
 
   </div>
@@ -39,6 +39,7 @@
 
 import IconAvatar from './IconAvatar';
 import Task from '../js/Task';
+import User from '../js/User';
 export default {
   name: 'TaskCard',
   components: {
@@ -52,15 +53,10 @@ export default {
   data() {
     return {
       menuTask: false,
-      users: [
-         {
-          id: 1,
-          name: 'Sofia Velazquez',
-          email: 'sofia@mail.com',
-          img: 'http://placeimg.com/640/480/people',
-          type: 'fine'
-        }
-      ]
+      colorCard: this.task.status,
+      taskReq: new Task,
+      userReq: new User,
+      users: []
     }
   },
   methods: {
@@ -74,24 +70,37 @@ export default {
       this.$emit('get-task-edit', this.task)
     },
     deleteTask: async function () {
-      const taskReq = new Task;
-      await taskReq.delete(this.task.id);
+      await this.taskReq.delete(this.task.id);
       this.$emit('update-task');
+    },
+    updateStatusTask: async function (status) {
+      status = status === this.colorCard ? 'none' : status;
+      await this.taskReq.udpateStatus(this.task.id, status);
+      this.colorCard = status;
+    },
+    getUsers: async function () {
+      const users = await this.userReq.indexByTask( this.task.id );
+      this.users = users.data;
+      return this.users;
     }
+
   },
   computed: {
     statusStyle: function () {
-      switch (this.task.status) {
-        case 'active':
+      switch (this.colorCard) {
+        case 'fine':
           return 'fine';
-        case 'stop':
+        case 'warning':
           return 'warning';
-        case 'finish':
+        case 'error':
           return 'danger'
         default:
           return 'none'
       }
     }
+  },
+  async created () {
+    await this.getUsers();
   }
 }
 </script>

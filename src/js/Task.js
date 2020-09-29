@@ -39,6 +39,24 @@ export default class Task extends Model {
     }
   }
 
+  async udpateStatus (taskId, status) {
+    const url = `${this.url}/api/v1/tasks/${taskId}/status`;
+    const headers = {
+      'Authorization': this.token,
+      'Content-Type': 'application/json'
+    }
+
+    const options = { method: 'PUT', headers, url, data: { status } };
+    
+    try {
+      const task = await this.axios(options);
+      return task.data;
+    } catch (error) {
+      console.error(error);
+      return error;
+    }
+  }  
+
   async delete ( taskId ) {
     const url = `${this.url}/api/v1/tasks/${taskId}`;
     const config = {

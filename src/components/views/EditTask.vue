@@ -22,23 +22,36 @@
           </div>
 
           <div class="field-users">
-            <button type="button" class="btn-post"><i class="fas fa-user"></i></button>
-            <div class="options-select flex">
+            <button v-on:click="activeOptionsUserTask" type="button" :class="'btn-post ' + activeStyle"><i class="fas fa-user"></i></button>
+
+            <button 
+              type="button" 
+              class="mg-left-15 flex btn-avatar btn-delete"
+              v-for="user in usersSelect"
+              :key="user.id"
+              v-on:click="dropUserSelect(user)"
+            >
               <IconAvatar
-                v-for="user in usersSelect"
-                :key="user.id"
                 v-bind:img="user.img"
                 size="min"
               />
-            </div>
-                  
-            <!-- <div class="options">
-              <IconAvatar
+            </button>
+
+            <div v-if="optionsUserTask" id="options-users" class="options-users">
+              <button
+                class="option btn-avatar fine"
+                type="button"
                 v-for="user in users"
                 :key="user.id"
-                v-bind:img="user.img"
-              />
-            </div> -->
+                v-on:click="addUserSelect(user)"
+              >
+                <IconAvatar
+                  v-bind:img="user.img"
+                  size="min"
+                />
+              </button>
+            </div>
+
           </div>
 
         </div>
@@ -55,7 +68,10 @@
 <script>
 import IconAvatar from '../IconAvatar';
 import Task from '../../js/Task';
+import User from '../../js/User';
+import UserTask from '../../js/UserTask';
 import moment from 'moment';
+
 export default {
   name: 'EditTask',
   components: {
@@ -72,12 +88,44 @@ export default {
       usersSelect: [],
       description: this.task.description,
       timeEnd: moment.utc( this.task.time_end ).format('YYYY-MM-DD'),
-      taskReq: new Task
+      taskReq: new Task,
+      userReq: new User,
+      userTaskReq: new UserTask,
+      optionsUserTask: false,
     }
   },
   methods: {
     inActive: function () {
       this.$emit('edit-task', false);
+    },
+    activeOptionsUserTask: function () {
+      this.optionsUserTask = this.optionsUserTask == false ? true : false;
+      return this.optionsUserTask;
+    },
+
+    addUserSelect: function (user) {
+      this.usersSelect.push(user);
+      this.users.splice(this.users.indexOf(user), 1);
+    },
+    dropUserSelect: function (user) {
+      this.usersSelect.splice(this.usersSelect.indexOf(user), 1);
+      this.users.push(user);
+    },
+
+    updateUserTask: async function ( taskId ) {
+      let userTasks = await this.userReq.indexByTask(taskId);
+
+      userTasks.data.forEach( async (user) => {
+        if(!this.usersSelect.filter( data => data.id === user.id )[0]) {
+          userTasks = await this.userTaskReq.delete( user.id, taskId );
+        }
+      });
+
+      this.usersSelect.forEach(async (user) => {   
+        if( !userTasks.data.filter(data => data.id === user.id)[0] ) {
+          await this.userTaskReq.post( user.id, taskId )
+        }
+      });
     },
     updateTask: async function () {
       const body = {
@@ -86,9 +134,39 @@ export default {
       }
 
       const task = await this.taskReq.update( this.task.id, body );
+      this.updateUserTask(task.data.id);
+
       this.$emit('update-task', task.data);
       this.inActive();
+    },
+
+    getUsers: async function () {
+      const users = await this.userReq.indexByProject( this.task.project_id );
+      this.users = users.data;
+    },
+    getUserSelect: async function () {
+      const users = await this.userReq.indexByTask(this.task.id);
+      this.usersSelect = !users.data ? [] : users.data;
+    },
+    getUserswithoutUserSelect: function () {
+      let newUsers = [];
+      this.users.forEach( user => {
+        if( !this.usersSelect.filter( data => data.id === user.id )[0] ){
+          newUsers.push( user );
+        }
+      });
+      this.users = newUsers;
     }
+  },
+  computed: {
+    activeStyle () {
+      return this.optionsUserTask == false ? '' : 'active';
+    }
+  },
+  async created () {
+    await this.getUsers();
+    await this.getUserSelect();
+    this.getUserswithoutUserSelect();
   }
 }
 </script>

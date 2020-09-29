@@ -71,6 +71,7 @@
                     class="mg-left-15 flex btn-avatar btn-delete"
                     v-for="user in usersSelect"
                     :key="user.id"
+                    v-on:click="dropUserSelect(user)"
                   >
                     <IconAvatar
                       v-bind:img="user.img"
@@ -85,6 +86,7 @@
                       type="button"
                       v-for="user in users"
                       :key="user.id"
+                      v-on:click="addUserSelect(user)"
                     >
                       <IconAvatar
                         v-bind:img="user.img"
@@ -130,6 +132,8 @@ import OptionsProject from '../../components/OptionsProject';
 
 import Task from '../../js/Task';
 import Project from '../../js/Project';
+import User from '../../js/User';
+import UserTask from '../../js/UserTask';
 export default {
   name: 'PageShowProject',
   components: {
@@ -150,6 +154,7 @@ export default {
       optionsUserTask: false,
 
       taskReq: new Task,
+      userTaskReq: new UserTask,
       tasks: [],
       project: {},
       users: [],
@@ -193,27 +198,48 @@ export default {
       this.project = project.data;
     },
     getTasks: async function () {
+      this.tasks = [];
       const tasks = await this.taskReq.indexByProject(this.project.id);
       this.tasks = tasks.data;
       return this.tasks;
+    },
+    getUsers: async function () {
+      const userReq = new User;
+      const users = await userReq.indexByProject( this.project.id );
+      this.users = users.data; 
+    },
+    getEditTask: function ( task ) {
+      this.editTask = task;
+    },
+
+    addUserSelect: function (user) {
+      this.usersSelect.push(user);
+      this.users.splice(this.users.indexOf(user), 1);
+    },
+    dropUserSelect: function (user) {
+      this.usersSelect.splice(this.usersSelect.indexOf(user), 1);
+      this.users.push(user);
     },
 
     createTask: async function () {
       const body = {
         description: this.description,
-        status: 'fine',
+        status: 'none',
         time_init: new Date().toJSON().slice(0, 19).replace('T', ' '),
         time_end: this.timeEnd,
         project_id: this.project.id 
       }
       let task = await this.taskReq.post(body);
       this.tasks.push( task.data );
+      this.createUserTask(task.data.id);
     },
-    
-    getEditTask: function ( task ) {
-      this.editTask = task;
-    },
+    createUserTask: function ( taskId ) {
 
+      this.usersSelect.forEach(async (user) => {
+        console.log(user.id,taskId);
+        await this.userTaskReq.post( user.id, taskId );
+      });
+    },
     updateTask: async function () {
       await this.getTasks();
     }
@@ -226,6 +252,9 @@ export default {
   async created () {
     await this.getProject();
     await this.getTasks();
-  },
+    await this.getUsers();
+
+    console.log(this.users);
+  }
 }
 </script>
