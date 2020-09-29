@@ -7,7 +7,8 @@
     <EditTask 
       v-if="activeEditTask" 
       @edit-task="viewEditTask"
-      
+      @update-task="updateTask"
+      v-bind:task="editTask"
     />
 
     <div class="sub-header">
@@ -48,8 +49,8 @@
           </div>
         </nav>
         <div class="content scroll scroll-max-80">
-          <form class="post" method="POST">
-            <textarea class="post-content post-height-max" name="content" id="content" placeholder="Escribir tarea"></textarea>
+          <form class="post" method="POST" v-on:submit.prevent="createTask">
+            <textarea class="post-content post-height-max" name="description" id="description" placeholder="Escribir tarea" v-model="description"></textarea>
             <div class="post-options inline-options">
               
               <div class="flex align-items-center pd-left-15">
@@ -58,7 +59,7 @@
                     <label for="time_end">
                       <i class="fas fa-calendar-alt"></i>
                     </label>
-                    <input type="date" name="time_end" id="time_end">
+                    <input type="date" name="time_end" id="time_end" v-model="timeEnd">
                   </div>
                 </div>
 
@@ -108,6 +109,8 @@
               :key="task.id"
               v-bind:task="task"
               @edit-task="viewEditTask"
+              @get-task-edit="getEditTask"
+              @update-task="updateTask"
             />
           </div>
         </div>
@@ -123,8 +126,10 @@ import Events from '../../components/views/Events';
 import CreateEvent from '../../components/views/CreateEvent';
 import EditTask from '../../components/views/EditTask';
 import IconAvatar from '../../components/IconAvatar';
-
 import OptionsProject from '../../components/OptionsProject';
+
+import Task from '../../js/Task';
+import Project from '../../js/Project';
 export default {
   name: 'PageShowProject',
   components: {
@@ -143,62 +148,16 @@ export default {
       eventActive: true,
       optionsProject: false,
       optionsUserTask: false,
-      tasks: [
-        {
-          id: 1,
-          content: "Crear vistas y acciones de crud de tabla careers para guard Admin: Index, show, create, store, edit, update, destroy. CampusBay",
-          status: 'none'
-        },
-        {
-          id: 2,
-          content: "Agregar nuevos parámetros de Career a tabla formulario de Students y Teachers. CampusBay",
-          status: 'finish'
-        },
-        {
-          id: 3,
-          content: "Crear componentes de targets (Formularios de configuracion, chip de imagene, Targets de usuarios, )",
-          status: 'stop'
-        },
-        {
-          id: 4,
-          content: "Crear comandos en consola para migrar tablas e información en base de datos con yargs",
-          status: 'active'
-        }
-      ],
 
-      users: [
-        {
-          id: 1,
-          name: 'Nayeli Lopez',
-          email: 'naye@mgail.com',
-          img: 'http://placeimg.com/640/480/people',
-          type: 'fine'
-        },
-        {
-          id: 2,
-          name: 'Tyler Durden',
-          email: 'tyler@gmail.com',
-          img: 'http://placeimg.com/640/480/people',
-          type: 'danger'
-        },
-        {
-          id: 3,
-          name: 'Sofia Velazquez',
-          email: 'sofia@mail.com',
-          img: 'http://placeimg.com/640/480/people',
-          type: 'fine'
-        }
-        
-      ],
-      usersSelect: [
-        {
-          id: 1,
-          name: 'Sofia Velazquez',
-          email: 'sofia@mail.com',
-          img: 'http://placeimg.com/640/480/people',
-          type: 'fine'
-        }
-      ]
+      taskReq: new Task,
+      tasks: [],
+      project: {},
+      users: [],
+      usersSelect: [],
+      editTask: {},
+
+      description: '',
+      timeEnd: '',
     }
   },
   methods: {
@@ -226,12 +185,47 @@ export default {
     },
     inactiveOptionProject: function (activeOptions){
       this.optionsProject = activeOptions;
+    },
+
+    getProject: async function () {
+      let projectReq = new Project;
+      let project = await projectReq.show(this.$route.params.id);
+      this.project = project.data;
+    },
+    getTasks: async function () {
+      const tasks = await this.taskReq.indexByProject(this.project.id);
+      this.tasks = tasks.data;
+      return this.tasks;
+    },
+
+    createTask: async function () {
+      const body = {
+        description: this.description,
+        status: 'fine',
+        time_init: new Date().toJSON().slice(0, 19).replace('T', ' '),
+        time_end: this.timeEnd,
+        project_id: this.project.id 
+      }
+      let task = await this.taskReq.post(body);
+      this.tasks.push( task.data );
+    },
+    
+    getEditTask: function ( task ) {
+      this.editTask = task;
+    },
+
+    updateTask: async function () {
+      await this.getTasks();
     }
   },
   computed :{
     activeStyle () {
       return this.optionsUserTask == false ? '' : 'active';
     }
-  }
+  },
+  async created () {
+    await this.getProject();
+    await this.getTasks();
+  },
 }
 </script>

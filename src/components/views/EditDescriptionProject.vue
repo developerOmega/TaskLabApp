@@ -48,6 +48,7 @@ export default {
     },
     updateDescription: async function () {
       await this.projectReq.update(this.project.id, { description: this.description });
+      this.$emit('update-project');
       this.inActive();
     }
   }

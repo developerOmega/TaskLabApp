@@ -7,7 +7,7 @@
 
         <div v-if="menuTask" class="hover-menu menu-init z-index-1 pd-top-20 pd-left-40">
           <button v-on:click="activeEditTask" class="btn-link link-warning"> <i class="fas fa-pen"></i> Editar tarea </button>
-          <button class="btn-link link-danger"> <i class="fas fa-trash"></i> Eliminar tarea </button>
+          <button v-on:click="deleteTask" class="btn-link link-danger"> <i class="fas fa-trash"></i> Eliminar tarea </button>
         </div>
 
         <div class="cont">
@@ -21,7 +21,7 @@
       </div>
 
       <div class="main">
-        {{ task.content }}
+        {{ task.description }}
       </div>
 
     </div>
@@ -38,7 +38,7 @@
 <script>
 
 import IconAvatar from './IconAvatar';
-
+import Task from '../js/Task';
 export default {
   name: 'TaskCard',
   components: {
@@ -71,6 +71,12 @@ export default {
     activeEditTask: function () {
       this.menuTask = false;
       this.$emit('edit-task', true);
+      this.$emit('get-task-edit', this.task)
+    },
+    deleteTask: async function () {
+      const taskReq = new Task;
+      await taskReq.delete(this.task.id);
+      this.$emit('update-task');
     }
   },
   computed: {

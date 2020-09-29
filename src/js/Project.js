@@ -23,6 +23,23 @@ export default class Project extends Model {
     }
   }
 
+  async show (projectId) {
+    const url = `${this.url}/api/v1/projects/${projectId}`;
+    const config = {
+      headers: {
+        'Authorization': this.token
+      }
+    }
+
+    try {
+      const project = await this.axios.get(url, config);
+      return project.data;
+    } catch (error) {
+      console.log(error);
+      return error;
+    }
+  }
+
   async indexByUser () {
     const url = `${this.url}/api/v1/users/${this.user.id}/projects`;
     const config = {

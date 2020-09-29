@@ -47,6 +47,7 @@ export default {
     },
     updateName: async function () {
       await this.projectReq.update(this.project.id, { name: this.name });
+      this.$emit('update-project');
       this.inActive();
     }
   }

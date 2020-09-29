@@ -1,6 +1,6 @@
 <template>
   <div class="screen">
-    <form class="post mg-auto screen-content" method="POST">
+    <form class="post mg-auto screen-content" method="POST" v-on:submit.prevent="updateTask">
       <div class="post-head">
         <div class="fs-20">
           Editar tarea
@@ -8,7 +8,7 @@
         <button v-on:click="inActive" type="button" class="link-btn link-white fs-20"><i class="fas fa-times"></i></button>
         
       </div>
-      <textarea class="post-content post-height-max" name="content" id="content" placeholder="Escribir tarea"></textarea>
+      <textarea class="post-content post-height-max" name="content" id="content" placeholder="Escribir tarea" v-model="description"></textarea>
       <div class="post-options inline-options">
         
         <div class="flex align-items-center pd-left-15">
@@ -17,7 +17,7 @@
               <label for="time_end">
                 <i class="fas fa-calendar-alt"></i>
               </label>
-              <input type="date" name="time_end" id="time_end">
+              <input type="date" name="time_end" id="time_end" v-model="timeEnd">
             </div>
           </div>
 
@@ -53,51 +53,41 @@
 </template>
 
 <script>
- import IconAvatar from '../IconAvatar';
+import IconAvatar from '../IconAvatar';
+import Task from '../../js/Task';
+import moment from 'moment';
 export default {
   name: 'EditTask',
   components: {
     IconAvatar
   },
+  props: {
+    task: {
+      type: Object
+    }
+  },
   data() {
     return {
-      users: [
-        {
-          id: 1,
-          name: 'Nayeli Lopez',
-          email: 'naye@mgail.com',
-          img: 'http://placeimg.com/640/480/people',
-          type: 'fine'
-        },
-        {
-          id: 2,
-          name: 'Tyler Durden',
-          email: 'tyler@gmail.com',
-          img: 'http://placeimg.com/640/480/people',
-          type: 'danger'
-        },
-        {
-          id: 3,
-          name: 'Sofia Velazquez',
-          email: 'sofia@mail.com',
-          img: 'http://placeimg.com/640/480/people',
-          type: 'fine'
-        }
-      ],
-      usersSelect: [
-        {
-          id: 1,
-          name: 'Sofia Velazquez',
-          email: 'sofia@mail.com',
-          img: 'http://placeimg.com/640/480/people',
-          type: 'fine'
-        }
-      ]
+      users: [],
+      usersSelect: [],
+      description: this.task.description,
+      timeEnd: moment.utc( this.task.time_end ).format('YYYY-MM-DD'),
+      taskReq: new Task
     }
   },
   methods: {
     inActive: function () {
       this.$emit('edit-task', false);
+    },
+    updateTask: async function () {
+      const body = {
+        description: this.description,
+        time_end: this.timeEnd
+      }
+
+      const task = await this.taskReq.update( this.task.id, body );
+      this.$emit('update-task', task.data);
+      this.inActive();
     }
   }
 }

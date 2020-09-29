@@ -5,11 +5,13 @@
       v-if="activeEditName"
       v-bind:project="projectEdit"
       @inactive-name="inActiveName"
+      @update-project="updateProject"
     />
     <EditDescriptionProject
       v-if="activeEditDescription"
       v-bind:project="projectEdit"
       @inactive-description="inActiveDescription"    
+      @update-project="updateProject"
     />
 
     <div class="head">
@@ -72,15 +74,15 @@ export default {
 
     getProjectEdit: function ( project ) {
       this.projectEdit = project;
+    },
+
+    updateProject: async function () {
+      await this.getProjects();
     }
   },
   async created () {
     await this.getProjects();
     console.log(this.projects);
-  },
-
-  async updated() {
-    await this.getProjects();    
   }
 }
 </script>
