@@ -3,10 +3,11 @@
     <header class="header">
       <router-link to="/" class="logo-text"> TaskLab </router-link>
       <div class="flex align-items-center">
-        <div :class="typeStyle"> {{ user.name }} </div>
+        <!-- <div :class="typeStyle"> {{ user.name }} </div> -->
+        <div class="name-user fs-25 pd-right-15 color-primary"> {{ user.name }} </div>
         <button v-on:click="activeMenu()" class="btn-avatar">          
           <IconAvatar
-            :type="user.type"
+            type="fine"
             :img="user.img"
           />
         </button>
@@ -14,7 +15,7 @@
         <OptionsHeader
           v-if="menuOpen"
           :img="user.img"
-          :type="user.type"
+          type="fine"
           :name="user.name"
           @inactive-menu-header="inactiveMenu"
         />
@@ -33,6 +34,7 @@
 <script>
 import IconAvatar from '../components/IconAvatar.vue';
 import OptionsHeader from '../components/OptionsHeader';
+import Model from '../js/Model';
 
 export default {
   name: 'MainLayout',
@@ -42,6 +44,7 @@ export default {
   },
   data() {
     return {
+      modelReq: new Model,
       user: {
         img: 'http://placeimg.com/640/480/people',
         type: "fine",
@@ -56,7 +59,10 @@ export default {
     },
     inactiveMenu: function (menuClose) {
       this.menuOpen = menuClose;
-    }
+    },
+    getUserSession: function () {
+      this.user = this.modelReq.user;
+    } 
   },
   computed: {
     typeStyle: function() {
@@ -72,6 +78,9 @@ export default {
           return 'name-user fs-25 pd-right-15 color-text';
       }
     }
+  },
+  created () {
+    this.getUserSession();
   }
 }
 </script>

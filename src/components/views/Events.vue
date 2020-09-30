@@ -21,7 +21,6 @@
 
 <script>
 import EventCard from '../EventCard';
-// import Event from '../../js/Event';
 export default {
   name: 'Event',
   components: {
@@ -42,16 +41,8 @@ export default {
       this.$emit('create-event', true);
     },
     deleteEvent: async function () {
-      // const eventReq = new Event;
-      // const events = await eventReq.indexPerProject(this.$route.params.id);
-      // this.eventsData = events.data;
       this.$emit('delete-event');
     }
-  },
-  async created() {
-    console.log(this.eventsData);
-    // await this.deleteEvent();
-    // this.eventsData = this.events;
   },
 }
 </script>

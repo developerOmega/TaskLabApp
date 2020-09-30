@@ -99,6 +99,7 @@ export default {
       activeMenu: false,
       userSelect: false,
       userReq: new User,
+      usersAll: [],
       users: []
     }
   },
