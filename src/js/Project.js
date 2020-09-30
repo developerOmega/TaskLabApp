@@ -35,7 +35,7 @@ export default class Project extends Model {
       const project = await this.axios.get(url, config);
       return project.data;
     } catch (error) {
-      console.log(error);
+      console.error(error);
       return error;
     }
   }

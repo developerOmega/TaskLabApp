@@ -3,6 +3,8 @@
     <CreateEvent 
       v-if="activeCreateEvent"
       @create-event="formEvent"
+      @update-events="getEvents"
+      v-bind:project="project"
     />
     <EditTask 
       v-if="activeEditTask" 
@@ -45,6 +47,8 @@
             <Events 
               v-if="eventActive === true"
               @create-event="formEvent"
+              @delete-event="getEvents"
+              v-bind:events="events"
             />
           </div>
         </nav>
@@ -134,6 +138,8 @@ import Task from '../../js/Task';
 import Project from '../../js/Project';
 import User from '../../js/User';
 import UserTask from '../../js/UserTask';
+import Event from '../../js/Event';
+
 export default {
   name: 'PageShowProject',
   components: {
@@ -155,11 +161,12 @@ export default {
 
       taskReq: new Task,
       userTaskReq: new UserTask,
-      tasks: [],
       project: {},
-      users: [],
-      usersSelect: [],
       editTask: {},
+      tasks: [],
+      users: [],
+      events: [],
+      usersSelect: [],
 
       description: '',
       timeEnd: '',
@@ -211,6 +218,11 @@ export default {
     getEditTask: function ( task ) {
       this.editTask = task;
     },
+    getEvents: async function () {
+      const eventReq = new Event;
+      const events = await eventReq.indexPerProject( this.project.id );
+      this.events = events.data;
+    },
 
     addUserSelect: function (user) {
       this.usersSelect.push(user);
@@ -253,7 +265,7 @@ export default {
     await this.getProject();
     await this.getTasks();
     await this.getUsers();
-
+    await this.getEvents();
     console.log(this.users);
   }
 }

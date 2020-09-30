@@ -2,26 +2,49 @@
   
   <div class="event">
     <div class="section">
-      <button class="btn btn-radio min btn-danger">
+      <button v-on:click="deleteEvent" class="btn btn-radio min btn-danger">
         <i class="fas fa-minus"></i>
       </button>
     </div>
 
     <div class="head">
-      <div class="title"> Evento #1 </div>
-      <div class="second"> 10:00 - 12:00 </div>
+      <div class="title"> {{event.name}} </div>
+      <div class="second"> {{date}}  </div>
     </div>
 
     <div class="main">
-      Lorem ipsum dolor sit amet consectetur adipisicing elit. Vel, obcaecati excepturi facere optio sit ipsum soluta nisi et! Quia modi dolor accusamus necessitatibus reprehenderit, esse perferendis id accusantium quam rem?
+      {{ event.description }}
     </div>
   </div>
 
 </template>
 
 <script>
+import moment from 'moment';
+import Event from '../js/Event';
 export default {
-  name: 'EventCard'
+  name: 'EventCard',
+  props: {
+    event: {
+      type: Object
+    }
+  },
+  data() {
+    return {
+      eventReq: new Event
+    }
+  },
+  methods: {
+    deleteEvent: async function () {
+      await this.eventReq.delete( this.event.id );
+      this.$emit('delete-event');
+    }
+  },
+  computed: {
+    date: function () {
+      return moment.utc( this.event.time_end ).format('HH:MM'); //"10:00 - 12:00"
+    }
+  }
 }
 </script>
 
