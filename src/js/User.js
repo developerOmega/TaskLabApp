@@ -5,6 +5,23 @@ export default class User extends Model{
     super();
   }
 
+  async search (email) {
+    const url = `${this.url}/api/v1/users/search/${email}`;
+    const config = {
+      headers: {
+        Authorization: this.token
+      }
+    }
+
+    try {
+      const user = await this.axios.get( url, config );
+      return user.data;
+    } catch (error) {
+      console.error(error);
+      return error;
+    }
+  }
+
   async index (init = 0, end = 0) {
     const link = `${ this.url }/api/v1/users?init=${init}&end=${end}`;
     const config = {
@@ -103,6 +120,24 @@ export default class User extends Model{
     try {
       const user = await this.axios(options);
       return user.data;
+    } catch (error) {
+      console.error(error);
+      return error;
+    }
+  }
+
+  async updatePassword ( data ) {
+    const url = `${this.url}/api/v1/user/${this.user.id}/password`;
+    const headers = {
+      'Authorization': this.token,
+      'Content-Type': 'application/json'
+    }
+
+    const options = { method: 'PUT', headers, url, data };
+
+    try {
+      const users = await this.axios(options);
+      return users.data;
     } catch (error) {
       console.error(error);
       return error;

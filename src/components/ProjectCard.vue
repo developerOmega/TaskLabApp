@@ -27,13 +27,13 @@
                 :img="user.img"
                 :type="user.type"
               />
-              <button class="btn btn-radio min btn-danger"> 
+              <button class="btn btn-radio min btn-danger" v-on:click="dropUser(user)"> 
                 <i class="fas fa-minus"></i>
               </button>
             </div>
           </div>
 
-          <form v-if="userSelect" method="POST" class="form mg-top-15">
+          <form v-if="userSelect" v-on:submit.prevent method="POST" class="form mg-top-15">
             <div class="flex justify-end pd-tb-5">
               <button v-on:click="activeUserSelect" type="button" class="btn btn-radio min btn-danger"> <i class="fas fa-times"></i> </button>
             </div>
@@ -41,7 +41,7 @@
             <div class="background-gray pd-lr-5 border-radius-5">
               <div class="field">
                 <div class="input">
-                  <input type="text" id="name-users" class="background-gray" name="name" placeholder="Buscar usuario">
+                  <input type="text" id="name-users" class="background-gray" name="name" v-model="email" v-on:keyup="getUsersSearch" placeholder="Buscar usuario">
                 </div>
               </div>
 
@@ -51,6 +51,7 @@
                   v-for="user in usersAll"
                   :key="user.id" 
                   class="btn-avatar"
+                  v-on:click="addUser(user)"
                 >
                   <IconAvatar
                     :img="user.img"
@@ -84,6 +85,7 @@
 import IconAvatar from './IconAvatar';
 
 import User from '../js/User';
+import UserProject from '../js/UserProject';
 export default {
   name: 'ProjectBox',
   components: {
@@ -99,8 +101,10 @@ export default {
       activeMenu: false,
       userSelect: false,
       userReq: new User,
+      userProjectReq: new UserProject,
       usersAll: [],
-      users: []
+      users: [],
+      email: ''
     }
   },
   methods: {
@@ -136,6 +140,31 @@ export default {
           type: 'fine'
         })
       });
+    },
+    getUsersSearch: async function (e) {
+      const users = await this.userReq.search(e.target.value);
+      this.usersAll = typeof users.data === 'object' ? users.data : [];
+      this.getUsersAllwithoutUsers();
+    },
+    getUsersAllwithoutUsers: function () {
+      let newUsers = [];
+      this.usersAll.forEach( user => {
+        if( !this.users.filter( data => data.id === user.id )[0] ){
+          newUsers.push( user );
+        }
+      });
+      this.usersAll = newUsers;
+    },
+
+    addUser: async function (user) {
+      this.users.push(user);
+      this.usersAll = [];
+      this.email = '';
+      await this.userProjectReq.post( user.id, this.project.id );
+    },
+    dropUser: async function (user) {
+      this.users.splice( this.users.indexOf(user), 1);
+      await this.userProjectReq.delete( user.id, this.project.id );
     }
   },
   computed: {
