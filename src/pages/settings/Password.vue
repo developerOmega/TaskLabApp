@@ -31,7 +31,13 @@
 </template>
 
 <script>
+import User from '../../js/User';
 export default {
-  name: 'PagePasswordSettings'
+  name: 'PagePasswordSettings',
+  data() {
+    return {
+      userReq: new User
+    }
+  },
 }
 </script>

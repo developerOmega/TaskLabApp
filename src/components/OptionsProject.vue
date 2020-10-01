@@ -9,17 +9,17 @@
       <div class="field">
         
         <div class="input-radio">
-          <input type="radio" id="active" name="status" value="12" >
+          <input type="radio" id="active" name="status" value="active" v-on:change="updateStatus">
           <label for="active"> Vigente </label>
         </div>
 
         <div class="input-radio danger">
-          <input type="radio" id="finish" name="status" value="12" >
+          <input type="radio" id="finish" name="status" value="finish" v-on:change="updateStatus" >
           <label for="finish"> Finalizar </label>
         </div>
 
         <div class="input-radio warning">
-          <input type="radio" id="stop" name="status" value="12" >
+          <input type="radio" id="stop" name="status" value="stop" v-on:change="updateStatus">
           <label for="stop"> Suspender </label>
         </div>
 
@@ -33,12 +33,30 @@
 </template>
 
 <script>
+import Project from '../js/Project';
 export default {
   name: 'OptionsProject',
+  data() {
+    return {
+      projectReq: new Project,
+      project: {},
+      status: ''
+    }
+  },
   methods: {
     inActive: function () {
       this.$emit('options-project', false);
+    },
+    getProject: async function () {
+      const project = await this.projectReq.show(this.$route.params.id);
+      this.project = project.data;
+    },
+    updateStatus: async function (e) {
+      await this.projectReq.update(this.$route.params.id, { status: e.target.value });
     }
+  },
+  async created () {
+    await this.getProject();
   }
 }
 </script>
