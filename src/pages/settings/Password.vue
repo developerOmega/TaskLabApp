@@ -36,7 +36,8 @@ export default {
   name: 'PagePasswordSettings',
   data() {
     return {
-      userReq: new User
+      userReq: new User,
+      
     }
   },
 }

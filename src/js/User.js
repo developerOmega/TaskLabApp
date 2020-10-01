@@ -37,6 +37,26 @@ export default class User extends Model{
     }
   }
 
+  async indexByTask ( taskId ) {
+    const url = `${this.url}/api/v1/tasks/${taskId}/users`;
+    const config = {
+      headers: {
+        Authorization: this.token
+      }
+    }
+
+    try {
+      const users = await this.axios.get(url, config);
+      console.log(users);
+
+
+      return users.data;
+    } catch (error) {
+      console.error(error);
+      return error;
+    }
+  }
+
   async show (userId) {
     const url = `${this.url}/api/v1/users/${userId}`;
     const config = {
@@ -54,8 +74,8 @@ export default class User extends Model{
     }
   }
 
-  async indexByTask ( taskId ) {
-    const url = `${this.url}/api/v1/tasks/${taskId}/users`;
+  async showByProject ( userId ) {
+    const url = `${this.url}/api/v1/projects/${userId}/user`;
     const config = {
       headers: {
         Authorization: this.token
@@ -63,12 +83,13 @@ export default class User extends Model{
     }
 
     try {
-      const users = await this.axios.get(url, config);
-      return users.data;
+      const user = await this.axios.get( url, config );
+      return user.data;
     } catch (error) {
       console.error(error);
       return error;
     }
+
   }
 
   async update ( userId, data ) {

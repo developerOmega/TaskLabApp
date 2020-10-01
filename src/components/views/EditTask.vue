@@ -115,17 +115,25 @@ export default {
     updateUserTask: async function ( taskId ) {
       let userTasks = await this.userReq.indexByTask(taskId);
 
-      userTasks.data.forEach( async (user) => {
-        if(!this.usersSelect.filter( data => data.id === user.id )[0]) {
-          userTasks = await this.userTaskReq.delete( user.id, taskId );
-        }
-      });
+      if (userTasks.data == true) {
+        userTasks.data.forEach( async (user) => {
+          if(!this.usersSelect.filter( data => data.id === user.id )[0]) {
+            userTasks = await this.userTaskReq.delete( user.id, taskId );
+          }
+        });
 
-      this.usersSelect.forEach(async (user) => {   
-        if( !userTasks.data.filter(data => data.id === user.id)[0] ) {
+        this.usersSelect.forEach(async (user) => {   
+          if( !userTasks.data.filter(data => data.id === user.id)[0] ) {
+            await this.userTaskReq.post( user.id, taskId )
+          }
+        });
+      } 
+      else {
+        this.usersSelect.forEach(async (user) => {   
           await this.userTaskReq.post( user.id, taskId )
-        }
-      });
+        });
+      }
+
     },
     updateTask: async function () {
       const body = {

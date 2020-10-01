@@ -27,6 +27,7 @@
 <script>
 import IconAvatar from '../components/IconAvatar';
 import Project from '../js/Project';
+import User from '../js/User';
 
 export default {
   name: 'ProjectLayout',
@@ -35,11 +36,7 @@ export default {
   },
   data() {
     return {
-      user: {
-        img: 'http://placeimg.com/640/480/people',
-        type: "fine",
-        name: 'Nayeli Lopez'
-      },
+      user: {},
       menuOpen: false,
       project: {}
     }
@@ -49,10 +46,16 @@ export default {
       const projectReq = new Project;
       const project = await projectReq.show( this.$route.params.id );
       this.project = project.data;
+    },
+    getUser: async function () {
+      const userReq = new User;
+      const user = await userReq.showByProject( this.$route.params.id );
+      this.user = user.data;
     }
   },
   async created () {
     await this.getProject();
+    await this.getUser();
   }
 }
 </script>

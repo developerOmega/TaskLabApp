@@ -9,17 +9,17 @@
       <div class="field">
         
         <div class="input-radio">
-          <input type="radio" id="active" name="status" value="active" v-on:change="updateStatus">
+          <input type="radio" id="active" name="status" value="active" v-on:change="updateStatus" :checked="project.status === 'active'">
           <label for="active"> Vigente </label>
         </div>
 
         <div class="input-radio danger">
-          <input type="radio" id="finish" name="status" value="finish" v-on:change="updateStatus" >
+          <input type="radio" id="finish" name="status" value="finish" v-on:change="updateStatus" :checked="project.status === 'finish'">
           <label for="finish"> Finalizar </label>
         </div>
 
         <div class="input-radio warning">
-          <input type="radio" id="stop" name="status" value="stop" v-on:change="updateStatus">
+          <input type="radio" id="stop" name="status" value="stop" v-on:change="updateStatus" :checked="project.status === 'stop'">
           <label for="stop"> Suspender </label>
         </div>
 
