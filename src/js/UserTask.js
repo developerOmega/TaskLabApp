@@ -5,7 +5,7 @@ export default class UserTask extends Model {
     super();
   }
 
-  post(userId, taskId) {
+  async post(userId, taskId) {
     const url = `${this.url}/api/v1/user-tasks`;
     const headers = {
       'Authorization': this.token,
@@ -15,7 +15,7 @@ export default class UserTask extends Model {
     const options = { method: 'POST', headers, data, url };
 
     try {
-      const userTask = this.axios(options);
+      const userTask = await this.axios(options);
       return userTask.data;
     } catch (error) {
       console.error(error);

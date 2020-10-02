@@ -182,7 +182,6 @@ export default {
     }
   },
   async created() {
-    console.log(this.users);
     await this.getUsers();
   }, 
 }

@@ -69,7 +69,7 @@ export default {
     },
     getProjects: async function () {
       const projects = await this.projectReq.indexByUser();
-      this.projects = projects.data;
+      this.projects = !projects.data ? [] : projects.data;
     },
 
     getProjectEdit: function ( project ) {
@@ -82,7 +82,6 @@ export default {
   },
   async created () {
     await this.getProjects();
-    console.log(this.projects);
   }
 }
 </script>

@@ -114,8 +114,8 @@ export default {
 
     updateUserTask: async function ( taskId ) {
       let userTasks = await this.userReq.indexByTask(taskId);
-
-      if (userTasks.data == true) {
+      // console.log();
+      if (userTasks.data) {
         userTasks.data.forEach( async (user) => {
           if(!this.usersSelect.filter( data => data.id === user.id )[0]) {
             userTasks = await this.userTaskReq.delete( user.id, taskId );

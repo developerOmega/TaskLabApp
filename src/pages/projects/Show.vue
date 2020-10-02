@@ -202,18 +202,18 @@ export default {
     getProject: async function () {
       let projectReq = new Project;
       let project = await projectReq.show(this.$route.params.id);
-      this.project = project.data;
+      this.project = !project.data ? {} : project.data;
     },
     getTasks: async function () {
       this.tasks = [];
       const tasks = await this.taskReq.indexByProject(this.project.id);
-      this.tasks = tasks.data;
+      this.tasks = !tasks.data ? [] : tasks.data;
       return this.tasks;
     },
     getUsers: async function () {
       const userReq = new User;
       const users = await userReq.indexByProject( this.project.id );
-      this.users = users.data; 
+      this.users = !users.data ? [] : users.data; 
     },
     getEditTask: function ( task ) {
       this.editTask = task;
@@ -221,7 +221,7 @@ export default {
     getEvents: async function () {
       const eventReq = new Event;
       const events = await eventReq.indexPerProject( this.project.id );
-      this.events = events.data;
+      this.events = !events.data ? [] : events.data;
     },
 
     addUserSelect: function (user) {
