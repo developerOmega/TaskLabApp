@@ -5,6 +5,24 @@ export default class Project extends Model {
     super();
   }
 
+  async post ( data ) {
+    const url = `${this.url}/api/v1/projects`;
+    const headers = {
+      'Content-Type': 'application/json',
+      'Authorization': this.token
+    }
+    
+    const options = { method: 'POST', headers, url, data };
+
+    try {
+      const project = await this.axios(options);
+      return project.data;
+    } catch (error) {
+      console.error(error);
+      return error;
+    }
+  }
+
   async update(projectId, data) {
     const url = `${this.url}/api/v1/projects/${projectId}`;
     const headers = {
@@ -15,7 +33,7 @@ export default class Project extends Model {
     const options = { method: 'PUT', headers, data, url };
 
     try {
-      const project = this.axios(options);
+      const project = await this.axios(options);
       return project.data;
     } catch (error) {
       console.error(error);

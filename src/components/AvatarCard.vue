@@ -7,12 +7,18 @@
     <div class="info">
       <div class="section">
         <div> {{ user.name }} </div>
-        <div class="input-checkbox">
-          <input type="checkbox" :id="'admin' + user.id" name="admin" value="12" >
+        <div v-if="user.id !== userSession.id" class="input-checkbox">
+          <input 
+            type="checkbox" 
+            :id="'admin' + user.id" name="admin" 
+            value="1"
+            :checked="user.id === userSession.id" 
+            v-on:change="userAdmin"
+          >
           <label :for="'admin' + user.id"> Admin </label>
         </div>
       </div>
-      <button type="button" class="btn btn-radio min btn-danger"> 
+      <button type="button" v-on:click="dropUser" v-if="user.id !== userSession.id" class="btn btn-radio min btn-danger"> 
         <i class="fas fa-minus"></i>
       </button>
     </div>
@@ -21,6 +27,7 @@
 
 <script>
 import IconAvatar from './IconAvatar';
+import Model from '../js/Model';
 export default {
   name: 'AvatarCard',
   components: {
@@ -30,6 +37,24 @@ export default {
     user: {
       type: Object
     }
+  },
+  data() {
+    return {
+      userSession: []
+    }
+  },
+  methods: {
+    userAdmin: function(e) {      
+      this.$emit('admin-user', {user: this.user, check: e.target.checked });
+    },
+    dropUser: function() {
+      this.$emit('drop-user', this.user);
+    }
+  },
+  async created () {
+    const model = new Model;
+    const user = model.user;
+    this.userSession = user; 
   }
 }
 </script>

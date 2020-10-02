@@ -160,7 +160,7 @@ export default {
       this.users.push(user);
       this.usersAll = [];
       this.email = '';
-      await this.userProjectReq.post( user.id, this.project.id );
+      await this.userProjectReq.post( user.id, this.project.id, 0 );
     },
     dropUser: async function (user) {
       this.users.splice( this.users.indexOf(user), 1);

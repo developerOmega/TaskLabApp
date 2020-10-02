@@ -1,5 +1,5 @@
 <template>
-  <button class="icon-avatar-with-info">
+  <div class="icon-avatar-with-info">
     <IconAvatar
       v-bind:img="user.img"
       v-bind:type="user.type"
@@ -9,7 +9,7 @@
       <div class="color-text fs-15"> {{ user.name }} </div>
       <div :class="'color-' + typeStyle"> {{ user.email }} </div>
     </div>  
-  </button>
+  </div>
 </template>
 
 <script>

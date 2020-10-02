@@ -5,13 +5,13 @@ export default class UserProject extends Model {
     super();
   }
 
-  async post ( userId, projectId ) {
+  async post ( userId, projectId, admin ) {
     const url = `${this.url}/api/v1/user-products`;
     const headers = {
       'Authorization': this.token,
       'Content-Type': 'application/json'
     }
-    const data = { user_id: userId, project_id: projectId, admin: 0 };
+    const data = { user_id: userId, project_id: projectId, admin };
     const options = { method: 'POST', headers, url, data };
 
     try {

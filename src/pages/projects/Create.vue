@@ -8,18 +8,18 @@
     </div>
     
     <div class="main pd-tb-25">
-      <form method="POST" class="form card max-width-900">
+      <form method="POST" class="form card max-width-900" v-on:submit.prevent="createProject">
 
         <div class="field">
           <div class="input">
-            <input type="text" class="fs-15" id="name" name="name" placeholder="Ingresa tu nombre">
+            <input type="text" class="fs-15" id="name" name="name" v-model="name" placeholder="Ingresa tu nombre">
             <label for="name"> Nombre </label>
           </div>
         </div>
 
         <div class="field">
           <div class="input">
-            <textarea name="description"  id="description" class="fs-15" placeholder="Ingresa descripcion"></textarea>
+            <textarea name="description"  id="description" class="fs-15" v-model="description" placeholder="Ingresa descripcion"></textarea>
             <label for="description"> Descripcion </label>
           </div>
         </div>
@@ -28,15 +28,21 @@
           
           <div class="input">
 
-            <input type="search" name="users" class="fs-15" id="user" placeholder="Buscar usuario">
+            <input type="search" name="users" class="fs-15" id="user" v-model="userSearch" v-on:keyup="getUsersSearch" placeholder="Buscar usuario">
             <label for="user"> Usuario </label>
 
             <div class="search-container" v-if="searchUserActive">
-              <AvatarWithInfo
+              <button 
                 v-for="user in users"
                 :key="user.id"
-                v-bind:user="user"
-              />
+                class="link-btn" 
+                type="button" 
+                v-on:click="addUser(user)"
+              >
+                <AvatarWithInfo
+                  v-bind:user="user"
+                />
+              </button>
             </div>
 
           </div>
@@ -46,6 +52,8 @@
               v-for="user in usersSelects"
               :key="user.id"
               v-bind:user="user"
+              @admin-user="userAdmin"
+              @drop-user="dropUser"
             />
           </div>
         </div>
@@ -62,6 +70,9 @@
 
 import AvatarWithInfo from '../../components/AvatarWithInfo';
 import AvatarCard from '../../components/AvatarCard';
+import User from '../../js/User';
+import Project from '../../js/Project';
+import UserProject from '../../js/UserProject';
 
 export default {
   name: 'PageCreateProject',
@@ -71,46 +82,79 @@ export default {
   data() {
     return {
       searchUserActive: false,
-      users: [
-        {
-          id: 1,
-          name: 'Nayeli Lopez',
-          email: 'naye@mgail.com',
-          img: 'http://placeimg.com/640/480/people',
-          type: 'fine'
-        },
-        {
-          id: 2,
-          name: 'Tyler Durden',
-          email: 'tyler@gmail.com',
-          img: 'http://placeimg.com/640/480/people',
-          type: 'danger'
-        },
-        {
-          id: 3,
-          name: 'Sofia Velazquez',
-          email: 'sofia@mail.com',
-          img: 'http://placeimg.com/640/480/people',
-          type: 'fine'
-        }
-      ],
-      usersSelects: [
-        {
-          id: 1,
-          name: 'Nayeli Lopez',
-          email: 'naye@mgail.com',
-          img: 'http://placeimg.com/640/480/people',
-          type: 'fine'
-        },
-        {
-          id: 3,
-          name: 'Sofia Velazquez',
-          email: 'sofia@mail.com',
-          img: 'http://placeimg.com/640/480/people',
-          type: 'fine'
-        }
-      ]
+      name: '',
+      description: '',
+      userSearch: '', 
+      users: [],
+      usersSelects: [],
+      userReq: new User,
+      projectReq: new Project,
+      userProjectReq: new UserProject
     }
   },
+  methods: {
+    createProject: async function () {
+      const data = {
+        name: this.name,
+        description: this.description,
+        status: 'active'
+      }
+
+      let project = await this.projectReq.post( data );
+
+      console.log(project);
+
+      if(this.usersSelects.length > 1 ) {
+        this.createUserProjects( project.data.id );
+      }
+
+      this.$router.push(`/projects/${project.data.id}`);
+    },
+    createUserProjects: async function( projectId ) {
+      for (let i = 1; i < this.usersSelects.length; i++ ) {
+        await this.userProjectReq.post( this.usersSelects[i].id, projectId, this.usersSelects[i].admin );
+      }
+    },
+
+    getUserSession: async function () {
+      const user = await this.userReq.show(this.userReq.user.id);
+      this.usersSelects.push(user.data);
+    },
+    getUsersSearch: async function (e) {
+      const users = await this.userReq.search(e.target.value);
+      this.users = typeof users.data === 'object' ? users.data : [];
+      this.searchUserActive = typeof users.data === 'object' ? true : false;
+      this.getUsersAllwithoutUsers();
+    },
+    getUsersAllwithoutUsers: function () {
+      let newUsers = [];
+      this.users.forEach( user => {
+        if( !this.usersSelects.filter( data => data.id === user.id )[0] ){
+          newUsers.push( user );
+        }
+      });
+      this.users = newUsers;
+    },
+
+    addUser: function (user) {
+      user.admin = false;
+      this.usersSelects.push(user);
+      this.users = [];
+      this.userSearch = '';
+      this.searchUserActive = false;
+    },
+    dropUser: function (user) {
+      this.usersSelects.splice( this.usersSelects.indexOf(user), 1 );
+    },
+
+    userAdmin: function(data) {
+      let user = this.usersSelects[this.usersSelects.indexOf(data.user)];
+      user.admin = data.check;
+      this.usersSelects[this.usersSelects.indexOf(data.user)] = user;
+    }
+  },
+  async created() {
+    await this.getUserSession();
+  }
 }
 </script>
