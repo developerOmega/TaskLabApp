@@ -13,14 +13,14 @@
     </div>
     <div class="options">
       <button v-on:click="inActiveRedirect('/settings/user')" class="link-btn fs-20"><i class="fas fa-cog"></i></button>
-      <button v-on:click="inActiveRedirect('/login')" class="link-btn fs-20"><i class="fas fa-sign-out-alt"></i></button>
+      <button v-on:click="logout" class="link-btn fs-20"><i class="fas fa-sign-out-alt"></i></button>
     </div>
   </div>
 </template>
 
 <script>
 import IconAvatar from './IconAvatar';
-
+import UserSession from '../js/UserSession';
 export default {
   name: 'OptionsHeader',
   components: {
@@ -47,6 +47,12 @@ export default {
     inActiveRedirect: function (pathname) {
       this.inActive();
       this.$router.push(pathname);
+    },
+    logout: function () {
+      this.inActive();
+      const session = new UserSession;
+      session.logout();
+      window.location.href = "/login";
     }
   },
   computed: {

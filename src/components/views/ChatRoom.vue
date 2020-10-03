@@ -60,6 +60,8 @@ export default {
         }
       });
 
+      this.content = '';
+
     },
     getUserSession: async function () {
       const user = await this.userReq.show(this.userReq.user.id);

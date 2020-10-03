@@ -31,7 +31,7 @@ export default class UserSession extends Model {
   }
 
   logout () {
-    localStorage.removeItem('session');
+    localStorage.removeItem('token');
     localStorage.removeItem('user');
     return true;
   }

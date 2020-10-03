@@ -1,3 +1,35 @@
+import User from '../js/User';
+const userReq = new User; 
+
+async function authSession( to, from, next ) {
+  try {
+    let user = await userReq.show(userReq.user.id);
+    if(!user.data) {
+      next( '/login' );
+    }
+    else {
+      next();
+    }
+  } catch (error) {
+    next( '/login' );
+  }
+}
+
+async function authLogin( to, from, next ) {
+  try {
+    let user = await userReq.show(userReq.user.id);
+    if(!user.data) {
+      next();
+    }
+    else {
+      next('/');        
+    }
+  } catch (error) {
+    next();
+  }
+}
+
+
 const routes = [
   {
     path: '/',
@@ -23,13 +55,15 @@ const routes = [
             path: 'user',
             component: () => import('../pages/settings/User.vue')
           }
-        ]
+        ],
       }
-    ]
+    ],
+    beforeEnter: (to, from, next) => authSession(to, from, next),
   },
   {
     path: '/login',
     component: () => import('../pages/login/Index.vue'),
+    beforeEnter: (to, from, next) => authLogin(to, from, next)
   },
   {
     path: '/projects/:id',
@@ -39,7 +73,8 @@ const routes = [
         path: '',
         component: () => import('../pages/projects/Show.vue')
       }
-    ]
+    ],
+    beforeEnter: (to, from, next) => authSession(to, from, next),
   }
 ]
 

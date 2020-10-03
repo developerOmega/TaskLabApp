@@ -44,6 +44,8 @@ export default {
     sessionInit: async function () {
       this.data = await this.userSession.login(this.email, this.password);
       console.log(this.data);
+      // this.$router.push('/');
+      window.location.href = "/";    
       return this.data;
     }
   }
