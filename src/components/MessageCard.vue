@@ -24,6 +24,7 @@
 
 <script>
 import IconAvatar from './IconAvatar';
+import Model from '../js/Model';
 export default {
   name: 'MessageCard',
   components: {
@@ -36,13 +37,18 @@ export default {
   },
   data() {
     return {
-      session: {
-        id: 1,
-        name: 'Nayeli Lopez',
-        email: 'nayeli@gmail.com'
-      }
+      session: {}
     }
   },
+  methods: {
+    getUserSession: async function () {
+      const model = new Model;
+      this.session = model.user;
+    }
+  },
+  async created () {
+    await this.getUserSession();
+  }
 }
 </script>
 

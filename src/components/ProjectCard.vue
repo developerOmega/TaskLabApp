@@ -2,7 +2,7 @@
   <div class="card not-padding width-resp-100 template">
     <div class="content pd-20">
       <div class="section-center">
-        <router-link :to="'/projects/' + project.id" :class="'title-project ' + statusStyle"> {{ project.name }} </router-link>
+        <a :href="'/projects/' + project.id" :class="'title-project ' + statusStyle"> {{ project.name }} </a>
       </div>
       <div class="section">
         <div class="color-text"> Descripcion: </div>

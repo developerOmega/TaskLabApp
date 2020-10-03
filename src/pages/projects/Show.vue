@@ -140,6 +140,7 @@ import User from '../../js/User';
 import UserTask from '../../js/UserTask';
 import Event from '../../js/Event';
 
+
 export default {
   name: 'PageShowProject',
   components: {

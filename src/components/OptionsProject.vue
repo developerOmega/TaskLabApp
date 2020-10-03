@@ -27,7 +27,7 @@
     </div>
 
     <div class="flex justify-center">
-      <router-link to="/" class="btn-link link-primary text-center"> Ir a inicio </router-link>
+      <a href="/" class="btn-link link-primary text-center"> Ir a inicio </a>
     </div>
   </div>
 </template>

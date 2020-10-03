@@ -1,7 +1,7 @@
 <template>
   <div>
     <header class="header">
-      <router-link to="/" class="logo-text"> TaskLab </router-link>
+      <a href="/" class="logo-text"> TaskLab </a>
       <div class="menu flex align-items-end">
 
         <div class="title fs-35 name-project"> {{ project.name }} </div>
@@ -28,6 +28,8 @@
 import IconAvatar from '../components/IconAvatar';
 import Project from '../js/Project';
 import User from '../js/User';
+
+import {Socket} from '../js/Socket';
 
 export default {
   name: 'ProjectLayout',
@@ -56,6 +58,14 @@ export default {
   async created () {
     await this.getProject();
     await this.getUser();
+
+    Socket.on('connect', () => {
+      console.log("Conectado al servidor");
+    });
+
+    Socket.on('disconnect', () => {
+      console.log("Perdimos conexion");
+    });
   }
 }
 </script>
