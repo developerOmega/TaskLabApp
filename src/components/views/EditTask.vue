@@ -72,6 +72,8 @@ import User from '../../js/User';
 import UserTask from '../../js/UserTask';
 import moment from 'moment';
 
+// Template de formulario que actualiza informacion de tarea
+
 export default {
   name: 'EditTask',
   components: {
@@ -95,23 +97,34 @@ export default {
     }
   },
   methods: {
+
+    // Metodo que manda informacion al $emmit 'edit-task' para desactivar Template    
     inActive: function () {
       this.$emit('edit-task', false);
     },
+
+    // Metodo que activa opciones para seleccionar usuario
     activeOptionsUserTask: function () {
       this.optionsUserTask = this.optionsUserTask == false ? true : false;
       return this.optionsUserTask;
     },
 
+    // Metodo que agrega usuario a propiedad userSelect
+    // Recibe parametro -> user:object (data de usuario)
     addUserSelect: function (user) {
       this.usersSelect.push(user);
       this.users.splice(this.users.indexOf(user), 1);
     },
+
+    // Metodo que elimina usuario de propiedad userSelect
+    // Recibe parametro -> user:object (data de usuario)
     dropUserSelect: function (user) {
       this.usersSelect.splice(this.usersSelect.indexOf(user), 1);
       this.users.push(user);
     },
 
+    // Metodo que relaiza peticion PUT para actualizar relaciones entre tarea y usuarios    
+    // Recibe parametro -> taskId:number (id de tarea)
     updateUserTask: async function ( taskId ) {
       let userTasks = await this.userReq.indexByTask(taskId);
       // console.log();
@@ -135,6 +148,8 @@ export default {
       }
 
     },
+
+    // Metodo que relaiza peticion PUT para actualizar tarea
     updateTask: async function () {
       const body = {
         description: this.description,
@@ -148,14 +163,19 @@ export default {
       this.inActive();
     },
 
+    // Metodo que busca usuario por proyecto
     getUsers: async function () {
       const users = await this.userReq.indexByProject( this.task.project_id );
       this.users = users.data;
     },
+
+    // Metodo que busca usuario por tarea
     getUserSelect: async function () {
       const users = await this.userReq.indexByTask(this.task.id);
       this.usersSelect = !users.data ? [] : users.data;
     },
+
+    // Metodo que busca usuario que no pertenecen a la tarea
     getUserswithoutUserSelect: function () {
       let newUsers = [];
       this.users.forEach( user => {
@@ -167,6 +187,7 @@ export default {
     }
   },
   computed: {
+    // Entidad computada que retorna acticacion de opciones de usuarios
     activeStyle () {
       return this.optionsUserTask == false ? '' : 'active';
     }

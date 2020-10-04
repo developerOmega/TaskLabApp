@@ -28,6 +28,9 @@
 
 <script>
 import Project from '../../js/Project';
+
+// Template de tarjeta para modificar nombre de proyecto 
+
 export default {
   name: 'EditNameProject',
   props: {
@@ -42,9 +45,13 @@ export default {
     }
   },
   methods: {
+
+    // Metodo que manda informacion al $emmit 'inactive-name para desactivar Template    
     inActive: function () {
       this.$emit('inactive-name', false);
     },
+
+    // Metodo que relaiza peticion PUT para actualizar nombre de proyecto    
     updateName: async function () {
       await this.projectReq.update(this.project.id, { name: this.name });
       this.$emit('update-project');

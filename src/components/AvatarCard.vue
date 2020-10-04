@@ -28,6 +28,9 @@
 <script>
 import IconAvatar from './IconAvatar';
 import Model from '../js/Model';
+
+// Template de avatar para el formulario Create
+
 export default {
   name: 'AvatarCard',
   components: {
@@ -44,9 +47,13 @@ export default {
     }
   },
   methods: {
+
+    // Metodo que manda informacion al $emmit 'admin-user' con parametro de usuarios seleccionado para agregarlos al formulario de la vista Create        
     userAdmin: function(e) {      
       this.$emit('admin-user', {user: this.user, check: e.target.checked });
     },
+
+    // Metodo que manda informacion el $emit 'drop-user' con el parametro de usuario para eliminar usuairo del formulario de la vista Create
     dropUser: function() {
       this.$emit('drop-user', this.user);
     }

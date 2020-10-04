@@ -26,6 +26,8 @@ import MessageCard from '../MessageCard';
 import { Socket } from '../../js/Socket';
 import User from '../../js/User';
 
+// Template de Sala de chat
+
 export default {
   name: 'ChatRoom',
   components: {
@@ -41,6 +43,8 @@ export default {
     }
   },
   methods: {
+
+    // Metodo que envia contenido de mensaje por medio de un socket
     sendMessage: function () {
 
       const data = {
@@ -49,6 +53,8 @@ export default {
         token: this.userReq.token
       }
 
+      // Metodo Socket que manda informacion al servidor con el contenido del mensaje
+      // Envia parametros -> data:object (datos del mensaje), callback:function (funcion que mustra datos de mensaje creado) 
       Socket.emit('sendMessage', data, (resp) => {
         if(resp.ok == true) {
           console.log(resp);
@@ -63,6 +69,8 @@ export default {
       this.content = '';
 
     },
+
+    // Metodo que busca usuario por los datos de secion
     getUserSession: async function () {
       const user = await this.userReq.show(this.userReq.user.id);
       this.user = user.data;
@@ -71,6 +79,10 @@ export default {
   async created () {
     await this.getUserSession();
 
+    // Metodo Socket que emvia informacion al servidor para renderizar los mensajes del proyecto
+    // Envia parametros 
+    //    -> data:object{ projectId:number (id de proyecto), token:string (token de secion) }
+    //       callback:function (Funcion que muestra la data de todos los mensajes)
     Socket.emit('renderMessages', { projectId: this.$route.params.id, token: await this.userReq.token }, (data) => {
       if(data.ok == true) {
         this.messages = data.messages;
@@ -80,6 +92,8 @@ export default {
       }
     });
 
+    // Metodo Socket que recibe informacion de un mensaje creado
+    // Obtiene los parametros -> resp:object (datos del nuevo mensaje)
     Socket.on('sendMessage', (resp) => {
       console.log(resp);
       this.messages.push(resp.message);

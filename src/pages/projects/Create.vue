@@ -74,6 +74,8 @@ import User from '../../js/User';
 import Project from '../../js/Project';
 import UserProject from '../../js/UserProject';
 
+// Tamplate de formulario para la creacion de proyectos
+
 export default {
   name: 'PageCreateProject',
   components: {
@@ -93,6 +95,8 @@ export default {
     }
   },
   methods: {
+
+    // Metodo que realiza peticion POST para crear proyecto
     createProject: async function () {
       const data = {
         name: this.name,
@@ -110,22 +114,30 @@ export default {
 
       this.$router.push(`/projects/${project.data.id}`);
     },
+
+    // Metodo que relacion entre usuario y proyecto
+    // Recine parametros -> projectId:number (id de proyecto)
     createUserProjects: async function( projectId ) {
       for (let i = 1; i < this.usersSelects.length; i++ ) {
         await this.userProjectReq.post( this.usersSelects[i].id, projectId, this.usersSelects[i].admin );
       }
     },
 
+    // Metodo que busca usuario por la secion
     getUserSession: async function () {
       const user = await this.userReq.show(this.userReq.user.id);
       this.usersSelects.push(user.data);
     },
+
+    // Metodo que busca usuarios por el email en el buscador
     getUsersSearch: async function (e) {
       const users = await this.userReq.search(e.target.value);
       this.users = typeof users.data === 'object' ? users.data : [];
       this.searchUserActive = typeof users.data === 'object' ? true : false;
       this.getUsersAllwithoutUsers();
     },
+
+    // Metodo que busca todos los usuarios sin los usuarios seleccionados
     getUsersAllwithoutUsers: function () {
       let newUsers = [];
       this.users.forEach( user => {
@@ -136,6 +148,8 @@ export default {
       this.users = newUsers;
     },
 
+    // Agregar usuarios propiedad usersSelects
+    // Recibe parametros -> user:obejct (datos del usuario)
     addUser: function (user) {
       user.admin = false;
       this.usersSelects.push(user);
@@ -143,10 +157,15 @@ export default {
       this.userSearch = '';
       this.searchUserActive = false;
     },
+
+    // Metodo que elimina usuarios de propiedad usersSelects
+    // Recibe parametros -> user:obejct (datos del usuario)
     dropUser: function (user) {
       this.usersSelects.splice( this.usersSelects.indexOf(user), 1 );
     },
 
+    // Metodo que agrega la seleccion de administradores en los usuarios
+    // Recibe parametros -> data:obejct{user:object, check:boolean (admin)} 
     userAdmin: function(data) {
       let user = this.usersSelects[this.usersSelects.indexOf(data.user)];
       user.admin = data.check;

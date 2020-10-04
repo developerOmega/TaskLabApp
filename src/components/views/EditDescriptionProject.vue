@@ -29,6 +29,8 @@
 <script>
 import Project from '../../js/Project';
 
+// Template de tarjeta para modificar descripcion de proyecto
+
 export default {
   name: 'EditPasswordProject',
   props: {
@@ -43,9 +45,13 @@ export default {
     }
   },
   methods: {
+
+    // Metodo que manda informacion al $emmit 'inactive-description' para desactivar Template    
     inActive: function () {
       this.$emit('inactive-description', false);
     },
+
+    // Metodo que relaiza peticion PUT para actualizar descripcion de proyecto
     updateDescription: async function () {
       await this.projectReq.update(this.project.id, { description: this.description });
       this.$emit('update-project');

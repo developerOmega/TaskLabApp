@@ -34,6 +34,9 @@
 
 <script>
 import Project from '../js/Project';
+
+// Template de opciones de proyectos (modificacion de status)
+
 export default {
   name: 'OptionsProject',
   data() {
@@ -44,13 +47,19 @@ export default {
     }
   },
   methods: {
+
+    // Metodo que manda informacion al $emmit 'options-project' para desactivar Template        
     inActive: function () {
       this.$emit('options-project', false);
     },
+
+    // Metodo que busca proyecto 
     getProject: async function () {
       const project = await this.projectReq.show(this.$route.params.id);
       this.project = project.data;
     },
+
+    // Metodo que relaiza peticion UPDATE para actualzar estado de proyecto
     updateStatus: async function (e) {
       await this.projectReq.update(this.$route.params.id, { status: e.target.value });
     }

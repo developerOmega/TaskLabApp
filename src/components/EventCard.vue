@@ -22,6 +22,9 @@
 <script>
 import moment from 'moment';
 import Event from '../js/Event';
+
+// Template de tarjeta de evento
+
 export default {
   name: 'EventCard',
   props: {
@@ -35,12 +38,15 @@ export default {
     }
   },
   methods: {
+
+    // Metodo que elimina evento y manda informacion por $emit ('delete-event')
     deleteEvent: async function () {
       await this.eventReq.delete( this.event.id );
       this.$emit('delete-event');
     }
   },
   computed: {
+    // Entidad computada para mostrar horario de columna time_end
     date: function () {
       return moment.utc( this.event.time_end ).format('HH:MM'); //"10:00 - 12:00"
     }

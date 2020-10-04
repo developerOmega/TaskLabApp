@@ -26,6 +26,8 @@ import InfoForm from '../../components/views/InfoForm';
 import DeleteAccountForm from '../../components/views/DeleteAccountForm';
 import DeleteAccountAlert from '../../components/views/DeleteAccountAlert';
 
+// Template de edicion de infromacio nde usuario
+
 export default {
   name: 'PageUserSettings',
   components: {
@@ -37,6 +39,9 @@ export default {
     }
   },
   methods: {
+
+    // Metodo que activa alert para eliminar cuenta
+    // Recibe parametros -> activeAlert:boolean=true
     alertDeleteAccount: function (activeAlert) {
       this.activeDeleteAccount = activeAlert;
     }

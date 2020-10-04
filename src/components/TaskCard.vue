@@ -40,6 +40,9 @@
 import IconAvatar from './IconAvatar';
 import Task from '../js/Task';
 import User from '../js/User';
+
+// Templat de taejeta de tarea
+
 export default {
   name: 'TaskCard',
   components: {
@@ -60,24 +63,34 @@ export default {
     }
   },
   methods: {
+
+    // Metodo que activa menu de tareas
     activeMenuTask: function () {
       this.menuTask = this.menuTask == false ? true : false;
       return this.menuTask;
     },
+
+    // Metodo que actica formulario de editor de tareas
     activeEditTask: function () {
       this.menuTask = false;
       this.$emit('edit-task', true);
       this.$emit('get-task-edit', this.task)
     },
+
+    // Metodo que elimina tarea
     deleteTask: async function () {
       await this.taskReq.delete(this.task.id);
       this.$emit('update-task');
     },
+
+    // Metodo que relaiza peticion PUT para actualizar tarea
     updateStatusTask: async function (status) {
       status = status === this.colorCard ? 'none' : status;
       await this.taskReq.udpateStatus(this.task.id, status);
       this.colorCard = status;
     },
+
+    // Metodo que busca usuarios por tarea
     getUsers: async function () {
       const users = await this.userReq.indexByTask( this.task.id );
       this.users = users.data;

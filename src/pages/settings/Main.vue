@@ -31,6 +31,8 @@
 <script>
 import NavResponsive from '../../components/views/NavResponsive';
 
+// Template global de settings
+
 export default {
   name: 'PageMainSettings',
   components: {
@@ -42,9 +44,13 @@ export default {
     }
   },
   methods: {
+    
+    // Activa menu responsivo
     activeNavResponse: function () {
       this.navResponse = true;
     },
+
+    // Desactiva menu responsivo
     inactiveNavResponse: function ( inactive ) {
       this.navResponse = inactive;
     }

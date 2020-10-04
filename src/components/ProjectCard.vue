@@ -86,6 +86,9 @@ import IconAvatar from './IconAvatar';
 
 import User from '../js/User';
 import UserProject from '../js/UserProject';
+
+// Template de tarjeta de proyectos
+
 export default {
   name: 'ProjectBox',
   components: {
@@ -108,28 +111,34 @@ export default {
     }
   },
   methods: {
+
+    // Metodo de activa menu de proyecto
     methodActiveMenu: function () {
       this.activeMenu = this.activeMenu == false ? true : false;
       return this.activeMenu;
     },
 
+    // Metodo que manda al $emit 'active-name' la activacion del formulario
     methodActiveName: function () {
       this.activeMenu = false;
       this.$emit('active-name', true);
       this.$emit('get-project-edit', this.project);
     },
 
+    // Metodo que manda al $emit 'active-description' la activacion del formulario
     methodActiveDescription: function () {
       this.activeMenu = false;
       this.$emit('active-description', true);
       this.$emit('get-project-edit', this.project);
     },
 
+    // Metodo que activa el menu para selecciona nuevos usuarios
     activeUserSelect: function () {
       this.userSelect = this.userSelect == false ? true : false;
       return this.userSelect;
     },
 
+    // Metodo busca usuario por proyecto
     getUsers: async function () {
       const users = await this.userReq.indexByProject(this.project.id);
       // this.users = users.data;
@@ -141,11 +150,15 @@ export default {
         })
       });
     },
+
+    // Metodo que busca usuarios por email en buscador
     getUsersSearch: async function (e) {
       const users = await this.userReq.search(e.target.value);
       this.usersAll = typeof users.data === 'object' ? users.data : [];
       this.getUsersAllwithoutUsers();
     },
+
+    // Metodo que busca todos los usuarios sin los usuarios del proyecto
     getUsersAllwithoutUsers: function () {
       let newUsers = [];
       this.usersAll.forEach( user => {
@@ -156,12 +169,15 @@ export default {
       this.usersAll = newUsers;
     },
 
+    // Metodo que relaiza peticion POST para crear una relacion entre usuario y proyecto
     addUser: async function (user) {
       this.users.push(user);
       this.usersAll = [];
       this.email = '';
       await this.userProjectReq.post( user.id, this.project.id, 0 );
     },
+
+    // Metodo que elimina relacion entre usuario y proyecto
     dropUser: async function (user) {
       this.users.splice( this.users.indexOf(user), 1);
       await this.userProjectReq.delete( user.id, this.project.id );

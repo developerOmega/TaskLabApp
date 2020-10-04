@@ -21,6 +21,9 @@
 <script>
 import IconAvatar from './IconAvatar';
 import UserSession from '../js/UserSession';
+
+// Template de opciones secion en header (settings, logout)
+
 export default {
   name: 'OptionsHeader',
   components: {
@@ -41,13 +44,20 @@ export default {
     }
   },
   methods: {
+
+    // Metodo que manda informacion al $emmit 'inactive-menu-header' para desactivar Template        
     inActive: function () {
       this.$emit('inactive-menu-header', false);
     },
+
+    // Metodo que redirecciona al pathname seleccionado
+    // Recine parametros -> pathname:strng (link)
     inActiveRedirect: function (pathname) {
       this.inActive();
       this.$router.push(pathname);
     },
+
+    // Metodo que elimina secion
     logout: function () {
       this.inActive();
       const session = new UserSession;

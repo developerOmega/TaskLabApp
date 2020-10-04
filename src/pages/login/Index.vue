@@ -30,6 +30,8 @@
 <script>
 import UserSession from '../../js/UserSession';
 
+// Template del login
+
 export default {
   name: 'PageIndexLogin',
   data() {
@@ -41,6 +43,8 @@ export default {
     }
   },
   methods: {
+
+    // Metodo que relaiza peticion POST para iniciar secion
     sessionInit: async function () {
       this.data = await this.userSession.login(this.email, this.password);
       console.log(this.data);

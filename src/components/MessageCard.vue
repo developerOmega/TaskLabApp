@@ -25,6 +25,9 @@
 <script>
 import IconAvatar from './IconAvatar';
 import Model from '../js/Model';
+
+// Template de tarjeta de mensaje
+
 export default {
   name: 'MessageCard',
   components: {
@@ -41,6 +44,7 @@ export default {
     }
   },
   methods: {
+    // Metodo que busca la secion del usuario
     getUserSession: async function () {
       const model = new Model;
       this.session = model.user;

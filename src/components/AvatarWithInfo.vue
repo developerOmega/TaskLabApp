@@ -14,6 +14,9 @@
 
 <script>
 import IconAvatar from './IconAvatar';
+
+// Template de icono de Avatar con infromacion (name y email)
+
 export default {
   name: 'AvatarWithInfo',
   components: {

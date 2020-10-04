@@ -20,6 +20,9 @@
 
 <script>
 import User from '../../js/User';
+
+// Template de tarjeta para modificar nombre e email de usuario
+
 export default {
   name: 'InfoForm',
   data() {
@@ -30,11 +33,15 @@ export default {
     }
   },
   methods: {
+
+    // Metodo que relaiza peticion GET para buscar la secion del usuario en la DB
     getUser: async function() {
       const user = await this.userReq.show( this.userReq.user.id );
       this.name = user.data.name;
       this.email = user.data.email;
     },
+
+    // Metodo que actualiza peticion PUT para actualiza nombre y email de usuario
     updateUser: async function() {
       const body = { name: this.name, email: this.email };
       const user = await this.userReq.update( this.userReq.user.id, body );

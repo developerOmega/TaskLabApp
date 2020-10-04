@@ -31,6 +31,8 @@ import User from '../js/User';
 
 import {Socket} from '../js/Socket';
 
+// Template de layout de project show
+
 export default {
   name: 'ProjectLayout',
   components: {
@@ -44,11 +46,14 @@ export default {
     }
   },
   methods: {
+    // Metodo que reliza peticion GET para buscar projecto por id
     getProject: async function () {
       const projectReq = new Project;
       const project = await projectReq.show( this.$route.params.id );
       this.project = project.data;
     },
+
+    // Metodo que busca usuarios por proyecto
     getUser: async function () {
       const userReq = new User;
       const user = await userReq.showByProject( this.$route.params.id );

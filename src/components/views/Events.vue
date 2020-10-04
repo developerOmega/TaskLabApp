@@ -21,6 +21,9 @@
 
 <script>
 import EventCard from '../EventCard';
+
+// Template que muestra todos los eventos de un proyecto
+
 export default {
   name: 'Event',
   components: {
@@ -37,9 +40,13 @@ export default {
     }
   },
   methods: {
+
+    // Metodo que manda informacion al $emmit 'create-event' para activar formulrio para crear evento    
     activeCreateEvent: function () {
       this.$emit('create-event', true);
     },
+
+    // Metodo que manda informacion al $emmit 'delete-event' para eliminar evento    
     deleteEvent: async function () {
       this.$emit('delete-event');
     }

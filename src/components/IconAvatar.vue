@@ -5,6 +5,9 @@
 </template>
 
 <script>
+
+// Template de icono de Avatar
+
 export default {
   name: 'IconAvatar',
   props: {
@@ -23,6 +26,7 @@ export default {
   },
   computed: {
     
+    // Entidad computada que retorna elemento de clase (fine, warning, danger)
     typeStyle: (e) => {
       switch (e.type) {
         case 'fine' :
@@ -36,6 +40,7 @@ export default {
       }
     },
 
+    // Entidad computada que retorna tamaños del icono (max, min, super-min)
     widthStyle: function () {
       switch(this.size) {
         case 'max':

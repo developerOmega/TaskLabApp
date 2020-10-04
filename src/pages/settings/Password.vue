@@ -32,6 +32,9 @@
 
 <script>
 import User from '../../js/User';
+
+// Template de password
+
 export default {
   name: 'PagePasswordSettings',
   data() {

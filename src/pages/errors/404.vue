@@ -13,6 +13,9 @@
 </template>
 
 <script>
+
+// Template error 404
+
 export default {
   name: "Error404",
 }

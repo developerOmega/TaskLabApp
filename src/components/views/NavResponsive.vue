@@ -33,6 +33,9 @@
 
 <script>
 import IconAvatar from '../IconAvatar';
+
+// Template de nav responsive -> solo en settings
+
 export default {
   name: 'NavResponsive',
   components: {
@@ -49,9 +52,14 @@ export default {
     }
   },
   methods: {
+
+    // Metodo que manda informacion al $emmit 'nav-response' para desactivar Template    
     inActive: function () {
       this.$emit('nav-response', false);
     },
+
+    // Metodo que redirecciona al pathname seleccionado
+    // Recine parametros -> pathname:strng (link)
     inActiveRedirect: function (pathname) {
       this.inActive();
       this.$router.push(pathname);

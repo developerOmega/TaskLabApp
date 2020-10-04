@@ -6,9 +6,14 @@
 </template>
 
 <script>
+
+// Template de tarjeta para eliminar cuenta
+
 export default {
   name: 'DeleteAccountForm',
   methods: {
+
+    // Metodo que manda informacion al $emit 'alert-delete-account' para activar template de Alerta
     deleteAccount: function () {
       this.$emit('alert-delete-account', true);
     }

@@ -23,9 +23,14 @@
 </template>
 
 <script>
+
+// Template de Alerta de verificacion para eliminar cuenta de usuario
+
 export default {
   name: 'DeleteAccountAlert',
   methods: {
+
+    // Metodo que manda informacion al $emmit 'alert-delete-account' para desactivar Template
     inActive: function () {
       this.$emit('alert-delete-account', false);
     }

@@ -40,6 +40,9 @@ import EditNameProject from '../../components/views/EditNameProject';
 import EditDescriptionProject from '../../components/views/EditDescriptionProject';
 
 import Project from '../../js/Project.js';
+
+// Template de la pagina principal
+
 export default {
   name: 'PageIndexHome',
   components: {
@@ -55,27 +58,44 @@ export default {
     }
   },
   methods: {
+
+    // Metodo que activa el formulario para editar nombre
+    // Recibe parametros -> activeEditName:boolean=true
     activeNameView: function (activeEditName) {
       this.activeEditName = activeEditName
     },
+
+    // Metodo que activa el formulario para editar descripcion
+    // Recibe parametros -> activeEditDescription:boolean=true
     activeDescription: function (activeEditDescription) {
       this.activeEditDescription = activeEditDescription;
     },
+
+    // Metodo que desactiva el formulario para editar nombre
+    // Recibe parametros -> activeEditName:boolean=false 
     inActiveName: function (activeEditName) {
       this.activeEditName = activeEditName;
     },
+
+    // Metodo que desactiva el formulario para editar descripcion
+    // Recibe parametros -> activeEditDescription:boolean=false
     inActiveDescription: function (activeEditDescription) {
       this.activeEditDescription = activeEditDescription;
     },
+
+    // Metodo que busca proyectos por el usuario
     getProjects: async function () {
       const projects = await this.projectReq.indexByUser();
       this.projects = !projects.data ? [] : projects.data;
     },
 
+    // Metodo que muestra el proyecto editado (para poder clasificar el id al momento de llamar a los firmularios name y  decription)
+    // Recibe parametros -> project:object (datos de usuario)
     getProjectEdit: function ( project ) {
       this.projectEdit = project;
     },
 
+    // Metodo que actualiza proyectos al momento de modificar nombre o descripcion
     updateProject: async function () {
       await this.getProjects();
     }

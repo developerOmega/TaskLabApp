@@ -23,6 +23,9 @@
 import IconAvatar from '../IconAvatar';
 import File from '../../js/File';
 import User from '../../js/User';
+
+// Template de tarjeta para modificar imagen de usuario
+
 export default {
   name: "ImgForm",
   components: {
@@ -38,6 +41,8 @@ export default {
     }
   },
   methods: {
+
+    // Metodo que reliza una peticion POST/PUT para subir/actuzar una nueva imagen 
     updateImg: async function () {
       let user = null;
 
@@ -52,10 +57,15 @@ export default {
       
       this.userReq.modifyImgBySession(this.user.img);
     },
+
+    // Metodo que agrega una informacion de imagen a propiedades img e imgData
+    // Recibe parametros -> e:objectForm (datos de formulario)
     setImg: function (e) {
       this.img = e.target.value;
       this.imgData = e.target.files[0];
     },
+
+    // Metodo busca img del usuario
     getUserSession: function () {
       this.user = this.userReq.user;
       this.img = this.user.img;

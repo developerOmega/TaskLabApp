@@ -48,6 +48,9 @@
 <script>
 import Event from '../../js/Event';
 import moment from 'moment'; 
+
+// Template de formulario para crear eventos
+
 export default {
   name: 'CreateEvent',
   props: {
@@ -64,9 +67,13 @@ export default {
     }
   },
   methods: {
+
+    // Metodo que manda informacion al $emmit 'create-event' para desactivar Template
     inActive: function () {
       this.$emit('create-event', false);
     },
+
+    // Metodo que hace una peticion POST para crear nuevo evento
     createEvent: async function () {
       const data = {
         name: this.name,

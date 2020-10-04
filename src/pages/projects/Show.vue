@@ -140,6 +140,7 @@ import User from '../../js/User';
 import UserTask from '../../js/UserTask';
 import Event from '../../js/Event';
 
+// Template de show de proyecto
 
 export default {
   name: 'PageShowProject',
@@ -174,66 +175,96 @@ export default {
     }
   },
   methods: {
+    // Metodo de activa nav de eventos
     executeEventActive: function () {
       this.eventActive = this.eventActive == false ? true : false;
       return this.eventActive;
     },
+
+    // Metodo de desactiva nav de eventos    
     executeEventUnactive: function () {
       this.eventActive = "Task"
       return this.eventActive;
     },
+
+    // Metodo de activa el formulario del evento
+    // Recibe parametros -> activeForm:boolean=true
     formEvent: function (activeForm) {
       this.activeCreateEvent = activeForm;
     },
+
+    // Metodo que activa el formulario para editar tarea
+    // Recibe parametros -> activeEditTask:boolean=true
     viewEditTask: function (activeEditTask) {
       this.activeEditTask = activeEditTask;
     },
+
+    // Metodo que activa las opciones del proyecto ( informacio de status )
     activeOptionsProject: function () {
       this.optionsProject = this.optionsProject == false ? true : false;
       return this.optionsProject;
     },
+
+    // Metodo que activa las opciones de usuarios del formulario de tareas
     activeOptionsUserTask: function () {
       this.optionsUserTask = this.optionsUserTask == false ? true : false;
       return this.optionsUserTask;
     },
+
+    // Metodo que desactiva las opciones de proyecto
+    // Recibe parametros -> activeOptions:boolean=false
     inactiveOptionProject: function (activeOptions){
       this.optionsProject = activeOptions;
     },
 
+    // Metodo realiza peticion GET para buscar proyecto por id
     getProject: async function () {
       let projectReq = new Project;
       let project = await projectReq.show(this.$route.params.id);
       this.project = !project.data ? {} : project.data;
     },
+
+    // Metodo que busca tareas por proyecto
     getTasks: async function () {
       this.tasks = [];
       const tasks = await this.taskReq.indexByProject(this.project.id);
       this.tasks = !tasks.data ? [] : tasks.data;
       return this.tasks;
     },
+
+    // Metodo que busca usuarios por proyecto
     getUsers: async function () {
       const userReq = new User;
       const users = await userReq.indexByProject( this.project.id );
       this.users = !users.data ? [] : users.data; 
     },
+
+    // Metodo que edita tarea
+    // Recibe parametros -> task:object (datos de tarea editada)
     getEditTask: function ( task ) {
       this.editTask = task;
     },
+
+    // Buscar eventos por proyecto
     getEvents: async function () {
       const eventReq = new Event;
       const events = await eventReq.indexPerProject( this.project.id );
       this.events = !events.data ? [] : events.data;
     },
 
+    // Agregar usuarios a propiedad usersSelect
     addUserSelect: function (user) {
       this.usersSelect.push(user);
       this.users.splice(this.users.indexOf(user), 1);
     },
+
+    // Eliminar usuarios a propiedad usersSelect
     dropUserSelect: function (user) {
       this.usersSelect.splice(this.usersSelect.indexOf(user), 1);
       this.users.push(user);
     },
 
+    // Metodo que realiza peticion POST para crear nueva tarea
     createTask: async function () {
       const body = {
         description: this.description,
@@ -246,6 +277,9 @@ export default {
       this.tasks.push( task.data );
       this.createUserTask(task.data.id);
     },
+
+    // Metodo que crea relacion entre usuarios y tareas
+    // Recibe parametros -> taskId:number (id de tarea)
     createUserTask: function ( taskId ) {
 
       this.usersSelect.forEach(async (user) => {
@@ -253,6 +287,8 @@ export default {
         await this.userTaskReq.post( user.id, taskId );
       });
     },
+
+    // Metodo que actualiza tareas al momento de modificar tarea    
     updateTask: async function () {
       await this.getTasks();
     }
