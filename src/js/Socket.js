@@ -1,2 +1,4 @@
 import io from 'socket.io-client';
-export let Socket = io('http://localhost:3000/');
+import Model from './Model';
+const model = new Model;
+export let Socket = io(model.url);
