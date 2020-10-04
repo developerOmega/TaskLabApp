@@ -1,10 +1,16 @@
 import Model from './Model';
 
+// Clase que realiza peticiones a las rutas de events 
+
 export default class Event extends Model {
+
+  // Contructor que ejecuta la herencia de la clase Model
   constructor() {
     super();
   }
 
+  // Metodo asincrono que retorna usuario por projecto
+  // Recibe parametros -> projectId:number (id de proyecto)
   async indexPerProject ( projectId ) {
     const url = `${this.url}/api/v1/projects/${projectId}/events`;
     const config = {
@@ -22,6 +28,9 @@ export default class Event extends Model {
     }
   }
 
+  // Metodo asincrono que crea un nuevo evento
+  // Recibe parametros -> 
+  //    data:object{name:string, description:string, time_init:timestamp, time_end:timestamp, project_id:number}
   async post ( data ) {
     const url = `${this.url}/api/v1/events`;
     const headers= {
@@ -40,6 +49,8 @@ export default class Event extends Model {
     }
   }
 
+  // Metodo que elimina evento
+  // Recibe parametros -> eventId:number (id de evento)
   async delete (eventId) {
     const url = `${this.url}/api/v1/events/${eventId}`;
     const config = {

@@ -1,11 +1,16 @@
 import Model from './Model';
 
+// Clase que relaiza peticion a la ruta login
+
 export default class UserSession extends Model {
 
+  // Clase que realiza peticiones de rutas de user_projects
   constructor () {
     super();
   }
 
+  // Metodo asincrono que autentica login de usuario
+  // Recibe parametros -> email:string, password:string
   async login (email, password) {
     const url = `${this.url}/api/v1/login/users`;
     const headers = {
@@ -30,6 +35,7 @@ export default class UserSession extends Model {
 
   }
 
+  // Metodo que desautentica usuairo
   logout () {
     localStorage.removeItem('token');
     localStorage.removeItem('user');

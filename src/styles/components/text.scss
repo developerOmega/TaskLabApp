@@ -112,11 +112,13 @@
   }
 }
 
+// Etilo de link
 .link {
   text-decoration: none;
   color: $primary;
   border: none;
   background: transparent;
+  // Etilo de tipo primario
   &.link-primary {
     color: $fine-second ;
     text-align: center;

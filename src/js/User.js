@@ -1,10 +1,16 @@
 import Model from './Model';
 
+// Clase que realiza peticiones a las rutas users
+
 export default class User extends Model{
+
+  // Contructor que ejecuta la herencia de la clase Model
   constructor() {
     super();
   }
 
+  // Metodo asincrono que retorna los usuario buscado por email
+  // Recibe parametro -> email:string (email de usuario)
   async search (email) {
     const url = `${this.url}/api/v1/users/search/${email}`;
     const config = {
@@ -22,6 +28,8 @@ export default class User extends Model{
     }
   }
 
+  // Metodo asincrono que retorna todos los usuarios por paginacion
+  // Recibe parametro -> init:number (id de inicio), end:number (id de cierre)
   async index (init = 0, end = 0) {
     const link = `${ this.url }/api/v1/users?init=${init}&end=${end}`;
     const config = {
@@ -37,6 +45,8 @@ export default class User extends Model{
     }
   }
 
+  // Metodo asincrono que retorna usuarios de proyectos
+  // Recibe parametros -> projectId:number (id de proyecto)
   async indexByProject ( projectId ) {
     const url = `${this.url}/api/v1/projects/${projectId}/users`;
     const config = {
@@ -54,6 +64,8 @@ export default class User extends Model{
     }
   }
 
+  // Metodo asincrono que retorna usuarios de tareas
+  // Recibe parametros -> taskId:string (id de tareas)
   async indexByTask ( taskId ) {
     const url = `${this.url}/api/v1/tasks/${taskId}/users`;
     const config = {
@@ -71,6 +83,8 @@ export default class User extends Model{
     }
   }
 
+  // Metodo asincrono que retorna usuario por parametro id
+  // Recibe parametros -> userId:number (id de usuario)
   async show (userId) {
     const url = `${this.url}/api/v1/users/${userId}`;
     const config = {
@@ -88,6 +102,8 @@ export default class User extends Model{
     }
   }
 
+  // Metodo asincrono que retorna usuario de proyecto
+  // Recibe parametros -> userId:number (id de usuario)
   async showByProject ( userId ) {
     const url = `${this.url}/api/v1/projects/${userId}/user`;
     const config = {
@@ -106,6 +122,8 @@ export default class User extends Model{
 
   }
 
+  // Metodo asincrono que actualiza usuario
+  // Recbe parametros -> userId:number (id de usuario), data:object (nuevos datos de usuarios)
   async update ( userId, data ) {
     const url = `${this.url}/api/v1/users/${userId}`;
     const headers = { 
@@ -123,6 +141,8 @@ export default class User extends Model{
     }
   }
 
+  // Metodo asincrono que actualiza password de usuario
+  // Recibe parametros -> data:object{old_password:string, new_password:string}
   async updatePassword ( data ) {
     const url = `${this.url}/api/v1/user/${this.user.id}/password`;
     const headers = {

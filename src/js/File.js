@@ -1,10 +1,16 @@
 import Model from './Model';
 
+// Clase que realiza peticiones de las rutas users para subir archivos
+
 export default class File extends Model {
+
+  // Contructor que ejecuta la herencia de la clase Model
   constructor() {
     super();
   }
 
+  // Metodo asincrono que sube imagen a Dropbox
+  // Recibe parametros -> userId:number (id de usuario), img:file (data de imagen)
   async upload (userId, img) {
     let imgData = new FormData();
     imgData.append('img', img);
@@ -25,6 +31,8 @@ export default class File extends Model {
 
   }
 
+  // Metodo que actualiza imagen de usario en aplicacion de Dropbox
+  // Recibe parametros -> userId:number (id de usuario), img:file (data de imagen)
   async update (userId, img) {
     console.log("%c Estamos en update", 'color: orange');
     let imgData = new FormData();
@@ -45,6 +53,8 @@ export default class File extends Model {
     }
   }
 
+  // Metodo asincrono que elimina imagen de usuarion de aplicacion Dropbox
+  // Recibe parametros -> userId:number (id de usuario)
   async delete (userId) {
     const url = `${this.url}/api/v1/files/users/${userId}`;
     const config = {

@@ -1,10 +1,16 @@
 import Model from './Model';
 
+// Clase que realiza peticiones de rutas de user_projects
+
 export default class UserProject extends Model {
+
+  // Contructor que ejecuta la herencia de la clase Model
   constructor() {
     super();
   }
 
+  // Metodo asincrono que crea una relacion entre usuario y proyecto
+  // Recibe parametros -> userId:number (id de usuario), projectId:number (id de proyecto), admin:boolean (administrador)
   async post ( userId, projectId, admin ) {
     const url = `${this.url}/api/v1/user-products`;
     const headers = {
@@ -23,6 +29,8 @@ export default class UserProject extends Model {
     }
   }
 
+  // Metodo asincrono que elimina relacion de proyecto y usuario
+  // Recibe parametros -> userId:number (id de usuario), projectId:number (id de proyecto)
   async delete ( userId, projectId ) {
     const url = `${this.url}/api/v1/user-products/${userId}/${projectId}`;
     const config = {
