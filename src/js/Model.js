@@ -8,6 +8,7 @@ export default class Model {
     this.token = localStorage.getItem('token');
     this.user = JSON.parse(localStorage.getItem('user'));
   }
+  
 
   modifyImgBySession (img) {
     this.user.img =  img;
