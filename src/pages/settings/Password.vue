@@ -46,6 +46,8 @@ export default {
     }
   },
   methods: {
+
+    // Metodo que realzia peticion PUT para actualizar password
     updatePassword: async function () {
 
       if ( this.password !== this.confirmPassword ) {
