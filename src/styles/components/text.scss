@@ -1,61 +1,76 @@
+// Estilo de titulo
 .title {
   font-weight: 600;
   font-size: 35px;
   color: $text-primary;
 }
 
+// Tamaño de fuente 18px
 .fs-18 {
   font-size: 18px
 }
 
+// Tamaño de fuente 15px
 .fs-15 {
   font-size: 15px
 }
 
+// Tamaño de fuente 20px
 .fs-20 {
   font-size: 20px
 }
 
+// Tamaño de fuente 25px
 .fs-25 {
   font-size: 25px
 }
 
+// Tamaño de fuente 30px
 .fs-30 {
   font-size: 30px
 }
 
+// Grosor de fuente 600px
 .fw-600 {
   font-weight: 600;
 }
 
+// Centralizar texto
 .text-center {
   text-align: center;
 }
 
+// Color de fuente primario
 .color-primary, .color-fine {
   color: $primary;
 }
 
+// Color de fuente de advertencia
 .color-warning {
   color: $warning;
 }
 
+// Color de fuente de danger
 .color-danger {
   color: $danger;
 }
 
+// Color de fuente estandar
 .color-text {
   color: $text-primary !important;
 }
 
+// Color de fuente blanco
 .color-white {
   color: white !important;
 }
 
+// Color de fuente secondario
 .color-text-second {
   color: $text-second;
 }
 
+// Boton con estilo de link
 .link-btn {
   padding: 0;
   border: 0;
@@ -67,24 +82,28 @@
   &:hover {
     color: $text-second;
   }
+  // Estilo primario
   &.link-primary {
     color: $primary;
     &:hover {
       color: $fine-second;
     }
   }
+  // Estilo alerta
   &.link-warning {
     color: $warning;
     &:hover {
       color: $warning-second;
     }
   }
+  // Color danger
   &.link-danger {
     color: $danger;
     &:hover {
       color: $danger-second;
     }
   }
+  // Color blanco
   &.link-white {
     color: white;
     &:hover {

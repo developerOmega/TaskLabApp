@@ -1,3 +1,4 @@
+// Estilo de tarjetas
 .card {
   
   border-radius: 10px;
@@ -13,6 +14,7 @@
   box-shadow: -1px 3px 16px -1px rgba(79,79,79,1);
 }
 
+// Estilo de contenido
 .content {
   padding: 0 30px;
   width: 100%;
@@ -32,6 +34,7 @@
   }
 }
 
+// Estilo de menu de opciones en cards
 .hover-menu {
   max-width: 200px;
   padding: 5px 10px;  
@@ -62,6 +65,7 @@
   }
 }
 
+// Estilos de formularios y alerts que cubren toda la pantalla
 .screen {
   position: fixed;
   z-index: 1000;
@@ -80,6 +84,7 @@
   } 
 }
 
+// Scroll
 .scroll {
   overflow-y: scroll;
   &.scroll-max-90 {
@@ -99,51 +104,63 @@
   }
 }
 
-
+// tamaño de base maximo de 900px
 .max-width-600 {
   max-width: 600px; 
 }
 
+// tamaño de base maximo de 900px
 .max-width-900 {
   max-width: 900px; 
 }
 
+// tamaño responsive del 100%
 .width-resp-100 {
   width: 100%;
 }
 
+// fondo de color gris
 .background-gray {
   background: $background-form;
 }
 
+//fondo de color blanco
 .background-white {
   background: white;
 }
 
+// sobreposicion en 1
 .z-index-1 {
   z-index: 1;
 }
 
+// sobreposicion en 2
 .z-index-2 {
   z-index: 2;
 }
 
+// sobreposicion en 3
 .z-index-3 {
   z-index: 3;
 }
+//.z-index-? solo funciona despues llamar .position-relative o .position-absolute
 
+//  posicion relativa
 .position-relative {
   position: relative;
 }
 
+// div con un rasio de 5px
 .border-radius-5 {
   border-radius: 5px;
 }
 
+// div con border superior
 .border-top {
   border-top: 3px solid $primary;
 }
 
+// div con border inferior
 .border-bottom {
   border-bottom: 3px solid $primary;
 }

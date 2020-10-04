@@ -1,3 +1,4 @@
+// Estilo de formulario para publicar tareas. Solo utilizar en projects/show
 form.post { 
   background: $primary;
   border-top: 3px solid $primary;
@@ -5,6 +6,7 @@ form.post {
   border-bottom-right-radius: 5px;
   margin: 10px 0;
 
+  // Div que contiene el input de fecha
   .field-date {
     // padding: 5px ;
     .input {
@@ -38,6 +40,7 @@ form.post {
     }
   }
 
+  // Div que contiene el input de users
   .field-users {
     position: relative;
     background: $fine-second;
@@ -45,6 +48,7 @@ form.post {
     border-top-right-radius: 50px;
     border-bottom-right-radius: 50px;
 
+    // Div que contiene todos los usuarios
     .options-users {
       z-index: 1;
       position: absolute;
@@ -66,6 +70,7 @@ form.post {
       border-top-right-radius: 50px;
       border-bottom-right-radius: 50px;
 
+      // Estilo de boton que contiene el usuario
       button.option{
         margin: 3px 5px;
         padding: 0;
@@ -75,6 +80,7 @@ form.post {
     }
   }
 
+  // Cabecera de formulario -> utilizar cuando se edite la tarea
   .post-head {
     display: flex;
     justify-content: space-between;
@@ -83,6 +89,7 @@ form.post {
     font-weight: 500;
   }
 
+  // Estilo de contenido de texto de la tarea
   .post-content {
     width: 100%;
     border: none;
@@ -96,6 +103,7 @@ form.post {
     resize: vertical;
     display: block;
     
+    // Tamaño de altuta maximo
     &.post-height-max {
       height: 120px !important;
       max-height: 120px !important; 
@@ -112,6 +120,8 @@ form.post {
       }
     }
   } 
+
+  // Estilos de div que contien los fields y el boton de envio 
   .post-options {
     button.btn-post {
       z-index: 2;
@@ -131,11 +141,15 @@ form.post {
         color: $text-primary;
       }
     }
+
+    // posicion horizontal
     &.inline-options {
       display: flex;
       justify-content: space-between;
       align-items: center;
     }
+
+    // posicion al final
     &.position-end {
       display: flex;
       justify-content: flex-end;

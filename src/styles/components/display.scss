@@ -1,48 +1,64 @@
+// Display flex
 .flex {
   display: flex;
+
+  // Centrar elementos
   &.align-items-center {
     align-items: center;
   }
+
+  // Pocicion el posicion sinal
   &.align-items-end {
     align-items: flex-end;
   }
 
+  // Pocicion derecha de todos los elementos
   &.justify-end {
     justify-content: flex-end;
   }
 
+  // Pocicion centrar de todos los elementos
   &.justify-center {
     justify-content: center;
   }
 
+  // Adaptar flex de elementos dependiendo del responsive 
   &.flex-wrap {
     flex-wrap: wrap;
   }
 }
 
+// Display grid
 .grid {
   display: grid;
+
+  // Espaciado de 60
   &.gap-15 {
     gap: 60px ;
   }
   
+  // El una linea se posicionan 3 elementos de width auto
   &.col-3 {
     grid-template-columns: auto auto auto;
   }
 
+  // El una linea se posicionan 2 elementos, 1er width de 30, 2do width de auto
   &.col-2-of-35-auto {
     grid-template-columns: 35% auto;
   }
 
+  // El una linea se posicionan 2 elementos, 1er width de 20, 2do width de 80
   &.col-2-of-20-80 {
     grid-template-columns: 20% 80%;
   }
 
+  // El una linea se posicionan 2 elementos, 1er width de 30, 2do width de 73
   &.col-2-of-30-70 {
     grid-template-columns: 27% 73%;
   }
 }
 
+//flex y grid con pocicion separada de extremos de todos los elementos 
 .flex, .grid {
   &.justify-between {
     justify-content: space-between; 

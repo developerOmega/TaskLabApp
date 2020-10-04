@@ -1,3 +1,4 @@
+// Estilo de boton
 .btn {
   width: 100%;
   padding: 8px;
@@ -6,6 +7,7 @@
   font-size: 16px;
   font-weight: 500;
 
+  // Boton circular. Solo utilizar con icocnos
   &.btn-radio {
     display: flex;
     align-items: center;
@@ -22,6 +24,7 @@
       display: inline;
     }
     
+    // Maximo tamaño de boton circular
     &.max {
       width: 70px;
       height: 70px;
@@ -31,6 +34,7 @@
 
     }
 
+    // Minimo tamaño de boton circular
     &.min {
       padding: 0;
       width: 18px;
@@ -40,6 +44,8 @@
       }
     }
   }
+
+  // Estilo de boton primario, boton estandar
   &.btn-primary, &.btn-fine{
     color: white;
     background: $primary;
@@ -53,6 +59,7 @@
     }
   }
 
+  // Estilo de boton de advertencia
   &.btn-warning{
     color: white;
     background: $warning;
@@ -66,6 +73,7 @@
     }
   }
 
+  // Estilo de boton danger
   &.btn-danger {
     color: white;
     background: $danger;
@@ -81,6 +89,7 @@
 
 }
 
+// Boton con estilo de link
 .btn-link {
   padding: 0;
   background: none;
@@ -107,6 +116,7 @@
   }
 }
 
+// Botones de opciones para nav
 .btn-nav {
   display: none;
   z-index: 2;

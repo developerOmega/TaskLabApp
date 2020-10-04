@@ -1,4 +1,7 @@
+// Estilo de formularios
 .form {
+  
+  // Estilos de div que contiene todos los inputs estandar
   .field{
     padding: 15px 0;
     position: relative;
@@ -23,6 +26,7 @@
       }
     }
 
+    // Estilos que contien los componenetes de input (text, textarea, email, password)
     .input {
       input, textarea {
         
@@ -53,6 +57,8 @@
       label {
         color: $text-primary;
       }
+
+      // Estilo que agrega un icono al <input>  
       .box-input {
         display: flex;
         align-items: center;
@@ -75,6 +81,7 @@
       }
     }
 
+    // Estilos que contien los componenetes inputs (file)
     .input-file {
       input {
         display: none;
@@ -108,6 +115,7 @@
       }
     }
 
+    // Estilos que contien los componenetes inputs (checkbox)
     .input-checkbox {
 
       label {
@@ -127,6 +135,7 @@
       }
     }
 
+    // Estilos que contien los componenetes inputs (radio)
     .input-radio {
       label {
         transition: ease .3s all;
@@ -144,6 +153,8 @@
         }
         
       }
+      
+      // Estilos de radio de color warning
       &.warning {
         input:checked + label {
           background: $warning !important;
@@ -155,7 +166,8 @@
           } 
         }
       }
-
+      
+      // Estilos de radio de color danger
       &.danger {
         input:checked + label {
           background: $danger !important;
@@ -205,6 +217,7 @@
       gap: 30px;
     }
 
+    // Estilos de contenedores que almacenar usuarios
     .search-container {
       border-radius: none;
       border-bottom-left-radius: 10px; 
