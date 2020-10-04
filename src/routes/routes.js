@@ -75,6 +75,10 @@ const routes = [
       }
     ],
     beforeEnter: (to, from, next) => authSession(to, from, next),
+  },
+  {
+    path: '*',
+    component: () => import('../pages/errors/404.vue') 
   }
 ]
 
