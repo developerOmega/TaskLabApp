@@ -47,12 +47,22 @@
   }
   &.fine {
     background: $primary;
+    -webkit-box-shadow: 1px 1px 10px -2px $primary;
+    -moz-box-shadow: 1px 1px 10px -2px $primary;
+    box-shadow: 1px 1px 10px -2px $primary;
   }
   &.danger {
     background: $danger;
+    -webkit-box-shadow: 1px 1px 10px -2px $danger;
+    -moz-box-shadow: 1px 1px 10px -2px $danger;
+    box-shadow: 1px 1px 10px -2px $danger;
   }
   &.warning {
     background: $warning;
+    -webkit-box-shadow: 1px 1px 10px -2px $warning;
+    -moz-box-shadow: 1px 1px 10px -2px $warning;
+    box-shadow: 1px 1px 10px -2px $warning;
+
   }
 
   &.fine, &.danger ,&.warning {

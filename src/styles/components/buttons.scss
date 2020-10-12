@@ -16,9 +16,9 @@
     border-radius: 50%;
     text-decoration: none;
 
-    -webkit-box-shadow: -1px 3px 10px -2px rgba(79,79,79,1);
-    -moz-box-shadow: -1px 3px 10px -2px rgba(79,79,79,1);
-    box-shadow: -1px 3px 10px -2px rgba(79,79,79,1);
+    -webkit-box-shadow: 2px -2px 15px -1px $text-primary;
+    -moz-box-shadow: 2px -2px 15px -1px $text-primary;
+    box-shadow: 1px 1px 10px -2px $text-primary;
     i {
       margin: auto;
       display: inline;
@@ -43,6 +43,24 @@
         font-size: 10px;
       }
     }
+
+    &.btn-warning {
+      -webkit-box-shadow: 2px -2px 15px -1px $warning;
+      -moz-box-shadow: 2px -2px 15px -1px $warning;
+      box-shadow: 1px 1px 10px -2px $warning;
+    }
+
+    &.btn-danger {
+      -webkit-box-shadow: 2px -2px 15px -1px $danger;
+      -moz-box-shadow: 2px -2px 15px -1px $danger;
+      box-shadow: 1px 1px 10px -2px $danger;
+    }
+
+    &.btn-primary, &.btn-fine {
+      -webkit-box-shadow: 2px -2px 15px -1px $primary;
+      -moz-box-shadow: 2px -2px 15px -1px $primary;
+      box-shadow: 1px 1px 10px -2px $primary;
+    }
   }
 
   // Estilo de boton primario, boton estandar
@@ -50,6 +68,7 @@
     color: white;
     background: $primary;
     cursor: pointer;
+
     &:hover {
       background: $fine-second;
 
@@ -64,6 +83,7 @@
     color: white;
     background: $warning;
     cursor: pointer;
+
     &:hover {
       background: $warning-second;
 
@@ -78,6 +98,7 @@
     color: white;
     background: $danger;
     cursor: pointer;
+
     &:hover {
       background: $danger-second;
 

@@ -57,9 +57,9 @@ form.post {
       max-width: 500px;
       min-width: 200px;
 
-      -webkit-box-shadow: 2px -2px 15px -1px rgba(79,79,79,1);
-      -moz-box-shadow: 2px -2px 15px -1px rgba(79,79,79,1);
-      box-shadow: 2px -2px 15px -1px rgba(79,79,79,1);
+      -webkit-box-shadow: 2px -2px 15px -1px $text-primary;
+      -moz-box-shadow: 2px -2px 15px -1px $text-primary;
+      box-shadow: 1px 1px 10px -2px $text-primary;
 
       background: white;
 
