@@ -7,8 +7,12 @@ export default class Model {
   constructor () {
     // Propiedad que almacena url de API
     this.url = 'http://localhost:3000';
+<<<<<<< HEAD
 
     // Propiedad que inicializa Axios
+=======
+    // this.url = 'https://task-lab-backend.herokuapp.com';
+>>>>>>> 790100fc8abe514143aa14b1e7b41cc7407a461a
     this.axios = Axios;
 
     // Propiedad que llama la variable de localStorage token
@@ -17,6 +21,7 @@ export default class Model {
     // Propiedad que llama la variable de localStorage user
     this.user = JSON.parse(localStorage.getItem('user'));
   }
+  
 
   // Metodo que modifica la imagen de la variable LocalStorage user
   // Recibe parametros -> img:string ( link de nueva imagen )

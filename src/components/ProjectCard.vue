@@ -9,6 +9,7 @@
         <div class="color-text-second pd-tb-5">
           {{ project.description }}
         </div>
+        
         <div class="section">
           <div class="head-section flex justify-between align-items-center">
             <div class="color-text"> Usuarios </div>
