@@ -300,10 +300,13 @@ export default {
       await this.getTasks();
     },
 
+    // Metodo que aumenta la fecha de subheader
     addDateTime: function () {
       let date = sumDays( this.dateTimeNow , 1);
       this.dateTimeNow = moment(date).format('DD/MM/YYYY')
     },
+
+    // Metodo que resta la fecha de subheader
     restDateTime: function () {
       let date = restDays(this.dateTimeNow , 1);
       this.dateTimeNow = moment(date).format('DD/MM/YYYY')
