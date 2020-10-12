@@ -14,9 +14,9 @@
     />
 
     <div class="sub-header">
-      <button><i class="fas fa-arrow-left"></i></button>
-      <h3> 12/07/2020 </h3>
-      <button><i class="fas fa-arrow-right"></i></button>
+      <button v-on:click="restDateTime"><i class="fas fa-arrow-left"></i></button>
+      <h3> {{ dateTime }} </h3>
+      <button v-on:click="addDateTime" ><i class="fas fa-arrow-right"></i></button>
     </div>
 
     <div class="container">
@@ -126,6 +126,9 @@
 </template>
 
 <script>
+import moment from 'moment';
+import { sumDays, restDays } from '../../js/DateTime';
+
 import TaskCard from '../../components/TaskCard';
 import ChatRoom from '../../components/views/ChatRoom';
 import Events from '../../components/views/Events';
@@ -172,6 +175,8 @@ export default {
 
       description: '',
       timeEnd: '',
+
+      dateTimeNow:  moment( new Date().toJSON().slice(0, 19).replace('T', ' ') ).format('DD/MM/YYYY')
     }
   },
   methods: {
@@ -293,11 +298,23 @@ export default {
     // Metodo que actualiza tareas al momento de modificar tarea    
     updateTask: async function () {
       await this.getTasks();
+    },
+
+    addDateTime: function () {
+      let date = sumDays( this.dateTimeNow , 1);
+      this.dateTimeNow = moment(date).format('DD/MM/YYYY')
+    },
+    restDateTime: function () {
+      let date = restDays(this.dateTimeNow , 1);
+      this.dateTimeNow = moment(date).format('DD/MM/YYYY')
     }
   },
   computed :{
     activeStyle () {
       return this.optionsUserTask == false ? '' : 'active';
+    },
+    dateTime: function () {
+      return this.dateTimeNow;
     }
   },
   async created () {
