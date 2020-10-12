@@ -243,7 +243,8 @@ export default {
         project_id: this.project.id 
       }
       let task = await this.taskReq.post(body);
-      this.tasks.push( task.data );
+      // this.tasks.push( task.data );
+      this.tasks.splice(0,0, task.data );
       this.createUserTask(task.data.id);
     },
     createUserTask: function ( taskId ) {
