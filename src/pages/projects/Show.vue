@@ -232,7 +232,7 @@ export default {
     // Metodo que busca tareas por proyecto
     getTasks: async function () {
       this.tasks = [];
-      const tasks = await this.taskReq.indexByProjectOrderTimeEnd(this.project.id, new Date().toJSON().slice(0, 19).replace('T', ' '));
+      const tasks = await this.taskReq.indexByProjectOTEndAndStatus(this.project.id, new Date().toJSON().slice(0, 19).replace('T', ' '));
       this.tasks = !tasks.data ? [] : tasks.data;
       return this.tasks;
     },
@@ -301,15 +301,21 @@ export default {
     },
 
     // Metodo que aumenta la fecha de subheader
-    addDateTime: function () {
+    addDateTime: async function () {
       let date = sumDays( this.dateTimeNow , 1);
-      this.dateTimeNow = moment(date).format('DD/MM/YYYY')
+      this.dateTimeNow = moment(date).format('DD/MM/YYYY');
+      
+      let tasks = await this.taskReq.indexByProjectOrderTimeEnd(this.project.id, moment(date).format('YYYY-MM-DD hh:mm:ss'));
+      this.tasks = tasks.data;
     },
 
     // Metodo que resta la fecha de subheader
-    restDateTime: function () {
+    restDateTime: async function () {
       let date = restDays(this.dateTimeNow , 1);
-      this.dateTimeNow = moment(date).format('DD/MM/YYYY')
+      this.dateTimeNow = moment(date).format('DD/MM/YYYY');
+
+      let tasks = await this.taskReq.indexByProjectOrderTimeEnd(this.project.id, moment(date).format('YYYY-MM-DD hh:mm:ss'));
+      this.tasks = tasks.data;
     }
   },
   computed :{
