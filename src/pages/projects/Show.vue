@@ -232,7 +232,7 @@ export default {
     // Metodo que busca tareas por proyecto
     getTasks: async function () {
       this.tasks = [];
-      const tasks = await this.taskReq.indexByProject(this.project.id);
+      const tasks = await this.taskReq.indexByProjectOrderTimeEnd(this.project.id, new Date().toJSON().slice(0, 19).replace('T', ' '));
       this.tasks = !tasks.data ? [] : tasks.data;
       return this.tasks;
     },
