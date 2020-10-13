@@ -212,7 +212,7 @@ export default {
     },
     getTasks: async function () {
       this.tasks = [];
-      const tasks = await this.taskReq.indexByProject(this.project.id);
+      const tasks = await this.taskReq.indexByProjectOrderTimeEnd(this.project.id, new Date().toJSON().slice(0, 19).replace('T', ' '));
       this.tasks = !tasks.data ? [] : tasks.data;
       return this.tasks;
     },
@@ -263,6 +263,12 @@ export default {
       await this.getTasks();
     },
 
+    updateStatusTasks: async function () {
+      const taskW = this.tasks.filter( task => task.time_end <= new Date().toJSON().slice(0, 19).replace('T', ' ') );
+      console.log("Las tareas Warning", taskW);
+      // taskW.forEach( async task => await this.taskReq.udpateStatus(task.id, 'warning') );
+    },
+
     addDateTime: function () {
       let date = sumDays( this.dateTimeNow , 1);
       this.dateTimeNow = moment(date).format('DD/MM/YYYY')
@@ -285,6 +291,7 @@ export default {
     await this.getTasks();
     await this.getUsers();
     await this.getEvents();
+    await this.updateStatusTasks()
     console.log(this.users);
   }
 }

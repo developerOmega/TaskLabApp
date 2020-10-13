@@ -91,4 +91,22 @@ export default class Task extends Model {
       return error
     }
   }
+
+  async indexByProjectOrderTimeEnd (projectId, timeEnd) {
+    const url =  `${this.url}/api/v1/projects/${projectId}/tasks?time_end=${timeEnd}`;
+    const config = {
+      headers: {
+        Authorization: this.token
+      }
+    }
+
+    try {
+      let tasks = await this.axios.get(url, config);
+      return tasks.data;
+    } catch (error) {
+      console.log(error);
+      return error
+    }
+  }
+
 }
