@@ -212,7 +212,7 @@ export default {
     },
     getTasks: async function () {
       this.tasks = [];
-      const tasks = await this.taskReq.indexByProjectOrderTimeEnd(this.project.id, new Date().toJSON().slice(0, 19).replace('T', ' '));
+      const tasks = await this.taskReq.indexByProjectOTEndAndStatus(this.project.id, new Date().toJSON().slice(0, 19).replace('T', ' '));
       this.tasks = !tasks.data ? [] : tasks.data;
       return this.tasks;
     },
@@ -269,13 +269,19 @@ export default {
       // taskW.forEach( async task => await this.taskReq.udpateStatus(task.id, 'warning') );
     },
 
-    addDateTime: function () {
+    addDateTime: async function () {
       let date = sumDays( this.dateTimeNow , 1);
-      this.dateTimeNow = moment(date).format('DD/MM/YYYY')
+      this.dateTimeNow = moment(date).format('DD/MM/YYYY');
+      
+      let tasks = await this.taskReq.indexByProjectOrderTimeEnd(this.project.id, moment(date).format('YYYY-MM-DD hh:mm:ss'));
+      this.tasks = tasks.data;
     },
-    restDateTime: function () {
+    restDateTime: async function () {
       let date = restDays(this.dateTimeNow , 1);
-      this.dateTimeNow = moment(date).format('DD/MM/YYYY')
+      this.dateTimeNow = moment(date).format('DD/MM/YYYY');
+
+      let tasks = await this.taskReq.indexByProjectOrderTimeEnd(this.project.id, moment(date).format('YYYY-MM-DD hh:mm:ss'));
+      this.tasks = tasks.data;
     }
   },
   computed :{
