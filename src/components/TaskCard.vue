@@ -2,8 +2,10 @@
   <div :class="'card-task position-relative card mg-tb-25 ' + statusStyle">
     <div class="content-task">
       <div class="head-task">
-        <button v-if="menuTask" v-on:click="activeMenuTask" class="link-btn btn-black position-relative z-index-2"><i class="fas fa-ellipsis-v"></i></button>
-        <button v-else v-on:click="activeMenuTask" class="link-btn position-relative z-index-2"><i class="fas fa-ellipsis-v"></i></button>
+        <div v-if="isAdmin">
+          <button v-if="menuTask" v-on:click="activeMenuTask" class="link-btn btn-black position-relative z-index-2"><i class="fas fa-ellipsis-v"></i></button>
+          <button v-else v-on:click="activeMenuTask" class="link-btn position-relative z-index-2"><i class="fas fa-ellipsis-v"></i></button>
+        </div>
 
         <div v-if="menuTask" class="hover-menu menu-init z-index-1 pd-top-20 pd-left-40">
           <button v-on:click="activeEditTask" class="btn-link link-warning"> <i class="fas fa-pen"></i> Editar tarea </button>
@@ -26,7 +28,7 @@
 
     </div>
 
-    <div class="menu">
+    <div class="menu" v-if="isVerify">
       <button v-on:click="updateStatusTask('fine')" class="btn btn-fine"> <i class="fas fa-check"></i> </button>
       <button v-on:click="updateStatusTask('error')" class="btn btn-danger"> <i class="fas fa-times"></i> </button>
       <button v-on:click="updateStatusTask('warning')" class="btn btn-warning"> <i class="fas fa-exclamation-triangle"></i> </button>
@@ -48,6 +50,9 @@ export default {
   props: {
     task:{
       type: Object
+    },
+    usersByProject: {
+      type: Array
     }
   },
   data() {
@@ -97,10 +102,22 @@ export default {
         default:
           return 'none'
       }
+    },
+    isVerify: function () {
+      const userSession = this.userReq.user;
+      const userVerify = this.users.filter( user => user.id === userSession.id);
+      return !userVerify[0] ? false : true;
+    },
+    isAdmin: function () {
+      const userSession = this.userReq.user;
+      const userAdmin = this.usersByProject.filter( user => user.admin == true );
+      const userValidate = userAdmin.filter( user => user.id === userSession.id);
+      return !userValidate[0] ? false : true;
     }
   },
   async created () {
     await this.getUsers();
+    console.log("ASDASDASDASDASDASD", this.users);
   }
 }
 </script>

@@ -25,7 +25,7 @@
           <div class="flex justify-between align-items-center background-gray pd-10">
             <div>
               <button v-on:click="activeOptionsProject" class="link-btn fs-20"> <i class="fas fa-ellipsis-v"></i> </button>
-              <OptionsProject v-if="optionsProject" @options-project="inactiveOptionProject" />
+              <OptionsProject v-if="optionsProject" v-bind:usersByProject="users" @options-project="inactiveOptionProject" />
             </div>
           
             <div class="flex">
@@ -49,11 +49,12 @@
               @create-event="formEvent"
               @delete-event="getEvents"
               v-bind:events="events"
+              v-bind:usersByProject="users"
             />
           </div>
         </nav>
         <div class="content scroll scroll-max-80">
-          <form class="post" method="POST" v-on:submit.prevent="createTask">
+          <form class="post" v-if="isAdmin" method="POST" v-on:submit.prevent="createTask">
             <textarea class="post-content post-height-max" name="description" id="description" placeholder="Escribir tarea" v-model="description"></textarea>
             <div class="post-options inline-options">
               
@@ -115,6 +116,7 @@
               v-for="task in tasks"
               :key="task.id"
               v-bind:task="task"
+              v-bind:usersByProject="users"
               @edit-task="viewEditTask"
               @get-task-edit="getEditTask"
               @update-task="updateTask"
@@ -305,6 +307,12 @@ export default {
     },
     dateTime: function () {
       return this.dateTimeNow;
+    },
+    isAdmin: function () {
+      const userSession = this.userTaskReq.user;
+      const userAdmin = this.users.filter( user => user.admin == true );
+      const userValidate = userAdmin.filter( user => user.id === userSession.id);
+      return !userValidate[0] ? false : true;
     }
   },
   async created () {

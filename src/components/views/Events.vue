@@ -2,7 +2,7 @@
   <div class="menu scroll scroll-max-71">
 
     <div class="head flex justify-end">
-      <button v-on:click="activeCreateEvent" class="btn btn-radio btn-primary max">
+      <button v-if="isAdmin" v-on:click="activeCreateEvent" class="btn btn-radio btn-primary max">
         <i class="fas fa-plus"></i>
       </button>
     </div>
@@ -21,6 +21,8 @@
 
 <script>
 import EventCard from '../EventCard';
+import Event from '../../js/Event';
+
 export default {
   name: 'Event',
   components: {
@@ -29,11 +31,15 @@ export default {
   props: {
     events: {
       type: Array
+    },
+     usersByProject: {
+      type: Array
     }
   },
   data() {
     return {
-      eventsData: this.events
+      eventsData: this.events,
+      eventReq: new Event
     }
   },
   methods: {
@@ -44,5 +50,13 @@ export default {
       this.$emit('delete-event');
     }
   },
+  computed: {
+      isAdmin: function () {
+      const userSession = this.eventReq.user;
+      const userAdmin = this.usersByProject.filter( user => user.admin == true );
+      const userValidate = userAdmin.filter( user => user.id === userSession.id);
+      return !userValidate[0] ? false : true;
+    }
+  }
 }
 </script>
