@@ -1,10 +1,13 @@
 <template>
   <form method="POST" v-on:submit.prevent="updateImg" class="form card width-resp-100" enctype="multipart/form-data">
-    <IconAvatar
-      :img='user.img'
-      type='fine'
-      size='max'
-    />
+    <div :class="classLoading">
+      <LoadingIcon v-if="activeLoading" />
+      <IconAvatar
+        :img='user.img'
+        type='fine'
+        size='max'
+      />
+    </div>
     <div class="field">
       <div class="input-file">
         <label for="img" class="file">
@@ -21,12 +24,13 @@
 
 <script>
 import IconAvatar from '../IconAvatar';
+import LoadingIcon from '../Loading';
 import File from '../../js/File';
 import User from '../../js/User';
 export default {
   name: "ImgForm",
   components: {
-    IconAvatar
+    IconAvatar, LoadingIcon
   },
   data() {
     return {
@@ -34,23 +38,36 @@ export default {
       userReq: new User,
       user: {},
       img: '',
-      imgData: {}
+      imgData: {},
+      activeLoading: false,
+      classLoading: "" //img-locket
     }
   },
   methods: {
+    actLoading: function () {
+      this.activeLoading = this.activeLoading ? false : true;
+      this.classLoading = this.activeLoading ? "img-locket" : "" 
+    },
     updateImg: async function () {
       let user = null;
+      this.actLoading()
 
-      if (this.user.img === '/images/default.png') {
-        user = await this.fileReq.upload(this.user.id, this.imgData);
-        this.user = user.data;
-      }
-      else {
-        user = await this.fileReq.update(this.user.id, this.imgData);
-        this.user = user.user;
+      try {
+        if (this.user.img === '/images/default.png') {
+          user = await this.fileReq.upload(this.user.id, this.imgData);
+          this.user = user.data;
+        }
+        else {
+          user = await this.fileReq.update(this.user.id, this.imgData);
+          this.user = user.user;
+        }
+        this.userReq.modifyImgBySession(this.user.img);
+        this.actLoading();  
+      } catch (error) {
+        console.error(error);
+        this.actLoading();
       }
       
-      this.userReq.modifyImgBySession(this.user.img);
     },
     setImg: function (e) {
       this.img = e.target.value;

@@ -19,7 +19,6 @@ export default class File extends Model {
       const file = await this.axios.post( url, imgData, { headers } );
       return file.data;
     } catch (error) {
-      console.error(error);
       return error;
     }
 
@@ -40,7 +39,6 @@ export default class File extends Model {
       const file = await this.axios.put( url, imgData, { headers } );
       return file.data;
     } catch (error) {
-      console.error(error);
       return error;
     }
   }
@@ -57,7 +55,6 @@ export default class File extends Model {
       const file = await this.axios.delete(url, config);
       return file.data;
     } catch (error) {
-      console.error(error);
       return error;
     }
   }
