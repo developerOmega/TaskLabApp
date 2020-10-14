@@ -104,7 +104,6 @@ export default class Task extends Model {
       let tasks = await this.axios.get(url, config);
       return tasks.data;
     } catch (error) {
-      console.log(error);
       return error
     }
   }
@@ -121,7 +120,6 @@ export default class Task extends Model {
       let tasks = await this.axios.get(url, config);
       return tasks.data;
     } catch (error) {
-      console.log(error);
       return error
     }
   }

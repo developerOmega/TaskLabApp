@@ -1,6 +1,6 @@
 <template>
   <div class="content">
-    
+
     <EditNameProject 
       v-if="activeEditName"
       v-bind:project="projectEdit"
@@ -21,7 +21,9 @@
       </router-link>
     </div>
 
+    <LoadingIcon v-if="activeLoading" />
     <div id="projects-in-home" class="grid col-3 gap-15 pd-tb-25">
+
       <ProjectCard
         v-for="project in projects"
         :key="project.id"
@@ -38,17 +40,20 @@
 import ProjectCard from '../../components/ProjectCard';
 import EditNameProject from '../../components/views/EditNameProject';
 import EditDescriptionProject from '../../components/views/EditDescriptionProject';
+import LoadingIcon from '../../components/Loading';
 
 import Project from '../../js/Project.js';
 export default {
   name: 'PageIndexHome',
   components: {
-    ProjectCard, EditNameProject, EditDescriptionProject
+    ProjectCard, 
+    EditNameProject, EditDescriptionProject, LoadingIcon
   },
   data() {
     return {
       activeEditName: false,
       activeEditDescription: false,
+      activeLoading: false,
       projectReq: new Project,
       projects: [],
       projectEdit: {}
@@ -68,8 +73,15 @@ export default {
       this.activeEditDescription = activeEditDescription;
     },
     getProjects: async function () {
-      const projects = await this.projectReq.indexByUser();
-      this.projects = !projects.data ? [] : projects.data;
+      this.activeLoading = true;
+      try {
+        const projects = await this.projectReq.indexByUser();
+        this.projects = !projects.data ? [] : projects.data;
+        this.activeLoading = false;
+      } catch (error) {
+        this.projects = [];
+        console.err(error);
+      }
     },
 
     getProjectEdit: function ( project ) {

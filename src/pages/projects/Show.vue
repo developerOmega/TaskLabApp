@@ -110,6 +110,7 @@
           </form>
 
           <div class="main">
+            <LoadingIcon v-if="activeLoading" />
             <TaskCard
               v-for="task in tasks"
               :key="task.id"
@@ -136,6 +137,7 @@ import CreateEvent from '../../components/views/CreateEvent';
 import EditTask from '../../components/views/EditTask';
 import IconAvatar from '../../components/IconAvatar';
 import OptionsProject from '../../components/OptionsProject';
+import LoadingIcon from '../../components/Loading';
 
 import Task from '../../js/Task';
 import Project from '../../js/Project';
@@ -153,12 +155,14 @@ export default {
     IconAvatar,
     CreateEvent,
     EditTask,
-    OptionsProject
+    OptionsProject,
+    LoadingIcon
   },
   data() {
     return {
       activeCreateEvent: false,
       activeEditTask: false,
+      activeLoading: false,
       eventActive: true,
       optionsProject: false,
       optionsUserTask: false,
@@ -211,10 +215,15 @@ export default {
       this.project = !project.data ? {} : project.data;
     },
     getTasks: async function () {
-      this.tasks = [];
-      const tasks = await this.taskReq.indexByProjectOTEndAndStatus(this.project.id, new Date().toJSON().slice(0, 19).replace('T', ' '));
-      this.tasks = !tasks.data ? [] : tasks.data;
-      return this.tasks;
+      this.activeLoading = true;
+      try {
+        this.tasks = [];
+        const tasks = await this.taskReq.indexByProjectOTEndAndStatus(this.project.id, new Date().toJSON().slice(0, 19).replace('T', ' '));
+        this.tasks = !tasks.data ? [] : tasks.data;
+        this.activeLoading = false;
+      } catch (error) {
+        console.error(error);
+      }
     },
     getUsers: async function () {
       const userReq = new User;
@@ -253,7 +262,6 @@ export default {
       this.createUserTask(task.data.id);
     },
     createUserTask: function ( taskId ) {
-
       this.usersSelect.forEach(async (user) => {
         console.log(user.id,taskId);
         await this.userTaskReq.post( user.id, taskId );
@@ -263,25 +271,32 @@ export default {
       await this.getTasks();
     },
 
-    updateStatusTasks: async function () {
-      const taskW = this.tasks.filter( task => task.time_end <= new Date().toJSON().slice(0, 19).replace('T', ' ') );
-      console.log("Las tareas Warning", taskW);
-      // taskW.forEach( async task => await this.taskReq.udpateStatus(task.id, 'warning') );
-    },
-
     addDateTime: async function () {
       let date = sumDays( this.dateTimeNow , 1);
       this.dateTimeNow = moment(date).format('DD/MM/YYYY');
-      
-      let tasks = await this.taskReq.indexByProjectOrderTimeEnd(this.project.id, moment(date).format('YYYY-MM-DD hh:mm:ss'));
-      this.tasks = tasks.data;
+      this.activeLoading = true;
+
+      try {
+        let tasks = await this.taskReq.indexByProjectOrderTimeEnd(this.project.id, moment(date).format('YYYY-MM-DD hh:mm:ss'));
+        this.tasks = tasks.data;
+        this.activeLoading = false;
+      } catch (error) {
+        console.error(error);
+      }
+
     },
     restDateTime: async function () {
       let date = restDays(this.dateTimeNow , 1);
       this.dateTimeNow = moment(date).format('DD/MM/YYYY');
+      this.activeLoading = true; 
 
-      let tasks = await this.taskReq.indexByProjectOrderTimeEnd(this.project.id, moment(date).format('YYYY-MM-DD hh:mm:ss'));
-      this.tasks = tasks.data;
+      try {
+        let tasks = await this.taskReq.indexByProjectOrderTimeEnd(this.project.id, moment(date).format('YYYY-MM-DD hh:mm:ss'));
+        this.tasks = tasks.data;
+        this.activeLoading = false; 
+      } catch (error) {
+        console.error(error);
+      }
     }
   },
   computed :{
@@ -297,7 +312,6 @@ export default {
     await this.getTasks();
     await this.getUsers();
     await this.getEvents();
-    await this.updateStatusTasks()
     console.log(this.users);
   }
 }
