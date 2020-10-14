@@ -110,6 +110,7 @@
           </form>
 
           <div class="main">
+            <LoadingIcon v-if="activeLoading" />
             <TaskCard
               v-for="task in tasks"
               :key="task.id"
@@ -136,6 +137,7 @@ import CreateEvent from '../../components/views/CreateEvent';
 import EditTask from '../../components/views/EditTask';
 import IconAvatar from '../../components/IconAvatar';
 import OptionsProject from '../../components/OptionsProject';
+import LoadingIcon from '../../components/Loading';
 
 import Task from '../../js/Task';
 import Project from '../../js/Project';
@@ -154,12 +156,14 @@ export default {
     IconAvatar,
     CreateEvent,
     EditTask,
-    OptionsProject
+    OptionsProject,
+    LoadingIcon
   },
   data() {
     return {
       activeCreateEvent: false,
       activeEditTask: false,
+      activeLoading: false,
       eventActive: true,
       optionsProject: false,
       optionsUserTask: false,
@@ -231,10 +235,15 @@ export default {
 
     // Metodo que busca tareas por proyecto
     getTasks: async function () {
-      this.tasks = [];
-      const tasks = await this.taskReq.indexByProjectOTEndAndStatus(this.project.id, new Date().toJSON().slice(0, 19).replace('T', ' '));
-      this.tasks = !tasks.data ? [] : tasks.data;
-      return this.tasks;
+      this.activeLoading = true;
+      try {
+        this.tasks = [];
+        const tasks = await this.taskReq.indexByProjectOTEndAndStatus(this.project.id, new Date().toJSON().slice(0, 19).replace('T', ' '));
+        this.tasks = !tasks.data ? [] : tasks.data;
+        this.activeLoading = false;
+      } catch (error) {
+        console.error(error);
+      }
     },
 
     // Metodo que busca usuarios por proyecto
@@ -288,7 +297,6 @@ export default {
     // Metodo que crea relacion entre usuarios y tareas
     // Recibe parametros -> taskId:number (id de tarea)
     createUserTask: function ( taskId ) {
-
       this.usersSelect.forEach(async (user) => {
         console.log(user.id,taskId);
         await this.userTaskReq.post( user.id, taskId );
@@ -304,18 +312,31 @@ export default {
     addDateTime: async function () {
       let date = sumDays( this.dateTimeNow , 1);
       this.dateTimeNow = moment(date).format('DD/MM/YYYY');
-      
-      let tasks = await this.taskReq.indexByProjectOrderTimeEnd(this.project.id, moment(date).format('YYYY-MM-DD hh:mm:ss'));
-      this.tasks = tasks.data;
+      this.activeLoading = true;
+
+      try {
+        let tasks = await this.taskReq.indexByProjectOrderTimeEnd(this.project.id, moment(date).format('YYYY-MM-DD hh:mm:ss'));
+        this.tasks = tasks.data;
+        this.activeLoading = false;
+      } catch (error) {
+        console.error(error);
+      }
+
     },
 
     // Metodo que resta la fecha de subheader
     restDateTime: async function () {
       let date = restDays(this.dateTimeNow , 1);
       this.dateTimeNow = moment(date).format('DD/MM/YYYY');
+      this.activeLoading = true; 
 
-      let tasks = await this.taskReq.indexByProjectOrderTimeEnd(this.project.id, moment(date).format('YYYY-MM-DD hh:mm:ss'));
-      this.tasks = tasks.data;
+      try {
+        let tasks = await this.taskReq.indexByProjectOrderTimeEnd(this.project.id, moment(date).format('YYYY-MM-DD hh:mm:ss'));
+        this.tasks = tasks.data;
+        this.activeLoading = false; 
+      } catch (error) {
+        console.error(error);
+      }
     }
   },
   computed :{
