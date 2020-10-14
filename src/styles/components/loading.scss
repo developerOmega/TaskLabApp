@@ -17,3 +17,23 @@ svg path,
 svg rect{
   fill: #5AE6CA;
 }
+
+
+// Estilo de carga de imagenes
+.img-locket {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  .loader {
+    width: 120px;
+    height: 120px;
+    border-radius: 50%;
+    background: rgba(205,205,205, .7);
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    position: absolute;
+  }
+}
