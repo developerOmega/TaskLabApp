@@ -116,7 +116,6 @@
               v-for="task in tasks"
               :key="task.id"
               v-bind:task="task"
-              v-bind:usersByProject="users"
               @edit-task="viewEditTask"
               @get-task-edit="getEditTask"
               @update-task="updateTask"
@@ -310,7 +309,6 @@ export default {
     },
     isAdmin: function () {
       return Validate.admin( this.userTaskReq.user, this.users);
-      
     }
   },
   async created () {

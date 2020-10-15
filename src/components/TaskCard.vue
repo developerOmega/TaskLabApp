@@ -42,6 +42,7 @@
 import IconAvatar from './IconAvatar';
 import Task from '../js/Task';
 import User from '../js/User';
+import Validate from '../js/Validate';
 export default {
   name: 'TaskCard',
   components: {
@@ -50,9 +51,6 @@ export default {
   props: {
     task:{
       type: Object
-    },
-    usersByProject: {
-      type: Array
     }
   },
   data() {
@@ -109,10 +107,7 @@ export default {
       return !userVerify[0] ? false : true;
     },
     isAdmin: function () {
-      const userSession = this.userReq.user;
-      const userAdmin = this.usersByProject.filter( user => user.admin == true );
-      const userValidate = userAdmin.filter( user => user.id === userSession.id);
-      return !userValidate[0] ? false : true;
+      return Validate.admin( this.userReq.user, this.users);
     }
   },
   async created () {
