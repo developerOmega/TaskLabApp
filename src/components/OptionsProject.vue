@@ -54,18 +54,17 @@
 
 <script>
 import Project from '../js/Project';
+import User from '../js/User';
+import Validate from '../js/Validate';
 export default {
   name: 'OptionsProject',
-  props: {
-    usersByProject: {
-      type: Array
-    }
-  },
   data() {
     return {
       projectReq: new Project,
+      userReq: new User,
       project: {},
-      status: ''
+      status: '',
+      users: []
     }
   },
   methods: {
@@ -76,20 +75,22 @@ export default {
       const project = await this.projectReq.show(this.$route.params.id);
       this.project = project.data;
     },
+    getUser: async function () {
+      const users = await this.userReq.indexByProject(this.$route.params.id);
+      this.users = users.data;
+    },
     updateStatus: async function (e) {
       await this.projectReq.update(this.$route.params.id, { status: e.target.value });
     }
   },
   computed: {
     isAdmin: function () {
-      const userSession = this.projectReq.user;
-      const userAdmin = this.usersByProject.filter( user => user.admin == true );
-      const userValidate = userAdmin.filter( user => user.id === userSession.id);
-      return !userValidate[0] ? false : true;
+      return Validate.admin(this.userReq.user, this.users);
     }
   },
   async created () {
     await this.getProject();
+    await this.getUser();
   }
 }
 </script>

@@ -25,7 +25,7 @@
           <div class="flex justify-between align-items-center background-gray pd-10">
             <div>
               <button v-on:click="activeOptionsProject" class="link-btn fs-20"> <i class="fas fa-ellipsis-v"></i> </button>
-              <OptionsProject v-if="optionsProject" v-bind:usersByProject="users" @options-project="inactiveOptionProject" />
+              <OptionsProject v-if="optionsProject" @options-project="inactiveOptionProject" />
             </div>
           
             <div class="flex">
