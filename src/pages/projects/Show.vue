@@ -146,7 +146,7 @@ import Project from '../../js/Project';
 import User from '../../js/User';
 import UserTask from '../../js/UserTask';
 import Event from '../../js/Event';
-
+import Validate from '../../js/Validate';
 
 export default {
   name: 'PageShowProject',
@@ -309,10 +309,8 @@ export default {
       return this.dateTimeNow;
     },
     isAdmin: function () {
-      const userSession = this.userTaskReq.user;
-      const userAdmin = this.users.filter( user => user.admin == true );
-      const userValidate = userAdmin.filter( user => user.id === userSession.id);
-      return !userValidate[0] ? false : true;
+      return Validate.admin( this.userTaskReq.user, this.users);
+      
     }
   },
   async created () {
