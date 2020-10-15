@@ -54,7 +54,7 @@ export default {
   },
   computed: {
     isAdmin: function () {
-      return Validate.admin( this.userReq.user, this.users )
+      return Validate.admin(this.userReq.user, this.users);
     }
   },
   async created() {
