@@ -49,7 +49,7 @@
               @create-event="formEvent"
               @delete-event="getEvents"
               v-bind:events="events"
-              v-bind:usersByProject="users"
+              v-bind:project="project"
             />
           </div>
         </nav>
@@ -316,7 +316,7 @@ export default {
     await this.getTasks();
     await this.getUsers();
     await this.getEvents();
-    console.log(this.users);
+    // console.log(this.users);
   }
 }
 </script>

@@ -59,7 +59,8 @@ export default {
       colorCard: this.task.status,
       taskReq: new Task,
       userReq: new User,
-      users: []
+      users: [],
+      usersProject: [],
     }
   },
   methods: {
@@ -85,8 +86,11 @@ export default {
       const users = await this.userReq.indexByTask( this.task.id );
       this.users = users.data;
       return this.users;
+    },
+    getUsersProject: async function () {
+      const users = await this.userReq.indexByProject( this.$route.params.id );
+      this.usersProject = users.data; 
     }
-
   },
   computed: {
     statusStyle: function () {
@@ -107,12 +111,13 @@ export default {
       return !userVerify[0] ? false : true;
     },
     isAdmin: function () {
-      return Validate.admin( this.userReq.user, this.users);
+      return Validate.admin( this.userReq.user, this.usersProject);
     }
   },
   async created () {
     await this.getUsers();
-    console.log("ASDASDASDASDASDASD", this.users);
+    await this.getUsersProject();
+
   }
 }
 </script>

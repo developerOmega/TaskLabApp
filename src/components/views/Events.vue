@@ -21,8 +21,8 @@
 
 <script>
 import EventCard from '../EventCard';
-import Event from '../../js/Event';
-
+import User from '../../js/User';
+import Validate from '../../js/Validate';
 export default {
   name: 'Event',
   components: {
@@ -31,15 +31,13 @@ export default {
   props: {
     events: {
       type: Array
-    },
-     usersByProject: {
-      type: Array
     }
   },
   data() {
     return {
       eventsData: this.events,
-      eventReq: new Event
+      userReq: new User,
+      users: [],
     }
   },
   methods: {
@@ -48,15 +46,19 @@ export default {
     },
     deleteEvent: async function () {
       this.$emit('delete-event');
-    }
+    },
+    getUsers: async function () {
+      const users = await this.userReq.indexByProject( this.$route.params.id );
+      this.users = users.data; 
+    } 
   },
   computed: {
-      isAdmin: function () {
-      const userSession = this.eventReq.user;
-      const userAdmin = this.usersByProject.filter( user => user.admin == true );
-      const userValidate = userAdmin.filter( user => user.id === userSession.id);
-      return !userValidate[0] ? false : true;
+    isAdmin: function () {
+      return Validate.admin( this.userReq.user, this.users )
     }
+  },
+  async created() {
+    await this.getUsers();
   }
 }
 </script>
