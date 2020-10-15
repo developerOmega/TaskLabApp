@@ -2,8 +2,10 @@
   <div :class="'card-task position-relative card mg-tb-25 ' + statusStyle">
     <div class="content-task">
       <div class="head-task">
-        <button v-if="menuTask" v-on:click="activeMenuTask" class="link-btn btn-black position-relative z-index-2"><i class="fas fa-ellipsis-v"></i></button>
-        <button v-else v-on:click="activeMenuTask" class="link-btn position-relative z-index-2"><i class="fas fa-ellipsis-v"></i></button>
+        <div v-if="isAdmin">
+          <button v-if="menuTask" v-on:click="activeMenuTask" class="link-btn btn-black position-relative z-index-2"><i class="fas fa-ellipsis-v"></i></button>
+          <button v-else v-on:click="activeMenuTask" class="link-btn position-relative z-index-2"><i class="fas fa-ellipsis-v"></i></button>
+        </div>
 
         <div v-if="menuTask" class="hover-menu menu-init z-index-1 pd-top-20 pd-left-40">
           <button v-on:click="activeEditTask" class="btn-link link-warning"> <i class="fas fa-pen"></i> Editar tarea </button>
@@ -26,7 +28,7 @@
 
     </div>
 
-    <div class="menu">
+    <div class="menu" v-if="isVerify">
       <button v-on:click="updateStatusTask('fine')" class="btn btn-fine"> <i class="fas fa-check"></i> </button>
       <button v-on:click="updateStatusTask('error')" class="btn btn-danger"> <i class="fas fa-times"></i> </button>
       <button v-on:click="updateStatusTask('warning')" class="btn btn-warning"> <i class="fas fa-exclamation-triangle"></i> </button>
@@ -37,11 +39,12 @@
 
 <script>
 
+// Templat de taejeta de tarea
+
 import IconAvatar from './IconAvatar';
 import Task from '../js/Task';
 import User from '../js/User';
-
-// Templat de taejeta de tarea
+import Validate from '../js/Validate';
 
 export default {
   name: 'TaskCard',
@@ -59,7 +62,8 @@ export default {
       colorCard: this.task.status,
       taskReq: new Task,
       userReq: new User,
-      users: []
+      users: [],
+      usersProject: [],
     }
   },
   methods: {
@@ -95,10 +99,16 @@ export default {
       const users = await this.userReq.indexByTask( this.task.id );
       this.users = users.data;
       return this.users;
-    }
+    },
 
+    // Metodo que busca usuarios por proyecto
+    getUsersProject: async function () {
+      const users = await this.userReq.indexByProject( this.$route.params.id );
+      this.usersProject = users.data; 
+    }
   },
   computed: {
+    // Metodo computado que relaciona la clase del status del suuario
     statusStyle: function () {
       switch (this.colorCard) {
         case 'fine':
@@ -110,10 +120,24 @@ export default {
         default:
           return 'none'
       }
+    },
+
+    // Metodo computado que valida si el usuario en secion le pertenece la tarea
+    isVerify: function () {
+      const userSession = this.userReq.user;
+      const userVerify = this.users.filter( user => user.id === userSession.id);
+      return !userVerify[0] ? false : true;
+    },
+
+    // Metodo computado que verifica si el usuario en secion es administrador del proyecto
+    isAdmin: function () {
+      return Validate.admin( this.userReq.user, this.usersProject);
     }
   },
   async created () {
     await this.getUsers();
+    await this.getUsersProject();
+
   }
 }
 </script>

@@ -49,11 +49,12 @@
               @create-event="formEvent"
               @delete-event="getEvents"
               v-bind:events="events"
+              v-bind:project="project"
             />
           </div>
         </nav>
         <div class="content scroll scroll-max-80">
-          <form class="post" method="POST" v-on:submit.prevent="createTask">
+          <form class="post" v-if="isAdmin" method="POST" v-on:submit.prevent="createTask">
             <textarea class="post-content post-height-max" name="description" id="description" placeholder="Escribir tarea" v-model="description"></textarea>
             <div class="post-options inline-options">
               
@@ -127,6 +128,9 @@
 </template>
 
 <script>
+
+// Template de show de proyecto
+
 import moment from 'moment';
 import { sumDays, restDays } from '../../js/DateTime';
 
@@ -144,8 +148,7 @@ import Project from '../../js/Project';
 import User from '../../js/User';
 import UserTask from '../../js/UserTask';
 import Event from '../../js/Event';
-
-// Template de show de proyecto
+import Validate from '../../js/Validate';
 
 export default {
   name: 'PageShowProject',
@@ -340,11 +343,19 @@ export default {
     }
   },
   computed :{
+    // Metodo computado que activa el estilo de las tareas
     activeStyle () {
       return this.optionsUserTask == false ? '' : 'active';
     },
+
+    // Metodo computado retorna la variable dateTimeNow
     dateTime: function () {
       return this.dateTimeNow;
+    },
+
+    // Metodo que verifica si el usuario en secion es administrador del proyecto    
+    isAdmin: function () {
+      return Validate.admin( this.userTaskReq.user, this.users);
     }
   },
   async created () {
@@ -352,7 +363,7 @@ export default {
     await this.getTasks();
     await this.getUsers();
     await this.getEvents();
-    console.log(this.users);
+    // console.log(this.users);
   }
 }
 </script>

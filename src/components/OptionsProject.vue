@@ -5,7 +5,7 @@
     <div class="head">
       <div class="title fs-20"> Estado </div>
     </div>
-    <div class="form content">
+    <div class="form content" v-if="isAdmin">
       <div class="field">
         
         <div class="input-radio">
@@ -25,6 +25,26 @@
 
       </div>
     </div>
+    <div class="form content" v-else>
+      <div class="field">
+        
+        <div v-if="project.status === 'active'" class="input-radio">
+          <input type="radio" id="active" name="status" value="active" :checked="project.status === 'active'">
+          <label for="active"> Vigente </label>
+        </div>
+
+        <div v-else-if="project.status === 'finish'" class="input-radio danger">
+          <input type="radio" id="finish" name="status" value="finish" :checked="project.status === 'finish'">
+          <label for="finish"> Finalizar </label>
+        </div>
+
+        <div value="stop" v-else-if="project.status === 'stop'" class="input-radio warning">
+          <input type="radio" id="stop" name="status" :checked="project.status === 'stop'">
+          <label for="stop"> Suspender </label>
+        </div>
+
+      </div>
+    </div>
 
     <div class="flex justify-center">
       <a href="/" class="btn-link link-primary text-center"> Ir a inicio </a>
@@ -33,17 +53,20 @@
 </template>
 
 <script>
-import Project from '../js/Project';
-
 // Template de opciones de proyectos (modificacion de status)
 
+import Project from '../js/Project';
+import User from '../js/User';
+import Validate from '../js/Validate';
 export default {
   name: 'OptionsProject',
   data() {
     return {
       projectReq: new Project,
+      userReq: new User,
       project: {},
-      status: ''
+      status: '',
+      users: []
     }
   },
   methods: {
@@ -59,13 +82,26 @@ export default {
       this.project = project.data;
     },
 
+    // Metodo que busca usuarios por proyecto
+    getUser: async function () {
+      const users = await this.userReq.indexByProject(this.$route.params.id);
+      this.users = users.data;
+    },
+
     // Metodo que relaiza peticion UPDATE para actualzar estado de proyecto
     updateStatus: async function (e) {
       await this.projectReq.update(this.$route.params.id, { status: e.target.value });
     }
   },
+  computed: {
+    // Metodo que manda informacion al $emmit 'create-event' para desactivar Template
+    isAdmin: function () {
+      return Validate.admin(this.userReq.user, this.users);
+    }
+  },
   async created () {
     await this.getProject();
+    await this.getUser();
   }
 }
 </script>
