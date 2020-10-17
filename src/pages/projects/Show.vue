@@ -174,6 +174,7 @@ export default {
       editTask: {},
       tasks: [],
       users: [],
+      usersVerify: [],
       events: [],
       usersSelect: [],
 
@@ -229,7 +230,7 @@ export default {
     getUsers: async function () {
       const userReq = new User;
       const users = await userReq.indexByProject( this.project.id );
-      this.users = !users.data ? [] : users.data; 
+      return !users.data ? [] : users.data;
     },
     getEditTask: function ( task ) {
       this.editTask = task;
@@ -308,15 +309,15 @@ export default {
       return this.dateTimeNow;
     },
     isAdmin: function () {
-      return Validate.admin( this.userTaskReq.user, this.users);
+      return Validate.admin( this.userTaskReq.user, this.usersVerify);
     }
   },
   async created () {
     await this.getProject();
     await this.getTasks();
-    await this.getUsers();
     await this.getEvents();
-    // console.log(this.users);
+    this.users = await this.getUsers();
+    this.usersVerify = await this.getUsers();
   }
 }
 </script>
