@@ -114,6 +114,12 @@
   max-width: 900px; 
 }
 
+// tamaño de base y altura maximo 50px
+.max-width-height-50 {
+  max-width: 50px !important; 
+  max-height: 50px !important; 
+}
+
 // tamaño responsive del 100%
 .width-resp-100 {
   width: 100%;

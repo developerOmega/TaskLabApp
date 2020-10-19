@@ -34,6 +34,18 @@
 
     }
 
+    //Medio tamaño de boton circular
+    &.middle {
+      width: 30px;
+      height: 30px;
+      display: flex;
+      justify-content: center;
+      & i {
+        font-size: 15px;
+      }
+
+    }
+
     // Minimo tamaño de boton circular
     &.min {
       padding: 0;

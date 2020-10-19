@@ -1,6 +1,6 @@
 <template>
   <div :class="'card-task position-relative card mg-tb-25 ' + statusStyle">
-    <div class="content-task">
+    <div class="content-task flex align-items-center">
       <div class="head-task">
         <div v-if="isAdmin">
           <button v-if="menuTask" v-on:click="activeMenuTask" class="link-btn btn-black position-relative z-index-2"><i class="fas fa-ellipsis-v"></i></button>
@@ -28,11 +28,23 @@
 
     </div>
 
-    <div class="menu" v-if="isVerify">
+    <div class="menu-responsive" v-if="isVerify">
       <button v-on:click="updateStatusTask('fine')" class="btn btn-fine"> <i class="fas fa-check"></i> </button>
       <button v-on:click="updateStatusTask('error')" class="btn btn-danger"> <i class="fas fa-times"></i> </button>
       <button v-on:click="updateStatusTask('warning')" class="btn btn-warning"> <i class="fas fa-exclamation-triangle"></i> </button>
     </div>
+
+<!--  -->
+
+    <div class="menu flex align-items-center pd-10" v-if="isVerify">
+      <div class="grid col-3 justify-center col-gap-15"> 
+        <button v-on:click="updateStatusTask('fine')" class="btn btn-radio btn-fine middle"> <i class="fas fa-check"></i> </button>
+        <button v-on:click="updateStatusTask('error')" class="btn btn-radio btn-danger middle"> <i class="fas fa-times"></i> </button>
+        <button v-on:click="updateStatusTask('warning')" class="btn btn-radio btn-warning middle"> <i class="fas fa-exclamation-triangle"></i> </button>
+      </div>        
+    </div>
+
+
 
   </div>
 </template>

@@ -36,6 +36,11 @@
   &.gap-15 {
     gap: 60px ;
   }
+
+  // Espaciado de columnas 60
+  &.col-gap-15 {
+    column-gap: 15px;
+  }
   
   // El una linea se posicionan 3 elementos de width auto
   &.col-3 {
