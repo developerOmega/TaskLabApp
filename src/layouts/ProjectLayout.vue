@@ -1,7 +1,7 @@
 <template>
   <div>
     <header class="header">
-      <a href="/" class="logo-text"> TaskLab </a>
+      <a href="/" class="logo-text"> WorkTask </a>
       <div class="menu flex align-items-end">
 
         <div class="title fs-35 name-project"> {{ project.name }} </div>

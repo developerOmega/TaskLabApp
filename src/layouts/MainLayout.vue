@@ -1,7 +1,7 @@
 <template>
   <div>
     <header class="header">
-      <router-link to="/" class="logo-text"> TaskLab </router-link>
+      <router-link to="/" class="logo-text"> WorkTask </router-link>
       <div class="flex align-items-center">
         <!-- <div :class="typeStyle"> {{ user.name }} </div> -->
         <div class="name-user fs-25 pd-right-15 color-primary"> {{ user.name }} </div>
