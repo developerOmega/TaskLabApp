@@ -25,6 +25,10 @@
   &.gap-15 {
     gap: 60px ;
   }
+
+  &.col-gap-15 {
+    column-gap: 15px;
+  }
   
   &.col-3 {
     grid-template-columns: auto auto auto;
