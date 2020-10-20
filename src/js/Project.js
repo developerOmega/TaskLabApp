@@ -16,6 +16,7 @@ export default class Project extends Model {
 
     try {
       const project = await this.axios(options);
+
       return project.data;
     } catch (error) {
       console.error(error);

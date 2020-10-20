@@ -1,11 +1,20 @@
 <template>
   <div class="card not-padding width-resp-100 template">
     <div class="content pd-20 position-relative">
-      <NotificationProjectCard 
-        v-if="notification"
-        @unactive-notification="activeNotification" 
-      />
-      <button class="btn btn-chip btn-danger" v-on:click="activeNotification"> <i class="fas fa-tasks"></i> +2 </button>
+
+      <transition name="fade">
+        <NotificationProjectCard 
+          v-if="notification"
+          @unactive-notification="activeNotification" 
+        />
+      </transition>
+      
+      <button 
+        class="btn btn-chip btn-danger" 
+        v-on:click="activeNotification"
+      > 
+        <i class="fas fa-tasks"></i> +2 
+      </button>
       
       <div class="section-center">
         <a :href="'/projects/' + project.id" :class="'title-project ' + statusStyle"> {{ project.name }} </a>
@@ -109,6 +118,7 @@ export default {
       activeMenu: false,
       userSelect: false,
       notification: false,
+      buttonNotification: this.project.notification,
       userReq: new User,
       userProjectReq: new UserProject,
       usersAll: [],
