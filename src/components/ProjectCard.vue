@@ -1,6 +1,12 @@
 <template>
   <div class="card not-padding width-resp-100 template">
-    <div class="content pd-20">
+    <div class="content pd-20 position-relative">
+      <NotificationProjectCard 
+        v-if="notification"
+        @unactive-notification="activeNotification" 
+      />
+      <button class="btn btn-chip btn-danger" v-on:click="activeNotification"> <i class="fas fa-tasks"></i> +2 </button>
+      
       <div class="section-center">
         <a :href="'/projects/' + project.id" :class="'title-project ' + statusStyle"> {{ project.name }} </a>
       </div>
@@ -84,13 +90,14 @@
 
 <script>
 import IconAvatar from './IconAvatar';
+import NotificationProjectCard from './NotificationProjectCard';
 
 import User from '../js/User';
 import UserProject from '../js/UserProject';
 export default {
   name: 'ProjectBox',
   components: {
-    IconAvatar
+    IconAvatar, NotificationProjectCard
   },
   props: {
     project: {
@@ -101,6 +108,7 @@ export default {
     return {
       activeMenu: false,
       userSelect: false,
+      notification: false,
       userReq: new User,
       userProjectReq: new UserProject,
       usersAll: [],
@@ -109,6 +117,10 @@ export default {
     }
   },
   methods: {
+    activeNotification: function () {
+      this.notification = this.notification == false ? true : false;
+      return this.notification;
+    },
     methodActiveMenu: function () {
       this.activeMenu = this.activeMenu == false ? true : false;
       return this.activeMenu;

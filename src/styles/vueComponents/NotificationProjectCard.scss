@@ -1,0 +1,63 @@
+@import '../variables.scss';
+
+.notification {
+  position: absolute;
+  top: 0;
+  left: 0;
+
+  width: 100%;
+  height: 100%;
+  background: $background-form;
+  padding: 24px;
+  border-top-left-radius: 10px;
+  
+  .options{
+    font-size: 12px;
+    .option{
+      background: white;
+      border-radius: 3px;
+      margin-top: 10px;
+
+      display: flex;
+      justify-content: space-between;
+
+      .status, .task{
+        padding: 5px;
+      }
+
+      .status {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+
+      &.option-fine {
+        border: 1px solid $primary;
+        .status {
+          background: $primary;
+        }
+      }
+
+      &.option-warning {
+        border: 1px solid $warning;
+        .status {
+          background: $warning;
+        }
+      }
+
+      &.option-danger {
+        border: 1px solid $danger;
+        .status {
+          background: $danger;
+        }
+      }
+
+      &.option-danger, &.option-fine, &.option-warning {
+        .status {
+          width: 2rem;
+          color: white;
+        }
+      }
+    }
+  }
+}
