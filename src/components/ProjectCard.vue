@@ -12,7 +12,7 @@
       
       <button 
         class="btn btn-chip btn-danger"
-        v-if="tasks.length > 0"
+        v-if="tasks.length > 0 && buttonNotification"
         v-on:click="activeNotification"
       > 
         <i class="fas fa-tasks"></i> +{{ tasks.length }} 
@@ -122,7 +122,7 @@ export default {
       activeMenu: false,
       userSelect: false,
       notification: false,
-      buttonNotification: this.project.notification,
+      buttonNotification: false,
       userReq: new User,
       taskReq: new Task,
       userProjectReq: new UserProject,
@@ -135,6 +135,7 @@ export default {
   methods: {
     activeNotification: function () {
       this.notification = this.notification == false ? true : false;
+      this.buttonNotification = false;
       return this.notification;
     },
     methodActiveMenu: function () {
@@ -202,6 +203,12 @@ export default {
     dropUser: async function (user) {
       this.users.splice( this.users.indexOf(user), 1);
       await this.userProjectReq.delete( user.id, this.project.id );
+    },
+
+    getNotificationsStorage: function() {
+      let notificationsData = JSON.parse(localStorage.getItem('notification_by_projects'));
+      let index = notificationsData.map( data => data.id ).indexOf(this.project.id);
+      return notificationsData[index].notification;
     }
   },
   computed: {
@@ -221,6 +228,8 @@ export default {
   async created() {
     await this.getUsers();
     this.tasks = await this.getTask();
+    this.buttonNotification = this.getNotificationsStorage();
+   
   }, 
 }
 </script>

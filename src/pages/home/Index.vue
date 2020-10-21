@@ -37,6 +37,7 @@
 </template>
 
 <script>
+import moment from 'moment';
 import ProjectCard from '../../components/ProjectCard';
 import EditNameProject from '../../components/views/EditNameProject';
 import EditDescriptionProject from '../../components/views/EditDescriptionProject';
@@ -90,10 +91,29 @@ export default {
 
     updateProject: async function () {
       await this.getProjects();
+    },
+
+    addStatusNotificationToStorage() {
+      let notifications = [];
+      this.projects.forEach( project => {
+        notifications.push({ id: project.id, notification: true });
+      });
+      localStorage.setItem('notification_by_projects', JSON.stringify(notifications));
     }
   },
   async created () {
     await this.getProjects();
+
+
+    const dateStorage = moment(parseInt(localStorage.getItem('date_now'))).format('YYYY-MM-DD');
+    const dateNow = moment(Date.now()).format('YYYY-MM-DD');
+
+    if(!localStorage.getItem('date_now') || dateStorage < dateNow){
+      localStorage.setItem('date_now', Date.now() );
+      this.addStatusNotificationToStorage();
+    }
+
+
   }
 }
 </script>
