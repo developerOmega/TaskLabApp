@@ -5,15 +5,17 @@
       <transition name="fade">
         <NotificationProjectCard 
           v-if="notification"
+          v-bind:tasks="tasks"
           @unactive-notification="activeNotification" 
         />
       </transition>
       
       <button 
-        class="btn btn-chip btn-danger" 
+        class="btn btn-chip btn-danger"
+        v-if="tasks.length > 0"
         v-on:click="activeNotification"
       > 
-        <i class="fas fa-tasks"></i> +2 
+        <i class="fas fa-tasks"></i> +{{ tasks.length }} 
       </button>
       
       <div class="section-center">
@@ -98,11 +100,13 @@
 </template>
 
 <script>
+import moment from 'moment';
 import IconAvatar from './IconAvatar';
 import NotificationProjectCard from './NotificationProjectCard';
 
 import User from '../js/User';
 import UserProject from '../js/UserProject';
+import Task from '../js/Task';
 export default {
   name: 'ProjectBox',
   components: {
@@ -120,7 +124,9 @@ export default {
       notification: false,
       buttonNotification: this.project.notification,
       userReq: new User,
+      taskReq: new Task,
       userProjectReq: new UserProject,
+      tasks: [],
       usersAll: [],
       users: [],
       email: ''
@@ -178,6 +184,14 @@ export default {
       });
       this.usersAll = newUsers;
     },
+    getTask: async function () {
+      try {
+        let tasks = await this.taskReq.indexByProjectEqualTimeEnd( this.project.id, moment( new Date() ).format('YYYY-MM-DD hh:mm:ss') );
+        return tasks.data;
+      } catch (error) {
+        return [];
+      }
+    },
 
     addUser: async function (user) {
       this.users.push(user);
@@ -206,6 +220,7 @@ export default {
   },
   async created() {
     await this.getUsers();
+    this.tasks = await this.getTask();
   }, 
 }
 </script>

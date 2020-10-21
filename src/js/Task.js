@@ -92,7 +92,7 @@ export default class Task extends Model {
     }
   }
 
-  async indexByProjectOTEndAndStatus (projectId, timeEnd) {
+  async indexByProjectMTEndAndStatus (projectId, timeEnd) {
     const url =  `${this.url}/api/v1/projects/${projectId}/tasks?time_end=${timeEnd}`;
     const config = {
       headers: {
@@ -108,7 +108,7 @@ export default class Task extends Model {
     }
   }
 
-  async indexByProjectOrderTimeEnd (projectId, timeEnd) {
+  async indexByProjectMajorTimeEnd (projectId, timeEnd) {
     const url =  `${this.url}/api/v1/projects/${projectId}/task-time-end?time_end="${timeEnd }"`;
     const config = {
       headers: {
@@ -122,5 +122,17 @@ export default class Task extends Model {
     } catch (error) {
       return error
     }
+  }
+
+  async indexByProjectEqualTimeEnd (projectId, timeEnd) {
+    const url = `${this.url}/api/v1/projects/${projectId}/tasks?time_end='${timeEnd}'&status=equal`;
+    const config = {
+      headers: {
+        Authorization: this.token
+      }
+    }
+
+    let task = await this.axios.get(url, config);
+    return task.data;
   }
 }
