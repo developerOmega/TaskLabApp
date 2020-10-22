@@ -125,7 +125,7 @@ export default class Task extends Model {
   }
 
   async indexByProjectEqualTimeEnd (projectId, timeEnd) {
-    const url = `${this.url}/api/v1/projects/${projectId}/tasks?time_end='${timeEnd}'&status=equal`;
+    const url = `${this.url}/api/v1/projects/${projectId}/tasks?time_end='${timeEnd}'&status=equal&user_id=${this.user.id}`;
     const config = {
       headers: {
         Authorization: this.token
