@@ -108,6 +108,7 @@ import User from '../js/User';
 import UserProject from '../js/UserProject';
 import Task from '../js/Task';
 import Project from '../js/Project';
+
 export default {
   name: 'ProjectBox',
   components: {
@@ -124,6 +125,7 @@ export default {
       userSelect: false,
       notification: false,
       buttonNotification: false,
+      
       userReq: new User,
       taskReq: new Task,
       userProjectReq: new UserProject,
@@ -212,7 +214,6 @@ export default {
       let index = Project.getIndexNotificationStorage(this.project.id); 
       return notificationsData[index].notification;
     },
-    
     unactiveNotificationSotrage: function () {
       let notificationsData = Project.notificationsStorage;
       let index = Project.getIndexNotificationStorage(this.project.id);
@@ -238,11 +239,11 @@ export default {
       }
     }
   },
-  async created() {
+  async mounted() {
     await this.getUsers();
     this.tasks = await this.getTask();
     this.buttonNotification = this.getNotificationsStorage();
-  }, 
+  }
 }
 </script>
 

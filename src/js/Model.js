@@ -10,7 +10,11 @@ export default class Model {
   }
 
   static dateNow = localStorage.getItem('date_now');
-  
+
+  static setDateNow(date) {
+    localStorage.setItem('date_now', date);
+    this.dateNow = localStorage.getItem('date_now');
+  }
 
   modifyImgBySession (img) {
     this.user.img =  img;
