@@ -5,6 +5,17 @@ export default class Project extends Model {
     super();
   }
 
+  static notificationsStorage = JSON.parse(localStorage.getItem('notification_by_projects'));
+
+  static getIndexNotificationStorage ( projectId ) {
+    return this.notificationsStorage.map( data => data.id ).indexOf(projectId);
+  }
+
+  static setIndexNotificationStorage ( data ) {
+    localStorage.setItem('notification_by_projects', data);
+    this.notificationsStorage = JSON.parse(localStorage.getItem('notification_by_projects'));
+  }
+
   async post ( data ) {
     const url = `${this.url}/api/v1/projects`;
     const headers = {
@@ -16,6 +27,7 @@ export default class Project extends Model {
 
     try {
       const project = await this.axios(options);
+
       return project.data;
     } catch (error) {
       console.error(error);

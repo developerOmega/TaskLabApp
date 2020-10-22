@@ -1,6 +1,23 @@
 <template>
   <div class="card not-padding width-resp-100 template">
-    <div class="content pd-20">
+    <div class="content pd-20 position-relative">
+
+      <transition name="fade">
+        <NotificationProjectCard 
+          v-if="notification"
+          v-bind:tasks="tasks"
+          @unactive-notification="activeNotification" 
+        />
+      </transition>
+      
+      <button 
+        class="btn btn-chip btn-danger"
+        v-if="tasks.length > 0 && buttonNotification"
+        v-on:click="activeNotification"
+      > 
+        <i class="fas fa-tasks"></i> +{{ tasks.length }} 
+      </button>
+      
       <div class="section-center">
         <a :href="'/projects/' + project.id" :class="'title-project ' + statusStyle"> {{ project.name }} </a>
       </div>
@@ -83,14 +100,19 @@
 </template>
 
 <script>
+import moment from 'moment';
 import IconAvatar from './IconAvatar';
+import NotificationProjectCard from './NotificationProjectCard';
 
 import User from '../js/User';
 import UserProject from '../js/UserProject';
+import Task from '../js/Task';
+import Project from '../js/Project';
+
 export default {
   name: 'ProjectBox',
   components: {
-    IconAvatar
+    IconAvatar, NotificationProjectCard
   },
   props: {
     project: {
@@ -101,14 +123,25 @@ export default {
     return {
       activeMenu: false,
       userSelect: false,
+      notification: false,
+      buttonNotification: false,
+      
       userReq: new User,
+      taskReq: new Task,
       userProjectReq: new UserProject,
+      tasks: [],
       usersAll: [],
       users: [],
       email: ''
     }
   },
   methods: {
+    activeNotification: function () {
+      this.notification = this.notification == false ? true : false;
+      this.buttonNotification = false;
+      this.unactiveNotificationSotrage();
+      return this.notification;
+    },
     methodActiveMenu: function () {
       this.activeMenu = this.activeMenu == false ? true : false;
       return this.activeMenu;
@@ -156,6 +189,14 @@ export default {
       });
       this.usersAll = newUsers;
     },
+    getTask: async function () {
+      try {
+        let tasks = await this.taskReq.indexByProjectEqualTimeEnd( this.project.id, moment( new Date() ).format('YYYY-MM-DD hh:mm:ss') );
+        return tasks.data;
+      } catch (error) {
+        return [];
+      }
+    },
 
     addUser: async function (user) {
       this.users.push(user);
@@ -166,7 +207,23 @@ export default {
     dropUser: async function (user) {
       this.users.splice( this.users.indexOf(user), 1);
       await this.userProjectReq.delete( user.id, this.project.id );
+    },
+
+    getNotificationsStorage: function() {
+      let notificationsData = Project.notificationsStorage;
+      let index = Project.getIndexNotificationStorage(this.project.id); 
+      return notificationsData[index].notification;
+    },
+    unactiveNotificationSotrage: function () {
+      let notificationsData = Project.notificationsStorage;
+      let index = Project.getIndexNotificationStorage(this.project.id);
+      notificationsData[index] = {
+        id: this.project.id,
+        notification: false
+      }
+      localStorage.setItem('notification_by_projects', JSON.stringify(notificationsData));
     }
+
   },
   computed: {
     statusStyle: function () {
@@ -182,9 +239,11 @@ export default {
       }
     }
   },
-  async created() {
+  async mounted() {
     await this.getUsers();
-  }, 
+    this.tasks = await this.getTask();
+    this.buttonNotification = this.getNotificationsStorage();
+  }
 }
 </script>
 

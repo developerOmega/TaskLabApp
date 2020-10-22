@@ -1,5 +1,8 @@
+import moment from 'moment';
+import Project from '../js/Project';
 import User from '../js/User';
 const userReq = new User; 
+const projectReq = new Project; 
 
 async function authSession( to, from, next ) {
   try {
@@ -29,6 +32,35 @@ async function authLogin( to, from, next ) {
   }
 }
 
+function addStatusNotificationToStorage(callback) {
+  projectReq.indexByUser().then( projects => {
+    let notifications = [];
+
+    projects.data.forEach( project => notifications.push({ id: project.id, notification: true }) );
+    Project.setIndexNotificationStorage(JSON.stringify(notifications));
+    
+    return callback(null, projects);
+  } ).catch( err => callback(err));
+
+}
+
+async function initNotifications ( to, from, next ) {
+  const dateStorage = moment(parseInt(Project.dateNow)).format('YYYY-MM-DD');
+  const dateNow = moment(Date.now()).format('YYYY-MM-DD');
+  
+  if((!Project.dateNow || dateStorage < dateNow) || !Project.notificationsStorage){
+
+    Project.setDateNow(Date.now());
+    addStatusNotificationToStorage((err, projects) => {
+      if(err) { return console.error(err) }
+      projects;
+      next();
+    });
+  }
+  else {
+    next();
+  }
+}
 
 const routes = [
   {
@@ -37,7 +69,8 @@ const routes = [
     children: [
       {
         path: '',
-        component: () => import('../pages/home/Index.vue')
+        component: () => import('../pages/home/Index.vue'),
+        beforeEnter: initNotifications 
       },
       {
         path: 'projects/create',
