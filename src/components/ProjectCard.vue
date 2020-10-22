@@ -107,6 +107,7 @@ import NotificationProjectCard from './NotificationProjectCard';
 import User from '../js/User';
 import UserProject from '../js/UserProject';
 import Task from '../js/Task';
+import Project from '../js/Project';
 export default {
   name: 'ProjectBox',
   components: {
@@ -136,6 +137,7 @@ export default {
     activeNotification: function () {
       this.notification = this.notification == false ? true : false;
       this.buttonNotification = false;
+      this.unactiveNotificationSotrage();
       return this.notification;
     },
     methodActiveMenu: function () {
@@ -206,10 +208,21 @@ export default {
     },
 
     getNotificationsStorage: function() {
-      let notificationsData = JSON.parse(localStorage.getItem('notification_by_projects'));
-      let index = notificationsData.map( data => data.id ).indexOf(this.project.id);
+      let notificationsData = Project.notificationsStorage;
+      let index = Project.getIndexNotificationStorage(this.project.id); 
       return notificationsData[index].notification;
+    },
+    
+    unactiveNotificationSotrage: function () {
+      let notificationsData = Project.notificationsStorage;
+      let index = Project.getIndexNotificationStorage(this.project.id);
+      notificationsData[index] = {
+        id: this.project.id,
+        notification: false
+      }
+      localStorage.setItem('notification_by_projects', JSON.stringify(notificationsData));
     }
+
   },
   computed: {
     statusStyle: function () {
@@ -229,7 +242,6 @@ export default {
     await this.getUsers();
     this.tasks = await this.getTask();
     this.buttonNotification = this.getNotificationsStorage();
-   
   }, 
 }
 </script>

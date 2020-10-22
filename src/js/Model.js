@@ -8,6 +8,8 @@ export default class Model {
     this.token = localStorage.getItem('token');
     this.user = JSON.parse(localStorage.getItem('user') );
   }
+
+  static dateNow = localStorage.getItem('date_now');
   
 
   modifyImgBySession (img) {
