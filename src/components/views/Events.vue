@@ -61,7 +61,7 @@ export default {
     } 
   },
   computed: {
-    // Metodo que verifica si el usuario en secion es administrador del proyecto
+    // Metodo que verifica si el usuario en sesion es administrador del proyecto
     isAdmin: function () {
       return Validate.admin(this.userReq.user, this.users);
     }

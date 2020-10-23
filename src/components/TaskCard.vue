@@ -134,14 +134,14 @@ export default {
       }
     },
 
-    // Metodo computado que valida si el usuario en secion le pertenece la tarea
+    // Metodo computado que valida si el usuario en sesion le pertenece la tarea
     isVerify: function () {
       const userSession = this.userReq.user;
       const userVerify = this.users.filter( user => user.id === userSession.id);
       return !userVerify[0] ? false : true;
     },
 
-    // Metodo computado que verifica si el usuario en secion es administrador del proyecto
+    // Metodo computado que verifica si el usuario en sesion es administrador del proyecto
     isAdmin: function () {
       return Validate.admin( this.userReq.user, this.usersProject);
     }

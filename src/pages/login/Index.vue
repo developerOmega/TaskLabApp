@@ -44,7 +44,7 @@ export default {
   },
   methods: {
 
-    // Metodo que relaiza peticion POST para iniciar secion
+    // Metodo que relaiza peticion POST para iniciar sesion
     sessionInit: async function () {
       this.data = await this.userSession.login(this.email, this.password);
       console.log(this.data);

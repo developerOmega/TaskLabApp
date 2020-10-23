@@ -123,7 +123,7 @@ export default {
       }
     },
 
-    // Metodo que busca usuario por la secion
+    // Metodo que busca usuario por la sesion
     getUserSession: async function () {
       const user = await this.userReq.show(this.userReq.user.id);
       this.usersSelects.push(user.data);

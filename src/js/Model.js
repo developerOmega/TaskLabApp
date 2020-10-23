@@ -17,7 +17,13 @@ export default class Model {
     // Propiedad que llama la variable de localStorage user
     this.user = JSON.parse(localStorage.getItem('user'));
   }
-  
+
+  static dateNow = localStorage.getItem('date_now');
+
+  static setDateNow(date) {
+    localStorage.setItem('date_now', date);
+    this.dateNow = localStorage.getItem('date_now');
+  }
 
   // Metodo que modifica la imagen de la variable LocalStorage user
   // Recibe parametros -> img:string ( link de nueva imagen )

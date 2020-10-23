@@ -7,6 +7,15 @@
   font-size: 16px;
   font-weight: 500;
 
+  // Boton con radio 50px
+  &.btn-chip {
+    display: flex;
+    width: auto;
+    align-items: center;
+    border-radius: 50px;
+    padding: 2px;
+  }
+
   // Boton circular. Solo utilizar con icocnos
   &.btn-radio {
     display: flex;

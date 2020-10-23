@@ -44,7 +44,7 @@ export default {
     }
   },
   methods: {
-    // Metodo que busca la secion del usuario
+    // Metodo que busca la sesion del usuario
     getUserSession: async function () {
       const model = new Model;
       this.session = model.user;

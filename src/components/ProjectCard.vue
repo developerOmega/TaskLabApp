@@ -1,6 +1,23 @@
 <template>
   <div class="card not-padding width-resp-100 template">
-    <div class="content pd-20">
+    <div class="content pd-20 position-relative">
+
+      <transition name="fade">
+        <NotificationProjectCard 
+          v-if="notification"
+          v-bind:tasks="tasks"
+          @unactive-notification="activeNotification" 
+        />
+      </transition>
+      
+      <button 
+        class="btn btn-chip btn-danger"
+        v-if="tasks.length > 0 && buttonNotification"
+        v-on:click="activeNotification"
+      > 
+        <i class="fas fa-tasks"></i> +{{ tasks.length }} 
+      </button>
+      
       <div class="section-center">
         <a :href="'/projects/' + project.id" :class="'title-project ' + statusStyle"> {{ project.name }} </a>
       </div>
@@ -83,17 +100,21 @@
 </template>
 
 <script>
+// Template de tarjeta de proyectos
+
+import moment from 'moment';
 import IconAvatar from './IconAvatar';
+import NotificationProjectCard from './NotificationProjectCard';
 
 import User from '../js/User';
 import UserProject from '../js/UserProject';
-
-// Template de tarjeta de proyectos
+import Task from '../js/Task';
+import Project from '../js/Project';
 
 export default {
   name: 'ProjectBox',
   components: {
-    IconAvatar
+    IconAvatar, NotificationProjectCard
   },
   props: {
     project: {
@@ -104,14 +125,27 @@ export default {
     return {
       activeMenu: false,
       userSelect: false,
+      notification: false,
+      buttonNotification: false,
+      
       userReq: new User,
+      taskReq: new Task,
       userProjectReq: new UserProject,
+      tasks: [],
       usersAll: [],
       users: [],
       email: ''
     }
   },
   methods: {
+
+    // Metodo de activa notificaciones del proyecto
+    activeNotification: function () {
+      this.notification = this.notification == false ? true : false;
+      this.buttonNotification = false;
+      this.unactiveNotificationSotrage();
+      return this.notification;
+    },
 
     // Metodo de activa menu de proyecto
     methodActiveMenu: function () {
@@ -170,6 +204,16 @@ export default {
       this.usersAll = newUsers;
     },
 
+    // Metodo que busca las tareas pertenecientes al proyecto y a la fecha actual
+    getTask: async function () {
+      try {
+        let tasks = await this.taskReq.indexByProjectEqualTimeEnd( this.project.id, moment( new Date() ).format('YYYY-MM-DD hh:mm:ss') );
+        return tasks.data;
+      } catch (error) {
+        return [];
+      }
+    },
+
     // Metodo que relaiza peticion POST para crear una relacion entre usuario y proyecto
     addUser: async function (user) {
       this.users.push(user);
@@ -182,9 +226,31 @@ export default {
     dropUser: async function (user) {
       this.users.splice( this.users.indexOf(user), 1);
       await this.userProjectReq.delete( user.id, this.project.id );
+    },
+
+    // Metodo que retorna valor booleano a la existencia de notificaciones. 
+    // Los valores booleanos se encuentran en LocalStorage en la variable: notification_by_projects 
+    getNotificationsStorage: function() {
+      let notificationsData = Project.notificationsStorage;
+      let index = Project.getIndexNotificationStorage(this.project.id); 
+      return notificationsData[index].notification;
+    },
+
+    // Metodo que modifica el valor booleano a false una vez que el usuario activo el Card de notificaciones
+    unactiveNotificationSotrage: function () {
+      let notificationsData = Project.notificationsStorage;
+      let index = Project.getIndexNotificationStorage(this.project.id);
+      notificationsData[index] = {
+        id: this.project.id,
+        notification: false
+      }
+      localStorage.setItem('notification_by_projects', JSON.stringify(notificationsData));
     }
+
   },
   computed: {
+
+    // Metodo computado que controla el color y background del Card
     statusStyle: function () {
       switch(this.project.status) {
         case 'active':
@@ -198,9 +264,11 @@ export default {
       }
     }
   },
-  async created() {
+  async mounted() {
     await this.getUsers();
-  }, 
+    this.tasks = await this.getTask();
+    this.buttonNotification = this.getNotificationsStorage();
+  }
 }
 </script>
 

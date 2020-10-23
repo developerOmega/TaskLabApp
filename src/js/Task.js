@@ -109,7 +109,7 @@ export default class Task extends Model {
 
   // Metodo asincrono que retorna tareas con colimna time_end mayor a parametro timeEnd o status none de proyectos
   // Recibe parametros -> projectId:number (id de proyecto), timeEnd:datetime
-  async indexByProjectOTEndAndStatus (projectId, timeEnd) {
+  async indexByProjectMTEndAndStatus (projectId, timeEnd) {
     const url =  `${this.url}/api/v1/projects/${projectId}/tasks?time_end=${timeEnd}`;
     const config = {
       headers: {
@@ -125,9 +125,9 @@ export default class Task extends Model {
     }
   }
 
-  // Metodo asincrono que retorna tareas con colimna time_end mayor a parametro timeEnd de proyectos
+  // Metodo asincrono que retorna tareas con columna time_end mayor a parametro timeEnd de proyectos
   // Recibe parametros -> projectId:number (id de proyecto), timeEnd:datetime
-  async indexByProjectOrderTimeEnd (projectId, timeEnd) {
+  async indexByProjectMajorTimeEnd (projectId, timeEnd) {
     const url =  `${this.url}/api/v1/projects/${projectId}/task-time-end?time_end="${timeEnd }"`;
     const config = {
       headers: {
@@ -141,5 +141,19 @@ export default class Task extends Model {
     } catch (error) {
       return error
     }
+  }
+
+  // Metodo asincrono que retorna tareas con columna time_end igual a parametro timeEnd y columna user_id igual a id de sesion de usuario
+  // Recibe parametros -> projectId:number (id de proyecto), timeEnd:datetime  
+  async indexByProjectEqualTimeEnd (projectId, timeEnd) {
+    const url = `${this.url}/api/v1/projects/${projectId}/tasks?time_end='${timeEnd}'&status=equal&user_id=${this.user.id}`;
+    const config = {
+      headers: {
+        Authorization: this.token
+      }
+    }
+
+    let task = await this.axios.get(url, config);
+    return task.data;
   }
 }

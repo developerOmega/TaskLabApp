@@ -68,7 +68,7 @@ export default {
       this.menuOpen = menuClose;
     },
 
-    // Metodo que busca la secion del usuario
+    // Metodo que busca la sesion del usuario
     getUserSession: function () {
       this.user = this.modelReq.user;
     } 

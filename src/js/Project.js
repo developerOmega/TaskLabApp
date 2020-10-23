@@ -9,6 +9,23 @@ export default class Project extends Model {
     super();
   }
 
+  // Propiedad estatica que almacena la variable local de notification_by_projects
+  static notificationsStorage = JSON.parse(localStorage.getItem('notification_by_projects'));
+
+  // Metodo estatico que busca el elemento de la propiedad notificationsStorage por el id de proyecto
+  // Recibe parametro -> projectId:integer ( id de proyecto, el id es encuentra en el la variable LocalStorage: notification_by_projects ) 
+  static getIndexNotificationStorage ( projectId ) {
+    return this.notificationsStorage.map( data => data.id ).indexOf(projectId);
+  }
+
+  // Metodo estatico que modifica/agrega nuevos valores a la variable local notification_by_projects y lo almacena el la propiedad notificationStorage
+  // Recibe parametro -> data:array[ object{id:string (id de proyecto), notification:bool (numero booleano que valida la existencia de notificaciones) }] 
+  // (Array de objetos que almacenan los nuevo valores booleanos de notificaciones) 
+  static setIndexNotificationStorage ( data ) {
+    localStorage.setItem('notification_by_projects', data);
+    this.notificationsStorage = JSON.parse(localStorage.getItem('notification_by_projects'));
+  }
+
   // Metodo asincrono que crea un nuevo proyecto
   // Recibe parametros -> 
   // data:object{ name:string (nombre de proyecto), description:string (descripcion de proyecto), status:[active, finish, stop]  }
@@ -23,6 +40,7 @@ export default class Project extends Model {
 
     try {
       const project = await this.axios(options);
+
       return project.data;
     } catch (error) {
       console.error(error);
@@ -69,7 +87,7 @@ export default class Project extends Model {
     }
   }
 
-  // Metodo que retorna proyectos por id de la secion del usuario 
+  // Metodo que retorna proyectos por id de la sesion del usuario 
   async indexByUser () {
     const url = `${this.url}/api/v1/users/${this.user.id}/projects`;
     const config = {

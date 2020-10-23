@@ -34,7 +34,7 @@ export default {
   },
   methods: {
 
-    // Metodo que relaiza peticion GET para buscar la secion del usuario en la DB
+    // Metodo que relaiza peticion GET para buscar la sesion del usuario en la DB
     getUser: async function() {
       const user = await this.userReq.show( this.userReq.user.id );
       this.name = user.data.name;

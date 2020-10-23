@@ -111,6 +111,7 @@ export default {
     updateProject: async function () {
       await this.getProjects();
     }
+
   },
   async created () {
     await this.getProjects();

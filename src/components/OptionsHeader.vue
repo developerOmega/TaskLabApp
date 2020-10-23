@@ -22,7 +22,7 @@
 import IconAvatar from './IconAvatar';
 import UserSession from '../js/UserSession';
 
-// Template de opciones secion en header (settings, logout)
+// Template de opciones sesion en header (settings, logout)
 
 export default {
   name: 'OptionsHeader',
@@ -57,7 +57,7 @@ export default {
       this.$router.push(pathname);
     },
 
-    // Metodo que elimina secion
+    // Metodo que elimina sesion
     logout: function () {
       this.inActive();
       const session = new UserSession;

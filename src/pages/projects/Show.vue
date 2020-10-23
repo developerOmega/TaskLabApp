@@ -242,7 +242,7 @@ export default {
       this.activeLoading = true;
       try {
         this.tasks = [];
-        const tasks = await this.taskReq.indexByProjectOTEndAndStatus(this.project.id, new Date().toJSON().slice(0, 19).replace('T', ' '));
+        const tasks = await this.taskReq.indexByProjectMTEndAndStatus(this.project.id, new Date().toJSON().slice(0, 19).replace('T', ' '));
         this.tasks = !tasks.data ? [] : tasks.data;
         this.activeLoading = false;
       } catch (error) {
@@ -319,7 +319,7 @@ export default {
       this.activeLoading = true;
 
       try {
-        let tasks = await this.taskReq.indexByProjectOrderTimeEnd(this.project.id, moment(date).format('YYYY-MM-DD hh:mm:ss'));
+        let tasks = await this.taskReq.indexByProjectMajorTimeEnd(this.project.id, moment(date).format('YYYY-MM-DD hh:mm:ss'));
         this.tasks = tasks.data;
         this.activeLoading = false;
       } catch (error) {
@@ -335,7 +335,7 @@ export default {
       this.activeLoading = true; 
 
       try {
-        let tasks = await this.taskReq.indexByProjectOrderTimeEnd(this.project.id, moment(date).format('YYYY-MM-DD hh:mm:ss'));
+        let tasks = await this.taskReq.indexByProjectMajorTimeEnd(this.project.id, moment(date).format('YYYY-MM-DD hh:mm:ss'));
         this.tasks = tasks.data;
         this.activeLoading = false; 
       } catch (error) {
@@ -354,7 +354,7 @@ export default {
       return this.dateTimeNow;
     },
 
-    // Metodo que verifica si el usuario en secion es administrador del proyecto    
+    // Metodo que verifica si el usuario en sesion es administrador del proyecto    
     isAdmin: function () {
       return Validate.admin( this.userTaskReq.user, this.usersVerify);
     }

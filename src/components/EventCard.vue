@@ -60,7 +60,7 @@ export default {
       return moment.utc( this.event.time_end ).format('HH:MM'); //"10:00 - 12:00"
     },
     
-    // Metodo que verifica si el usuario en secion es administrador del proyecto
+    // Metodo que verifica si el usuario en sesion es administrador del proyecto
     isAdmin: function () {
       return Validate.admin( this.userReq.user, this.users );
     }

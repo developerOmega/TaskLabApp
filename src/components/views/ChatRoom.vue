@@ -70,7 +70,7 @@ export default {
 
     },
 
-    // Metodo que busca usuario por los datos de secion
+    // Metodo que busca usuario por los datos de sesion
     getUserSession: async function () {
       const user = await this.userReq.show(this.userReq.user.id);
       this.user = user.data;
@@ -81,7 +81,7 @@ export default {
 
     // Metodo Socket que emvia informacion al servidor para renderizar los mensajes del proyecto
     // Envia parametros 
-    //    -> data:object{ projectId:number (id de proyecto), token:string (token de secion) }
+    //    -> data:object{ projectId:number (id de proyecto), token:string (token de sesion) }
     //       callback:function (Funcion que muestra la data de todos los mensajes)
     Socket.emit('renderMessages', { projectId: this.$route.params.id, token: await this.userReq.token }, (data) => {
       if(data.ok == true) {
