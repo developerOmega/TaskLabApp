@@ -22,7 +22,9 @@
     </div>
 
     <LoadingIcon v-if="activeLoading" />
-    <div id="projects-in-home" class="grid col-3 gap-15 pd-tb-25">
+
+    <!-- <div id="projects-in-home" class="grid col-3 gap-15 pd-tb-25"> -->
+    <div id="projects-in-home" class="grid-card">
 
       <ProjectCard
         v-for="project in projects"
@@ -98,3 +100,19 @@ export default {
   }
 }
 </script>
+
+<style lang="scss">
+  .grid-card {
+    padding: 20px 0;
+    display: grid;
+    gap: 50px;
+    grid-template-columns: repeat(auto-fill, minmax(20rem ,1fr));
+    // align-items: stretch;
+    // justify-items: stretch;
+  }
+
+  .flex-card {
+    display: flex;
+    flex-wrap: wrap;
+  }
+</style>

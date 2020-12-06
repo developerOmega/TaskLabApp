@@ -8,7 +8,7 @@
     </div>
     
     <div class="main pd-tb-25">
-      <form method="POST" class="form card max-width-900" v-on:submit.prevent="createProject">
+      <form method="POST" class="form card mg-auto max-width-900" v-on:submit.prevent="createProject">
 
         <div class="field">
           <div class="input">

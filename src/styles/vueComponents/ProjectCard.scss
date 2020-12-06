@@ -5,10 +5,17 @@
 
   width: 100%;
   display: grid;
-  grid-template-columns: auto 70px;
+  grid-template-columns: 1fr 70px;
+  & > div.content {
+    display: grid;
+    grid-template-rows: repeat(auto-fill, 1fr);
+    // align-content: space-evenly;
+    // justify-content: space-evenly
+  }
 }
 
 .section {
+  // background: orange;
   .head-section {
     padding: 10px 0;
   }
@@ -74,7 +81,7 @@
   transition: opacity .2s
 }
 .fade-enter, .fade-leave-to /* .fade-leave-active below version 2.1.8 */ {
-  opacity: 0
+  opacity: 0;
 }
 
 @media screen and ( max-width: 700px ) {

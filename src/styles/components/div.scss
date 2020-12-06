@@ -2,7 +2,7 @@
   
   border-radius: 10px;
   padding: 20px;
-  margin: auto;
+  // margin: auto;
   
   &.not-padding {
     padding: 0;
@@ -71,7 +71,9 @@
   height: 100%;
   background: rgba($text-primary, .5);
 
-  display: flex;
+  display: grid;
+  justify-items: center;
+  align-items: center;
   
   .screen-content {
     width: 800px;
@@ -106,6 +108,10 @@
 
 .max-width-900 {
   max-width: 900px; 
+}
+
+.max-width-50 {
+  max-width: 50px;
 }
 
 .max-width-height-50 {
@@ -152,3 +158,4 @@
 .border-bottom {
   border-bottom: 3px solid $primary;
 }
+
