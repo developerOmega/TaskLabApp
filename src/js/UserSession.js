@@ -35,6 +35,28 @@ export default class UserSession extends Model {
 
   }
 
+  // Metodo que crea un nuevo usuario
+  // Recibe parametro -> data:object
+  //    {name:string, email:string, password:string, repeat_password:string, verify:boolean=true }
+  async singup( data ) {
+    const url = `${this.url}/api/v1/users`;
+    const headers = {
+      'Content-Type': 'application/json'
+    };
+
+    const options = { method: 'POST', url, headers, data };
+
+    try {
+      const user = await this.axios(options);
+      localStorage.setItem('token',user.data.token);
+      localStorage.setItem('user', JSON.stringify(user.data.data));
+      return user.data;
+    } catch (error) {
+      console.error(error);
+      return error;
+    }
+  }
+
   // Metodo que desautentica usuairo
   logout () {
     localStorage.removeItem('token');

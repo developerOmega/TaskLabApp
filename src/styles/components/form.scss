@@ -46,6 +46,11 @@
             border-bottom: 3px solid $danger-second;
           }
         }
+        &.danger {
+          &::placeholder {
+            color: $danger-second;
+          }          
+        }
       }
       textarea {
        height: 80px;
