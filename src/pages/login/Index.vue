@@ -4,7 +4,7 @@
       <img class="logo" src="/images/logo.png">
     </header>
 
-    <form method="POST" v-on:submit.prevent="sessionInit" class="card form max-width-600">
+    <form method="POST" v-on:submit.prevent="sessionInit" class="card mg-auto form max-width-600">
       <h2 class="title text-center"> Login </h2>
       <div class="field">
         <div class="input">
@@ -12,8 +12,6 @@
           <label for="email" class="fs-18"> Email </label>
         </div>
       </div>
-
-
 
       <div class="field pd-top-20">
         <div class="input">

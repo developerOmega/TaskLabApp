@@ -8,6 +8,7 @@ export default class Model {
     // Propiedad que almacena url de API
     this.url = 'http://localhost:3000';
     // this.url = 'https://task-lab-backend.herokuapp.com';
+    
     // Propiedad que inicializa Axios
     this.axios = Axios;
 

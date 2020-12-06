@@ -103,6 +103,12 @@
   margin: auto !important;
 }
 
+// Centrar contenido
+.center {
+  display: flex;
+  justify-content: center;
+}
+
 // Padding inferior-superior de 25px
 .pd-tb-25 {
   padding: 25px 0;

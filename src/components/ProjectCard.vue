@@ -1,5 +1,6 @@
 <template>
-  <div class="card not-padding width-resp-100 template">
+
+  <div class="card not-padding template">
     <div class="content pd-20 position-relative">
 
       <transition name="fade">
@@ -11,7 +12,7 @@
       </transition>
       
       <button 
-        class="btn btn-chip btn-danger"
+        class="btn btn-chip btn-danger max-width-50 center"
         v-if="tasks.length > 0 && buttonNotification"
         v-on:click="activeNotification"
       > 
@@ -21,66 +22,67 @@
       <div class="section-center">
         <a :href="'/projects/' + project.id" :class="'title-project ' + statusStyle"> {{ project.name }} </a>
       </div>
-      <div class="section">
+
+      <div class="section">  
         <div class="color-text"> Descripcion: </div>
         <div class="color-text-second pd-tb-5">
           {{ project.description }}
         </div>
+      </div>
         
-        <div class="section">
-          <div class="head-section flex justify-between align-items-center">
-            <div class="color-text"> Usuarios </div>
-            <button v-if="!userSelect" v-on:click="activeUserSelect" :class="'btn btn-radio btn-' + statusStyle">
-              <i class="fas fa-plus"></i>
+      <div class="section">
+        <div class="head-section flex justify-between align-items-center">
+          <div class="color-text"> Usuarios </div>
+          <button v-if="!userSelect" v-on:click="activeUserSelect" :class="'btn btn-radio btn-' + statusStyle">
+            <i class="fas fa-plus"></i>
+          </button>
+        </div>
+
+        <div class="main-section grid col-3 background-gray justify-between">
+          <div
+            v-for="user in users"
+            :key="user.id" 
+            class="flex"
+          >
+            <IconAvatar
+              :img="user.img"
+              :type="user.type"
+            />
+            <button class="btn btn-radio min btn-danger" v-on:click="dropUser(user)"> 
+              <i class="fas fa-minus"></i>
             </button>
           </div>
+        </div>
 
-          <div class="main-section grid col-3 background-gray justify-between">
-            <div
-              v-for="user in users"
-              :key="user.id" 
-              class="flex"
-            >
-              <IconAvatar
-                :img="user.img"
-                :type="user.type"
-              />
-              <button class="btn btn-radio min btn-danger" v-on:click="dropUser(user)"> 
-                <i class="fas fa-minus"></i>
+        <form v-if="userSelect" v-on:submit.prevent method="POST" class="form mg-top-15">
+          <div class="flex justify-end pd-tb-5">
+            <button v-on:click="activeUserSelect" type="button" class="btn btn-radio min btn-danger"> <i class="fas fa-times"></i> </button>
+          </div>
+
+          <div class="background-gray pd-lr-5 border-radius-5">
+            <div class="field">
+              <div class="input">
+                <input type="text" id="name-users" class="background-gray" name="name" v-model="email" v-on:keyup="getUsersSearch" placeholder="Buscar usuario">
+              </div>
+            </div>
+
+            <div class="grid col-3 pd-bottom-5">
+              <button
+                type="button"
+                v-for="user in usersAll"
+                :key="user.id" 
+                class="btn-avatar"
+                v-on:click="addUser(user)"
+              >
+                <IconAvatar
+                  :img="user.img"
+                  :type="user.type"
+                />
               </button>
             </div>
           </div>
+        </form>
 
-          <form v-if="userSelect" v-on:submit.prevent method="POST" class="form mg-top-15">
-            <div class="flex justify-end pd-tb-5">
-              <button v-on:click="activeUserSelect" type="button" class="btn btn-radio min btn-danger"> <i class="fas fa-times"></i> </button>
-            </div>
-
-            <div class="background-gray pd-lr-5 border-radius-5">
-              <div class="field">
-                <div class="input">
-                  <input type="text" id="name-users" class="background-gray" name="name" v-model="email" v-on:keyup="getUsersSearch" placeholder="Buscar usuario">
-                </div>
-              </div>
-
-              <div class="grid col-3 pd-bottom-5">
-                <button
-                  type="button"
-                  v-for="user in usersAll"
-                  :key="user.id" 
-                  class="btn-avatar"
-                  v-on:click="addUser(user)"
-                >
-                  <IconAvatar
-                    :img="user.img"
-                    :type="user.type"
-                  />
-                </button>
-              </div>
-            </div>
-          </form>
-
-        </div>
       </div>
     </div>
     <div :class="'pd-5 info ' + statusStyle">
