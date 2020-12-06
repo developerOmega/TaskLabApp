@@ -30,6 +30,25 @@ export default class UserSession extends Model {
 
   }
 
+  async singup( data ) {
+    const url = `${this.url}/api/v1/users`;
+    const headers = {
+      'Content-Type': 'application/json'
+    };
+
+    const options = { method: 'POST', url, headers, data };
+
+    try {
+      const user = await this.axios(options);
+      localStorage.setItem('token',user.data.token);
+      localStorage.setItem('user', JSON.stringify(user.data.data));
+      return user.data;
+    } catch (error) {
+      console.error(error);
+      return error;
+    }
+  }
+
   logout () {
     localStorage.removeItem('token');
     localStorage.removeItem('user');

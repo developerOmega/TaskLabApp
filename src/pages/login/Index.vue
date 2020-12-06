@@ -1,8 +1,5 @@
 <template>
   <div class="container-login">
-    <header>
-      <img class="logo" src="/images/logo.png">
-    </header>
 
     <form method="POST" v-on:submit.prevent="sessionInit" class="card mg-auto form max-width-600">
       <h2 class="title text-center"> Login </h2>
@@ -19,6 +16,8 @@
           <label for="password" class="fs-18"> Contraseña </label>
         </div>
       </div>
+
+      <router-link to="/signup" class="link"> Crear cuenta </router-link>
 
       <button type="submit" class="btn btn-primary mg-top-20"> Ingresar </button>
     </form>

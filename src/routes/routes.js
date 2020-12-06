@@ -40,7 +40,7 @@ function addStatusNotificationToStorage(callback) {
     Project.setIndexNotificationStorage(JSON.stringify(notifications));
     
     return callback(null, projects);
-  } ).catch( err => callback(err));
+  } ).catch( err => callback(err, []));
 
 }
 
@@ -52,7 +52,8 @@ async function initNotifications ( to, from, next ) {
 
     Project.setDateNow(Date.now());
     addStatusNotificationToStorage((err, projects) => {
-      if(err) { return console.error(err) }
+      console.log("Project: ", projects)
+      // if(err) { return console.error(err) } // Borrar si no genera errores o si no recuerdas para que servia :v
       projects;
       next();
     });
@@ -94,9 +95,20 @@ const routes = [
     beforeEnter: (to, from, next) => authSession(to, from, next),
   },
   {
-    path: '/login',
-    component: () => import('../pages/login/Index.vue'),
-    beforeEnter: (to, from, next) => authLogin(to, from, next)
+    path: '/',
+    component: () => import('../layouts/SignLayout.vue'),
+    children: [
+      {
+        path: 'login',
+        component: () => import('../pages/login/Index.vue'),
+        beforeEnter: (to, from, next) => authLogin(to, from, next)
+      },
+      {
+        path: 'signup',
+        component: () => import('../pages/signup/Index.vue'),
+        beforeEnter: (to, from, next) => authLogin(to, from, next)
+      },
+    ]
   },
   {
     path: '/projects/:id',
