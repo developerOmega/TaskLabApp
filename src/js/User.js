@@ -66,7 +66,6 @@ export default class User extends Model{
       const users = await this.axios.get(url, config);
       return users.data;
     } catch (error) {
-      console.error(error);
       return error;
     }
   }

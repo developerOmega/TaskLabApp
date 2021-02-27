@@ -96,9 +96,11 @@ export default {
     },
     getUsers: async function () {
       const users = await this.userReq.indexByTask( this.task.id );
-      this.users = users.data;
+      console.log( "El resultado de los usuarios es: ",  );
+      this.users =  users.data ? users.data : [];
       return this.users;
     },
+
     getUsersProject: async function () {
       const users = await this.userReq.indexByProject( this.$route.params.id );
       this.usersProject = users.data; 
@@ -123,10 +125,12 @@ export default {
       return !userVerify[0] ? false : true;
     },
     isAdmin: function () {
+      console.log("Es administrador??", Validate.admin( this.userReq.user, this.usersProject));
       return Validate.admin( this.userReq.user, this.usersProject);
     }
   },
-  async created () {
+  async created  () {
+    console.log("Es administrador?", this.isAdmin);
     await this.getUsers();
     await this.getUsersProject();
 
